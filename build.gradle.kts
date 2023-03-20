@@ -47,7 +47,7 @@ tasks {
         doLast {
             exec {
                 executable = "docker"
-                args = listOf("run", "-p", "8080:8080", "--name", "${project.name}_${version}", "--rm", "${project.name}:${version}")
+                args = listOf("run", "-p", "8080:8080", "--name", "${project.name}_${version}", "--rm", "robinsonir/${project.name}:${version}")
             }
         }
     }
