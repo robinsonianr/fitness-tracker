@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     java
@@ -29,40 +28,6 @@ dependencies {
 }
 
 
-
-docker {
-    val bootJar = tasks.getByName<BootJar>("bootJar")
-    dependsOn(bootJar)
-    name = "${project.name}:${project.version}"
-    files(bootJar.archiveFile)
-    tag("DockerHub", "robinsonir/${project.name}:${version}")
-}
-
-
-tasks {
-    val dockerRun by creating {
-        dependsOn(dockerPrepare)
-        description = "Runs the Docker container"
-        group = "docker"
-        doLast {
-            exec {
-                executable = "docker"
-                args = listOf("run", "-p", "8080:8080", "--name", "${project.name}_${version}", "--rm", "robinsonir/${project.name}:${version}")
-            }
-        }
-    }
-
-    val dockerStop by creating {
-        description = "Stops the Docker container"
-        group = "docker"
-        doLast {
-            exec {
-                executable = "docker"
-                args = listOf("stop", "${project.name}_${version}")
-            }
-        }
-    }
-}
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         jvmTarget = "17"
