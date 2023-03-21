@@ -18,8 +18,8 @@ env:
   DOCKER_HUB_USERNAME: robinsonir
   # AWS & Elastic Bean Stalk
   AWS_REGION: eu-east-1
-  EB_ENVIRONMENT_NAME: null1
-  EB_APPLICATION_NAME: null2
+  EB_ENVIRONMENT_NAME: null
+  EB_APPLICATION_NAME: null
   EB_DEPLOYMENT_PACKAGE: elasticbeanstalk/docker-compose.yml
 
 jobs:
