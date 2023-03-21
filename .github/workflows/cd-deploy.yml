@@ -59,8 +59,8 @@ jobs:
       - name: Gradle Build and Push to Dockerhub
         run: |
           gradle clean buildDocker \
-            -PdockerRepository=your-dockerhub-username/your-repository-name \
+            -PdockerRepository=robinsonir/fitness-tracker \
             -PdockerUsername=${{ env.DOCKER_HUB_USERNAME }} \
-            -PdockerPassword=${{ env.DOCKER_HUB_PASSWORD }} \
+            -PdockerPassword=${{ secrets.DOCKER_HUB_PASSWORD }} \
             -PdockerTag=${{ steps.build-number.outputs.BUILD_NUMBER }} \
             -PdockerPlugin=com.palantir.docker-compose:gradle-docker-compose-plugin:0.39.0
