@@ -52,3 +52,8 @@ jobs:
         with:
           username: ${{ env.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      - name: Gradle Build and Push to Dockerhub
+        run: |
+            gradle build 
+            docker build -t robinsonir/fitness-tracker:${{steps.build-number.outputs.BUILD_NUMBER}}
+            docker push robinsonir/fitness-tracker:${{steps.build-number.outputs.BUILD_NUMBER}}
