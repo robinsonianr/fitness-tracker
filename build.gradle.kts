@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     java
@@ -31,14 +30,6 @@ dependencies {
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-}
-
-docker {
-    val bootJar = tasks.getByName<BootJar>("bootJar")
-    dependsOn(bootJar)
-    name = "${project.name}:${project.version}"
-    files(bootJar.archiveFile)
-    tag("DockerHub", "robinsonir/${project.name}:${version}")
 }
 
 tasks.withType<KotlinCompile> {
