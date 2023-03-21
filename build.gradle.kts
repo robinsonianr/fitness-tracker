@@ -38,6 +38,7 @@ docker {
     dependsOn(bootJar)
     name = "${project.name}:${project.version}"
     files(bootJar.archiveFile)
+    tag("DockerHub", "robinsonir/${project.name}:${version}")
 }
 
 tasks.withType<KotlinCompile> {

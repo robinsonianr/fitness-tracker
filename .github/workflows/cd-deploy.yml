@@ -56,9 +56,13 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 7.6.1
-      - name: Gradle Build and Push to Dockerhub
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: true
-          tags: "${{ env.DOCKER_HUB_USERNAME }}/fitness-tracker:${{ steps.build-number.outputs.BUILD_NUMBER }}"
+      - name: Gradle Build
+        run: gradle clean build
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag ${{env.DOCKER_HUB_USERNAME}}/fitness-tracker:${{steps.build-number.outputs.BUILD_NUMBER}}
+      - name: Publish dockerimage to docker hub
+        run: docker push ${{env.DOCKER_HUB_USERNAME}}/fitness-tracker:${{steps.build-number.outputs.BUILD_NUMBER}}
+      - name: Build Docker image with latest tag
+        run: docker build . --file Dockerfile --tag ${{env.DOCKER_HUB_USERNAME}}/fitness-tracker:latest
+      - name: Publish dockerimage to docker hub
+        run: docker push ${{env.DOCKER_HUB_USERNAME}}/fitness-tracker:latest
