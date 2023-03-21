@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     java
@@ -32,6 +33,12 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
+docker {
+    val bootJar = tasks.getByName<BootJar>("bootJar")
+    dependsOn(bootJar)
+    name = "${project.name}:${project.version}"
+    files(bootJar.archiveFile)
+}
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
