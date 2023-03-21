@@ -1,0 +1,68 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+env:
+  # Postgres
+  POSTGRESQL_VERSION: 14
+  POSTGRESQL_DB: robinsonir
+  POSTGRESQL_USER: postgres
+  POSTGRESQL_PASSWORD: root
+  # Java
+  JAVA_VERSION: 1.17
+  # DockerHub
+  DOCKER_HUB_USERNAME: robinsonir
+  # AWS & Elastic Bean Stalk
+  AWS_REGION: eu-east-1
+  EB_ENVIRONMENT_NAME: null
+  EB_APPLICATION_NAME: null
+  EB_DEPLOYMENT_PACKAGE: elasticbeanstalk/docker-compose.yml
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_DB: ${{ env.POSTGRESQL_DB }}
+          POSTGRES_USER: ${{ env.POSTGRESQL_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRESQL_PASSWORD }}
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Build Number
+        id: build-number
+        run: echo "::set-output name=BUILD_NUMBER::$(date '+%-d.%-m.%Y.%-H.%-M.%-S')"
+
+      - name: Docker Login
+        uses: docker/login-action@f3364599c6aa293cdc2b8391b1b56d0c30e45c8a
+        with:
+          username: ${{ env.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 7.6.1
+      - name: Gradle Build
+        run: gradle clean build
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag ${{env.DOCKER_HUB_USERNAME}}/fitness-tracker:${{steps.build-number.outputs.BUILD_NUMBER}}
+      - name: Publish dockerimage to docker hub
+        run: docker push ${{env.DOCKER_HUB_USERNAME}}/fitness-tracker:${{steps.build-number.outputs.BUILD_NUMBER}}
+      - name: Build Docker image with latest tag
+        run: docker build . --file Dockerfile --tag ${{env.DOCKER_HUB_USERNAME}}/fitness-tracker:latest
+      - name: Publish dockerimage to docker hub
+        run: docker push ${{env.DOCKER_HUB_USERNAME}}/fitness-tracker:latest
