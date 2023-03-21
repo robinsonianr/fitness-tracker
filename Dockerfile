@@ -1,3 +1,4 @@
-FROM openjdk:12-jdk-alpine
-COPY build/libs/*.jar /
-CMD ["java", "-jar", "/fitness-tracker.jar"]
+FROM openjdk:17-jdk-alpine
+ARG JAR_FILE=fitness-tracker-0.0.1.jar
+COPY ${JAR_FILE} /
+CMD ["java","-jar","/fitness-tracker-0.0.1.jar"]
