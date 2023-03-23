@@ -18,6 +18,16 @@ public class CustomerController {
         return customerService.getAllCustomers();
     }
 
+    @GetMapping("{customerId}")
+    public CustomerDTO getCustomer(@PathVariable("customerId") Integer customerId) {
+        return customerService.getCustomer(customerId);
+    }
+
+    @PostMapping("{customerId}")
+    public void deleteCustomer(@PathVariable("customerId") Integer customerId) {
+        customerService.deleteCustomerById(customerId);
+    }
+
     @PostMapping
     public void addCustomer(@RequestBody CustomerRegistrationRequest request) {
         customerService.addCustomer(request);
