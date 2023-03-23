@@ -1,6 +1,5 @@
 package com.robinsonir.fitnesstracker.customer;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,11 +19,8 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<?> registerCustomer(
-            @RequestBody CustomerRegistrationRequest request) {
+    public void addCustomer(@RequestBody CustomerRegistrationRequest request) {
         customerService.addCustomer(request);
-        return ResponseEntity.ok()
-                .build();
     }
 
 }
