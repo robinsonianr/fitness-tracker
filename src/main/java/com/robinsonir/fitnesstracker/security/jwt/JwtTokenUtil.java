@@ -16,7 +16,7 @@ import java.util.Map;
 
 @Service
 public class JwtTokenUtil {
-    private static final String SECRET_KEY = "fitness_tracker_8702";
+    private static final String SECRET_KEY = "fitness_tracker_8702_tracker_fitness_2078";
 
     public String retrieveUsername(String token) {
         return extractAllClaims(token).getSubject();
