@@ -1,11 +1,10 @@
 package com.robinsonir.fitnesstracker.customer;
 
-
-public record RetrieveCustomerRequest(
+public record CustomerDTO(
         Integer id,
-        String firstName,
-        String lastName,
+        String name,
         String email,
+        String password,
         int age
 ) {
 }
