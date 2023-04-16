@@ -1,7 +1,5 @@
 package com.robinsonir.fitnesstracker.customer;
 
-import org.springframework.data.relational.core.sql.In;
-
 import java.util.List;
 
 public record CustomerDTO(
