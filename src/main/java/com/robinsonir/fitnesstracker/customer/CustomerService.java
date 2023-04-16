@@ -50,6 +50,7 @@ public class CustomerService {
 
         Customer customer = new Customer(
                 customerRegistrationRequest.name(),
+                customerRegistrationRequest.username(),
                 customerRegistrationRequest.email(),
                 passwordEncoder.encode(customerRegistrationRequest.password()),
                 customerRegistrationRequest.age(),
@@ -66,5 +67,13 @@ public class CustomerService {
         }
 
         customerDAO.deleteCustomerById(id);
+    }
+
+    public void checkIfCustomerExistsOrThrow(Integer customerId) {
+       if (!customerDAO.existsCustomerById(customerId)) {
+           throw new ResourceNotFoundException(
+                   "customer with id [%s] not found".formatted(customerId)
+           );
+       }
     }
 }

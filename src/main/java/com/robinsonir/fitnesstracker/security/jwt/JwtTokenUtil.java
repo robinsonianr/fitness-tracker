@@ -38,7 +38,7 @@ public class JwtTokenUtil {
                 .builder()
                 .setClaims(claims)
                 .setSubject(subject)
-                .setIssuer("https://localhost:3000")
+                .setIssuer("Robinsonir")
                 .setIssuedAt(Date.from(Instant.now()))
                 .setExpiration(Date.from(Instant.now().plus(15, ChronoUnit.DAYS)))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
