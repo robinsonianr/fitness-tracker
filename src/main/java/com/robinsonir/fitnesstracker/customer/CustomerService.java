@@ -3,6 +3,7 @@ package com.robinsonir.fitnesstracker.customer;
 import com.robinsonir.fitnesstracker.exception.DuplicateResourceException;
 import com.robinsonir.fitnesstracker.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,11 +14,14 @@ public class CustomerService {
 
     private final CustomerDAO customerDAO;
     private final CustomerDTOMapper customerDTOMapper;
+    private final PasswordEncoder passwordEncoder;
 
     public CustomerService(@Qualifier("jdbc") CustomerDAO customerDAO,
-                           CustomerDTOMapper customerDTOMapper) {
+                           CustomerDTOMapper customerDTOMapper,
+                           PasswordEncoder passwordEncoder) {
         this.customerDAO = customerDAO;
         this.customerDTOMapper = customerDTOMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<CustomerDTO> getAllCustomers() {
@@ -46,8 +50,9 @@ public class CustomerService {
 
         Customer customer = new Customer(
                 customerRegistrationRequest.name(),
+                customerRegistrationRequest.username(),
                 customerRegistrationRequest.email(),
-                customerRegistrationRequest.password(),
+                passwordEncoder.encode(customerRegistrationRequest.password()),
                 customerRegistrationRequest.age(),
                 customerRegistrationRequest.gender());
 
@@ -62,5 +67,13 @@ public class CustomerService {
         }
 
         customerDAO.deleteCustomerById(id);
+    }
+
+    public void checkIfCustomerExistsOrThrow(Integer customerId) {
+       if (!customerDAO.existsCustomerById(customerId)) {
+           throw new ResourceNotFoundException(
+                   "customer with id [%s] not found".formatted(customerId)
+           );
+       }
     }
 }
