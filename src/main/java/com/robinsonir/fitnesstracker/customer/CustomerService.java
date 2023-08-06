@@ -1,6 +1,7 @@
 package com.robinsonir.fitnesstracker.customer;
 
 import com.robinsonir.fitnesstracker.exception.DuplicateResourceException;
+import com.robinsonir.fitnesstracker.exception.RequestValidationException;
 import com.robinsonir.fitnesstracker.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -75,5 +76,41 @@ public class CustomerService {
                    "customer with id [%s] not found".formatted(customerId)
            );
        }
+    }
+
+    public void updateCustomer(Integer id, CustomerUpdateRequest updateRequest) {
+        Customer customer = customerDAO.selectCustomerById(id)
+                        .orElseThrow(() -> new ResourceNotFoundException(
+                                "customer with id [%s] not found".formatted(id)
+                        ));
+
+        boolean changes = false;
+
+        if (updateRequest.name() != null && !updateRequest.name().equals(customer.getName())) {
+            customer.setName(updateRequest.name());
+            changes = true;
+        }
+
+        if (updateRequest.email() != null && !updateRequest.email().equals(customer.getEmail())) {
+            if (customerDAO.existsCustomerWithEmail(updateRequest.email())) {
+                throw new DuplicateResourceException(
+                        "email already taken"
+                );
+            }
+            customer.setEmail(updateRequest.email());
+            changes = true;
+        }
+
+        if (updateRequest.age() != null && !updateRequest.age().equals(customer.getAge())) {
+            customer.setAge(updateRequest.age());
+            changes = true;
+        }
+
+        if (!changes) {
+            throw new RequestValidationException("no data changes found");
+        }
+
+
+        customerDAO.updateCustomer(customer);
     }
 }
