@@ -1,0 +1,10 @@
+version: 2
+checks:
+  css:
+    enabled: true
+    pattern: "**/*.css"
+    tool:
+      name: csslint
+      pattern: "**/*.css"
+      timeoutMs: 60000
+      configFile: .csslintrc.json
