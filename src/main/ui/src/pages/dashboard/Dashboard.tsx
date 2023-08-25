@@ -1,13 +1,13 @@
 import React from "react";
-import "./home.scss"
+import "./dashboard.scss"
 import Header from "../../components/header/Header";
-export const Home = () => {
+export const Dashboard = () => {
     return (
         <div>
             <Header title="Fitness Tracker"/>
-            <h1 className="home-title">Welcome to the Home Page!</h1>
+            <h1 className="home-title">Welcome to the Dashboard!</h1>
         </div>
     );
 };
 
-export default Home;
+export default Dashboard;

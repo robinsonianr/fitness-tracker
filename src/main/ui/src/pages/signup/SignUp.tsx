@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import "./signup.scss"
+import { useNavigate } from "react-router-dom";
 
 
 export const SignUp = () => {
@@ -14,6 +15,8 @@ export const SignUp = () => {
         }
         return options;
     };
+
+    const history = useNavigate();
 
     const [formData, setFormData] = useState({
         "name": "",
@@ -37,8 +40,12 @@ export const SignUp = () => {
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(formData),
             });
-            const result = await response.json();
+            const result = await response;
             console.log("Success", result);
+
+            // Redirect after successful registration
+            history('/')
+
         } catch (error) {
             console.log("Error", error)
         }
