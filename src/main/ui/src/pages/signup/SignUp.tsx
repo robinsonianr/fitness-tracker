@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import "./signup.scss"
 import { useNavigate } from "react-router-dom";
+import AuthService from "../../provider/AuthService";
 
 
 export const SignUp = () => {
@@ -16,7 +17,6 @@ export const SignUp = () => {
         return options;
     };
 
-    const history = useNavigate();
 
     const [formData, setFormData] = useState({
         "name": "",
@@ -27,28 +27,19 @@ export const SignUp = () => {
         "gender": ""
     });
 
+    const navigate = useNavigate();
+
     const handleChange = (event: { target: { name: any; value: any; }; }) => {
         const {name, value} = event.target;
         setFormData((prevFormData) => ({...prevFormData, [name]: value}))
     };
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        formData.username = formData.email;
-        try {
-            const response = await fetch("/api/v1/customers", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(formData),
-            });
-            const result = await response;
-            console.log("Success", result);
 
-            // Redirect after successful registration
-            history('/')
-
-        } catch (error) {
-            console.log("Error", error)
-        }
+        AuthService.register(formData).then(() => {
+            navigate("/");
+            window.location.reload();
+        });
     };
 
 
@@ -63,7 +54,7 @@ export const SignUp = () => {
                         <label htmlFor="name">Full Name</label>
                         <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} />
                         <label htmlFor="email">Email</label>
-                        <input type="text" id="email" name="email" value={formData.email} onChange={handleChange}/>
+                        <input type="text" id="email" name="email" value={formData.username = formData.email} onChange={handleChange}/>
                         <label htmlFor="password">Password</label>
                         <input type="password" id="password" name="password" value={formData.password} onChange={handleChange}/>
                     </div>

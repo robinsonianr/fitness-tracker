@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import "./login.scss"
 import {useNavigate} from "react-router-dom";
+import AuthService from "../../provider/AuthService";
 
 
 export const Login = () => {
@@ -18,21 +19,11 @@ export const Login = () => {
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        try {
-            const response = await fetch("/api/v1/auth/login", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(formData),
+        await AuthService.login(formData)
+            .then(() => {
+                navigate("/");
+                window.location.reload();
             });
-
-            const result = await response;
-            console.log("Success", result);
-
-            // After successful login redirect to dashboard
-            navigate('/')
-        } catch (error) {
-            console.log("Error", error)
-        }
     };
 
     return (
@@ -44,7 +35,7 @@ export const Login = () => {
                     {/* Form fields go here */}
                     <div className="form-group">
                         <label htmlFor="username">Email/Username</label>
-                        <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} />
+                        <input type="email" id="username" name="username" value={formData.username} onChange={handleChange} />
                         <label htmlFor="password">Password</label>
                         <input type="password" id="password" name="password" value={formData.password} onChange={handleChange}/>
                     </div>
