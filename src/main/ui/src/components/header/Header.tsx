@@ -1,4 +1,5 @@
 import React from "react";
+import AuthService from "../../provider/AuthService";
 
 // @ts-ignore
 export const Header = ({ title }) => {
@@ -8,8 +9,7 @@ export const Header = ({ title }) => {
          <nav>
              <ul>
                  <li><a href="/">Home</a></li>
-                 <li><a href="/signup">Sign Up</a></li>
-                 <li><a href="/login">Login</a></li>
+                 <li onClick={AuthService.logout}><a href="/login">Logout</a></li>
              </ul>
          </nav>
      </header>
