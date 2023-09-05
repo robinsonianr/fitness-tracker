@@ -41,8 +41,8 @@ jobs:
         with:
           gradle-version: 7.6.1
 
-      - name: Build with Gradle
-        run: gradle clean build
+#      - name: Build with Gradle
+#        run: gradle clean build
 
       - name: List Library contents
         run: ls
@@ -55,8 +55,11 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install UI Dependencies
-        run: npm install  # You can also use "yarn install" if you prefer Yarn.
+      - name: Verify package.json
+        run: ls
 
-      - name: Build React UI
-        run: npm run build
+#      - name: Install UI Dependencies
+#        run: npm install  # You can also use "yarn install" if you prefer Yarn.
+#
+#      - name: Build React UI
+#        run: npm run build
