@@ -40,5 +40,20 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 7.6.1
+
       - name: Build with Gradle
         run: gradle clean build
+
+      - name: Change to UI Directory
+        run: cd main/ui
+
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install UI Dependencies
+        run: npm install  # You can also use "yarn install" if you prefer Yarn.
+
+      - name: Build React UI
+        run: npm run build
