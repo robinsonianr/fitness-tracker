@@ -58,6 +58,14 @@ jobs:
           gradle-version: 7.6.1
       - name: Gradle Build
         run: gradle clean build
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v2
+        with:
+         node-version: '18'
+      - name: Install Frontend Dependencies
+        run: npm install  --prefix src/main/ui
+      - name: Build Frontend
+        run: npm run build --prefix src/main/ui
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag ${{env.DOCKER_HUB_USERNAME}}/fitness-tracker:${{steps.build-number.outputs.BUILD_NUMBER}}
       - name: Publish dockerimage to docker hub
