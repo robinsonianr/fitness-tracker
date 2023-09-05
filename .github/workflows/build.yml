@@ -44,16 +44,13 @@ jobs:
       - name: Build with Gradle
         run: gradle clean build
 
-      - name: Change to UI Directory
-        run: cd main/ui
-
       - name: Install Node.js and npm
         uses: actions/setup-node@v2
         with:
           node-version: '18'
 
-      - name: Install UI Dependencies
-        run: npm install  # You can also use "yarn install" if you prefer Yarn.
+      - name: Install Frontend Dependencies
+        run: npm install  --prefix src/main/ui
 
-      - name: Build React UI
-        run: npm run build
+      - name: Build Frontend
+        run: npm run build --prefix src/main/ui
