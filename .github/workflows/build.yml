@@ -48,7 +48,7 @@ jobs:
         run: ls
 
       - name: Change to UI Directory
-        run: cd main/ui
+        run: cd src/main/ui
 
       - name: Install Node.js and npm
         uses: actions/setup-node@v2
