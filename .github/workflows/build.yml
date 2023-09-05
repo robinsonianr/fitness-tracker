@@ -41,8 +41,8 @@ jobs:
         with:
           gradle-version: 7.6.1
 
-#      - name: Build with Gradle
-#        run: gradle clean build
+      - name: Build with Gradle
+        run: gradle clean build
 
       - name: Install Node.js and npm
         uses: actions/setup-node@v2
