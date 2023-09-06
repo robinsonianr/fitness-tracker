@@ -5,8 +5,8 @@
 ## Table of Contents
 
 -   [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
+-   [Usage](#usage)
+-   [Contributing](#contributing)
 
 
 ## Installation
@@ -14,23 +14,23 @@ To install this project, follow these steps:
 
 Java 17 compatible & uses Gradle
 
-1. Clone the repository.
+1.  Clone the repository.
    ```sh
    git clone https://github.com/robinsonianr/fitness-tracker.git
    ```
    
-3. Navigate to the project directory.
+2.  Navigate to the project directory.
    - cd src/main/ui
 
-5. Install dependencies.
+5.  Install dependencies.
    ```sh
    run npm install
    ```
    
-7. Database setup
-   - Install Docker Desktop or setup Docker in terminal
+7.  Database setup
+   -   Install Docker Desktop or setup Docker in terminal
   
-   - run docker pull postgres or search postgres in docker desktop and pull image
+   -   run docker pull postgres or search postgres in docker desktop and pull image
     
    ```sh
    run docker network create db
@@ -47,17 +47,17 @@ Java 17 compatible & uses Gradle
 Here's how you can use this project:
 
 1. Build and run the application.
-   - build and run springboot application. use prefered IDE
+   -   build and run springboot application. use prefered IDE
 
 2. run npm start in src/main/ui
-   - Open a web browser and navigate to [http://localhost:3000](http://localhost:3000).
+   -   Open a web browser and navigate to [http://localhost:3000](http://localhost:3000).
 
 
 ## Contributing
 
 We welcome contributions from the community. To contribute to this project, please follow these guidelines:
 
-1. Fork the repository and clone it to your local machine.
-2. Create a new branch for your feature or bug fix.
-3. Make your changes and test them thoroughly.
-4. Submit a pull request with a clear description of your changes.
+1.  Fork the repository and clone it to your local machine.
+2.  Create a new branch for your feature or bug fix.
+3.  Make your changes and test them thoroughly.
+4.  Submit a pull request with a clear description of your changes.
