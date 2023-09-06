@@ -47,7 +47,7 @@ run `docker ps` to see if container is running if not, run `docker start (contai
 Here's how you can use this project:
 
 1.  Build and run the application.
--   build and run springboot application. use prefered IDE
+-   Build and run the application (use your preferred IDE).
 
 2.  run `npm start` in `src/main/ui`
 -   Open a web browser and navigate to [http://localhost:3000](http://localhost:3000).
