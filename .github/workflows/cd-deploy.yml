@@ -8,18 +8,18 @@ on:
 
 env:
   # Postgres
-  POSTGRESQL_VERSION: 14
+  POSTGRESQL_VERSION: 15
   POSTGRESQL_DB: robinsonir
   POSTGRESQL_USER: postgres
-  POSTGRESQL_PASSWORD: root
+  POSTGRESQL_PASSWORD: root1234
   # Java
   JAVA_VERSION: 1.17
   # DockerHub
   DOCKER_HUB_USERNAME: robinsonir
   # AWS & Elastic Bean Stalk
-  AWS_REGION: eu-east-1
-  EB_ENVIRONMENT_NAME: null1
-  EB_APPLICATION_NAME: null2
+  AWS_REGION: us-east-1
+  EB_ENVIRONMENT_NAME: fitness-tracker
+  EB_APPLICATION_NAME: Fitness-tracker-env
   EB_DEPLOYMENT_PACKAGE: elasticbeanstalk/docker-compose.yml
 
 jobs:
