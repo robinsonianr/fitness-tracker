@@ -28,17 +28,17 @@ Java 17 compatible & uses Gradle
    ```
    
 7.  Database setup
--   Install Docker Desktop or setup Docker in terminal
-  
--   run `docker pull postgres` or search postgres in docker desktop and pull image
-    
+   -  Install Docker Desktop or setup Docker in terminal
+     
+   -  run `docker pull postgres` or search postgres in docker desktop and pull image
+       
    ```sh
    run docker network create db
    run docker run --name (my-postgres-container) -p 5432:5432 --network=db -v dbdata:/var/lib/postgres/data -e POSTGRES_PASSWORD=root -e POSTGRES_DB=robinsonir -d postgres
    ```
    
    replace (my-postgres-container) with whatever name you like
-      
+         
    run `docker ps` to see if container is running if not, run `docker start (container-name)`
 
 
