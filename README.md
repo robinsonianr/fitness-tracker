@@ -20,7 +20,7 @@ Java 17 compatible & uses Gradle
    ```
    
 2.  Navigate to the project directory.
-   - cd src/main/ui
+-   cd `src/main/ui`
 
 5.  Install dependencies.
    ```sh
@@ -28,9 +28,9 @@ Java 17 compatible & uses Gradle
    ```
    
 7.  Database setup
-   - Install Docker Desktop or setup Docker in terminal
+-   Install Docker Desktop or setup Docker in terminal
   
-   - run docker pull postgres or search postgres in docker desktop and pull image
+-   run `docker pull postgres` or search postgres in docker desktop and pull image
     
    ```sh
    run docker network create db
@@ -39,17 +39,17 @@ Java 17 compatible & uses Gradle
    
    replace (my-postgres-container) with whatever name you like
       
-   run docker ps to see if container is running if not, run docker start (container-name)
+   run `docker ps` to see if container is running if not, run `docker start (container-name)`
 
 
 ## Usage
 
 Here's how you can use this project:
 
-1. Build and run the application.
+1.  Build and run the application.
    -   build and run springboot application. use prefered IDE
 
-2. run npm start in src/main/ui
+2.  run `npm start` in `src/main/ui`
    -   Open a web browser and navigate to [http://localhost:3000](http://localhost:3000).
 
 
