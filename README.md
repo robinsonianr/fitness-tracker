@@ -6,9 +6,9 @@
 
 ## Table of Contents
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Contributing](#contributing)
 
 
 ## Installation
@@ -17,16 +17,16 @@ To install this project, follow these steps:
 
 Java 17 compatible & uses Gradle
 
-1. Clone the repository.
+ 1. Clone the repository.
    
     git clone https://github.com/robinsonianr/fitness-tracker.git
-3. Navigate to the project directory.
+ 2. Navigate to the project directory.
    
     cd src/main/ui
-5. Install dependencies.
+ 3. Install dependencies.
    
     run npm install
-6. Database setup
+ 4. Database setup
 
    - Install Docker Desktop or setup Docker in terminal
    - run docker pull postgres or search postgres in docker desktop and pull image
@@ -44,7 +44,7 @@ Here's how you can use this project:
 
    build and run springboot application. use prefered IDE
 
-3. run npm start in src/main/ui
+2. run npm start in src/main/ui
 
    Open a web browser and navigate to [http://localhost:3000](http://localhost:3000).
 
