@@ -1,7 +1,6 @@
 package com.robinsonir.fitnesstracker.security.auth;
 
 import com.robinsonir.fitnesstracker.customer.Customer;
-import com.robinsonir.fitnesstracker.customer.CustomerRepository;
 import com.robinsonir.fitnesstracker.security.jwt.JwtTokenUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,17 +9,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService {
-    private final AuthenticationManager authenticationManager;
 
-    private final CustomerRepository customerRepository;
+    private final AuthenticationManager authenticationManager;
 
     private final JwtTokenUtil jwtUtil;
 
     public AuthService(AuthenticationManager authenticationManager,
-                       CustomerRepository customerRepository,
                        JwtTokenUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
-        this.customerRepository = customerRepository;
         this.jwtUtil = jwtUtil;
     }
 
