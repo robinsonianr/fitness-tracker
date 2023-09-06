@@ -9,6 +9,7 @@ export const Header = ({ title }) => {
          <nav>
              <ul>
                  <li><a href="/">Home</a></li>
+                 <li><a href="/profile">Profile</a></li>
                  <li onClick={AuthService.logout}><a href="/login">Logout</a></li>
              </ul>
          </nav>
