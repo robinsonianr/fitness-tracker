@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthService {
     private final AuthenticationManager authenticationManager;
+
     private final CustomerRepository customerRepository;
+
     private final JwtTokenUtil jwtUtil;
 
     public AuthService(AuthenticationManager authenticationManager,
@@ -24,7 +26,8 @@ public class AuthService {
 
     public AuthResponse authenticate(AuthRequest request) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.username(), request.password()));
+                new UsernamePasswordAuthenticationToken(request.username(),
+                        request.password()));
         Customer customer = (Customer) authentication.getPrincipal();
         var token = jwtUtil.generateToken(customer.getUsername());
         return new AuthResponse(token);

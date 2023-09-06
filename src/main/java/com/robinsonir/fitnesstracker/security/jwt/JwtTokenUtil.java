@@ -16,6 +16,7 @@ import java.util.Map;
 
 @Service
 public class JwtTokenUtil {
+
     private static final String SECRET_KEY = "fitness_tracker_8702_tracker_fitness_2078";
 
     public String retrieveUsername(String token) {
@@ -28,7 +29,7 @@ public class JwtTokenUtil {
     }
 
 
-    public String generateToken(String subject, String ...roles) {
+    public String generateToken(String subject, String... roles) {
         Map<String, Object> extraClaims = Map.of("scopes", roles);
         return generateToken(subject, extraClaims);
     }
@@ -54,7 +55,6 @@ public class JwtTokenUtil {
     public boolean isTokenExpired(String token) {
         return extractAllClaims(token).getExpiration().before(new Date());
     }
-
 
 
     private Claims extractAllClaims(String token) {
