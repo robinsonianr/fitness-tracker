@@ -10,7 +10,9 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "api/v1/customers")
 public class CustomerController {
+
     private final CustomerService customerService;
+
     private final JwtTokenUtil jwtUtil;
 
     public CustomerController(CustomerService customerService,
@@ -25,7 +27,8 @@ public class CustomerController {
     }
 
     @GetMapping("{customerId}")
-    public CustomerDTO getCustomer(@PathVariable("customerId") Integer customerId) {
+    public CustomerDTO getCustomer(
+            @PathVariable("customerId") Integer customerId) {
         return customerService.getCustomer(customerId);
     }
 
@@ -43,11 +46,11 @@ public class CustomerController {
     }
 
     @PutMapping("{customerId}")
-    public void updateCustomer(@PathVariable("customerId") Integer customerId,
-                               @RequestBody CustomerUpdateRequest updateRequest) {
+    public void updateCustomer(
+            @PathVariable("customerId") Integer customerId,
+            @RequestBody CustomerUpdateRequest updateRequest) {
         customerService.updateCustomer(customerId, updateRequest);
     }
-
 
 
 }

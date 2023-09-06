@@ -1,14 +1,17 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+
+
 plugins {
     java
     id("org.springframework.boot") version "3.0.4"
     id("io.spring.dependency-management") version "1.1.0"
     id("com.palantir.docker") version "0.34.0"
+    val kotlinVer = "1.8.10"
     kotlin("jvm") version "1.8.10"
-    kotlin("plugin.spring") version "1.8.10"
-    kotlin("plugin.jpa") version "1.8.10"
-    kotlin("plugin.allopen") version "1.8.10"
+    kotlin("plugin.spring") version kotlinVer
+    kotlin("plugin.jpa") version kotlinVer
+    kotlin("plugin.allopen") version kotlinVer
 }
 
 group = "com.robinsonir"

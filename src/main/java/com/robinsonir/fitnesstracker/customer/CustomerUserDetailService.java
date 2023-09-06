@@ -14,8 +14,9 @@ public class CustomerUserDetailService implements UserDetailsService {
     public CustomerUserDetailService(@Qualifier("jpa") CustomerDAO customerDAO) {
         this.customerDAO = customerDAO;
     }
+
     @Override
-    public UserDetails loadUserByUsername(String username)throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return customerDAO.findCustomerByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(
                         "Username " + username + " not found"));
