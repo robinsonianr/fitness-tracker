@@ -24,7 +24,7 @@ Java 17 compatible & uses Gradle
 
 5.  Install dependencies.
    ```sh
-   run npm install
+   npm install
    ```
    
 7.  Database setup
@@ -33,8 +33,8 @@ Java 17 compatible & uses Gradle
 -   run `docker pull postgres` or search postgres in docker desktop and pull image
        
 ```sh
-run docker network create db
-run docker run --name (my-postgres-container) -p 5432:5432 --network=db -v dbdata:/var/lib/postgres/data -e POSTGRES_PASSWORD=root -e POSTGRES_DB=robinsonir -d postgres
+docker network create db
+docker run --name (my-postgres-container) -p 5432:5432 --network=db -v dbdata:/var/lib/postgres/data -e POSTGRES_PASSWORD=root -e POSTGRES_DB=robinsonir -d postgres
 ```
 
 replace (my-postgres-container) with whatever name you like
