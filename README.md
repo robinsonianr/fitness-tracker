@@ -28,9 +28,9 @@ Java 17 compatible & uses Gradle
    ```
    
 7.  Database setup
-   -   Install Docker Desktop or setup Docker in terminal
+   - Install Docker Desktop or setup Docker in terminal
   
-   -   run docker pull postgres or search postgres in docker desktop and pull image
+   - run docker pull postgres or search postgres in docker desktop and pull image
     
    ```sh
    run docker network create db
