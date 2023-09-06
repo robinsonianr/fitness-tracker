@@ -43,7 +43,12 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
     @Override
     public void insertCustomer(Customer customer) {
         var sql = """
-                INSERT INTO customer(username, password, name, email, age, gender)
+                INSERT INTO customer(username, 
+                password, 
+                name, 
+                email, 
+                age, 
+                gender)
                 VALUES (?, ?, ?, ?, ?, ?)
                 """;
         int result = jdbcTemplate.update(

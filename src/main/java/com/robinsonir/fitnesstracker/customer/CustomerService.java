@@ -14,7 +14,9 @@ import java.util.stream.Collectors;
 public class CustomerService {
 
     private final CustomerDAO customerDAO;
+
     private final CustomerDTOMapper customerDTOMapper;
+
     private final PasswordEncoder passwordEncoder;
 
     public CustomerService(@Qualifier("jdbc") CustomerDAO customerDAO,
@@ -71,18 +73,18 @@ public class CustomerService {
     }
 
     public void checkIfCustomerExistsOrThrow(Integer customerId) {
-       if (!customerDAO.existsCustomerById(customerId)) {
-           throw new ResourceNotFoundException(
-                   "customer with id [%s] not found".formatted(customerId)
-           );
-       }
+        if (!customerDAO.existsCustomerById(customerId)) {
+            throw new ResourceNotFoundException(
+                    "customer with id [%s] not found".formatted(customerId)
+            );
+        }
     }
 
     public void updateCustomer(Integer id, CustomerUpdateRequest updateRequest) {
         Customer customer = customerDAO.selectCustomerById(id)
-                        .orElseThrow(() -> new ResourceNotFoundException(
-                                "customer with id [%s] not found".formatted(id)
-                        ));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "customer with id [%s] not found".formatted(id)
+                ));
 
         boolean changes = false;
 
@@ -91,7 +93,8 @@ public class CustomerService {
             changes = true;
         }
 
-        if (updateRequest.email() != null && !updateRequest.email().equals(customer.getEmail())) {
+        if (updateRequest.email() != null &&
+                !updateRequest.email().equals(customer.getEmail())) {
             if (customerDAO.existsCustomerWithEmail(updateRequest.email())) {
                 throw new DuplicateResourceException(
                         "email already taken"

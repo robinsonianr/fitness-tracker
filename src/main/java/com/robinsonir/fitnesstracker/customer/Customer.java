@@ -1,6 +1,14 @@
 package com.robinsonir.fitnesstracker.customer;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -52,7 +60,13 @@ public class Customer implements UserDetails {
     public Customer() {
     }
 
-    public Customer(Integer id, String name, String username, String email, String password, Integer age, Gender gender) {
+    public Customer(Integer id,
+                    String name,
+                    String username,
+                    String email,
+                    String password,
+                    Integer age,
+                    Gender gender) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -63,7 +77,12 @@ public class Customer implements UserDetails {
 
     }
 
-    public Customer(String name, String username, String email, String password, Integer age, Gender gender) {
+    public Customer(String name,
+                    String username,
+                    String email,
+                    String password,
+                    Integer age,
+                    Gender gender) {
         this.name = name;
         this.username = username;
         this.email = email;
@@ -159,7 +178,12 @@ public class Customer implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(email, customer.email) && Objects.equals(age, customer.age) && gender == customer.gender && Objects.equals(password, customer.password);
+        return Objects.equals(id, customer.id) &&
+                Objects.equals(name, customer.name) &&
+                Objects.equals(email, customer.email) &&
+                Objects.equals(age, customer.age) &&
+                gender == customer.gender &&
+                Objects.equals(password, customer.password);
     }
 
     @Override
@@ -170,13 +194,13 @@ public class Customer implements UserDetails {
     @Override
     public String toString() {
         return "Customer{" +
-               "id=" + id +
-               ", name='" + name + '\'' +
-               ", email='" + email + '\'' +
-               ", age=" + age +
-               ", gender=" + gender +
-               ", password='" + password + '\'' +
-               '}';
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", age=" + age +
+                ", gender=" + gender +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
 
