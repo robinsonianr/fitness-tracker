@@ -1,11 +1,14 @@
-# Use a lightweight Java image as the base
+# Use a base image that includes both Node.js and Java
 FROM openjdk:17-jdk-alpine
 
-# Copy the Java application JAR file into the image
+# Set the working directory in the image
+WORKDIR /app
+
+# Copy the backend (Java application) JAR file into the image
 COPY build/libs/fitness-tracker-0.0.1.jar fitness-tracker-0.0.1.jar
 
-# Copy the built UI files from the src/main/ui/build directory into a directory called "ui" in the image
-COPY src/main/ui/build /ui/
+# Copy the frontend (UI build) files into a directory called "ui" in the image
+COPY src/main/ui/build /app/ui
 
-# Define the command to run the Java application
+# Define the command to run the Java backend
 CMD ["java", "-jar", "fitness-tracker-0.0.1.jar"]
