@@ -1,37 +1,22 @@
-name: CI/CD
+name: CD - Deploy Backend
+
 
 on:
-  push:
-    branches: [ main ]
-
   workflow_dispatch:
-
-env:
-  # Postgres
-  POSTGRESQL_VERSION: 15
-  POSTGRESQL_DB: robinsonir
-  POSTGRESQL_USER: postgres
-  POSTGRESQL_PASSWORD: root1234
-  # Java
-  JAVA_VERSION: 1.17
-  # DockerHub
-  DOCKER_HUB_USERNAME: robinsonir
-  # AWS & Elastic Bean Stalk
-  AWS_REGION: us-east-1
-  EB_ENVIRONMENT_NAME: fitness-tracker
-  EB_APPLICATION_NAME: Fitness-tracker-env
-  EB_DEPLOYMENT_PACKAGE: elasticbeanstalk/docker-compose.yml
+  push:
+    branches: [ "main" ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:14
+        image: postgres:15
         env:
-          POSTGRES_DB: ${{ env.POSTGRESQL_DB }}
-          POSTGRES_USER: ${{ env.POSTGRESQL_USER }}
-          POSTGRES_PASSWORD: ${{ env.POSTGRESQL_PASSWORD }}
+          POSTGRES_DB: robinsonir
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: root1234
+          DOCKER_HUB_USERNAME: robinsonir
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -61,7 +46,7 @@ jobs:
       - name: Install Node.js and npm
         uses: actions/setup-node@v2
         with:
-         node-version: '18'
+          node-version: '18'
       - name: Install Frontend Dependencies
         run: npm install  --prefix src/main/ui
       - name: Build Frontend
