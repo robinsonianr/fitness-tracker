@@ -1,8 +1,7 @@
 import React, {useState} from "react";
 import "./signup.scss"
-import { useNavigate } from "react-router-dom";
-import AuthService from "../../provider/AuthService";
-
+import {useNavigate} from "react-router-dom";
+import {createCustomer} from "../../services/client";
 
 export const SignUp = () => {
     const generateAgeOptions = () => {
@@ -36,12 +35,11 @@ export const SignUp = () => {
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
 
-        AuthService.register(formData).then(() => {
+        await createCustomer(formData).then(() => {
             navigate("/");
             window.location.reload();
         });
     };
-
 
 
     return (
@@ -52,11 +50,13 @@ export const SignUp = () => {
                     {/* Form fields go here */}
                     <div className="form-group">
                         <label htmlFor="name">Full Name</label>
-                        <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} />
+                        <input type="text" id="name" name="name" value={formData.name} onChange={handleChange}/>
                         <label htmlFor="email">Email</label>
-                        <input type="text" id="email" name="email" value={formData.username = formData.email} onChange={handleChange}/>
+                        <input type="text" id="email" name="email" value={formData.username = formData.email}
+                               onChange={handleChange}/>
                         <label htmlFor="password">Password</label>
-                        <input type="password" id="password" name="password" value={formData.password} onChange={handleChange}/>
+                        <input type="password" id="password" name="password" value={formData.password}
+                               onChange={handleChange}/>
                     </div>
                     <div className="form-group inline">
                         <div className="form-subgroup">

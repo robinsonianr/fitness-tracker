@@ -1,7 +1,9 @@
 import React from "react";
 import "./dashboard.scss"
 import Header from "../../components/header/Header";
+
 export const Dashboard = () => {
+
     return (
         <div>
             <Header title="Fitness Tracker"/>
