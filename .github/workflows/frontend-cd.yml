@@ -1,0 +1,16 @@
+name: CD - Deploy Backend
+
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+    paths:
+      - frontend/react/**
+jobs:
+  deploy:
+    if: false
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend/react
