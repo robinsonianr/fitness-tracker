@@ -1,0 +1,66 @@
+name: CD - Deploy Backend
+
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: robinsonir
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: root1234
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    defaults:
+      run:
+        working-directory: ./backend
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Build Number
+        id: build-number
+        run: echo "::set-output name=BUILD_NUMBER::$(date '+%-d.%-m.%Y.%-H.%-M.%-S')"
+
+      - name: Docker Login
+        uses: docker/login-action@f3364599c6aa293cdc2b8391b1b56d0c30e45c8a
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 7.6.1
+      - name: Gradle Build
+        run: gradle clean build
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-api:${{steps.build-number.outputs.BUILD_NUMBER}}
+      - name: Publish docker image to docker hub
+        run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-api:${{steps.build-number.outputs.BUILD_NUMBER}}
+      - name: Build Docker image with latest tag
+        run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-api:latest
+      - name: Publish docker image to docker hub
+        run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-api:latest
+      - name: Deploy to Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: ${{ secrets.EB_APPLICATION_NAME }}
+          environment_name: ${{ secrets.EB_ENVIRONMENT_NAME }}
+          version_label: ${{ steps.build-number.outputs.BUILD_NUMBER }}
+          version_description: ${{ github.SHA }}
+          region: ${{ secrets.EB_REGION }}
+          deployment_package: Dockerrun.aws.json

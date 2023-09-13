@@ -1,0 +1,102 @@
+import {createContext, useContext, useEffect, useState} from "react";
+import {login as performLogin} from "../../services/client";
+import jwtDecode from "jwt-decode";
+
+
+type Customer = {
+    username: string;
+    roles: String[];
+};
+
+type AuthContextType = {
+    customer: Customer | null;
+    login: (formData: any) => Promise<void>;
+    logOut: () => void;
+    isCustomerAuthenticated: () => boolean;
+    setCustomerFromToken: () => void;
+};
+
+
+const AuthContext = createContext<AuthContextType | null>(null);
+
+const AuthProvider = ({children}: { children: any }) => {
+    const [customer, setCustomer] = useState<Customer | null>(null);
+
+    const setCustomerFromToken = () => {
+        let token: any = localStorage.getItem("access_token");
+        if (token) {
+            token = jwtDecode(token);
+            const customer: Customer = {
+                username: token.sub,
+                roles: token.scopes
+            };
+            setCustomer(customer)
+        }
+    }
+    useEffect(() => {
+        setCustomerFromToken()
+    }, [])
+
+    const login = async (formData: any): Promise<void> => {
+        return new Promise<void>((resolve: any, reject: any): void => {
+            performLogin(formData).then(res => {
+                const jwtToken = res.headers["authorization"];
+                localStorage.setItem("access_token", jwtToken);
+
+                const decodedToken: any = jwtDecode(jwtToken);
+
+                const customer: Customer = {
+                    username: decodedToken.sub,
+                    roles: decodedToken.scopes
+                };
+                setCustomer(customer)
+                resolve();
+            }).catch(err => {
+                reject(err);
+            })
+        })
+    }
+
+    const logOut = () => {
+        localStorage.removeItem("access_token")
+        setCustomer(null)
+    }
+
+    const isCustomerAuthenticated = () => {
+        const token = localStorage.getItem("access_token");
+        if (!token) {
+            return false;
+        }
+        const decodeToken: any = jwtDecode(token);
+        const expiration = decodeToken.exp
+        if (Date.now() > expiration * 1000) {
+            logOut()
+            return false;
+        }
+        return true;
+    }
+
+    return (
+        <AuthContext.Provider value={{
+            customer,
+            login,
+            logOut,
+            isCustomerAuthenticated,
+            setCustomerFromToken
+
+        }}>
+            {children}
+        </AuthContext.Provider>
+    )
+}
+
+
+export const useAuth = (): AuthContextType => {
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error('useAuth must be used within an AuthProvider');
+    }
+    return context;
+};
+
+export default AuthProvider;
