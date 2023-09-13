@@ -1,3 +1,5 @@
+// @ts-ignore
+import React from "react";
 import "./dashboard.scss"
 import Header from "../../components/header/Header";
 

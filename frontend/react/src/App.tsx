@@ -1,3 +1,5 @@
+// @ts-ignore
+import React from "react";
 import './App.css';
 import {createBrowserRouter} from "react-router-dom";
 import Dashboard from "./components/dashboard/Dashboard";
