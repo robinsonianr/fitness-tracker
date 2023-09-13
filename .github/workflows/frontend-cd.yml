@@ -13,6 +13,7 @@ jobs:
       run:
         working-directory: ./frontend/react
     steps:
+      - uses: actions/checkout@v2
       - name: Debug Working Directory
         run: |
           pwd
