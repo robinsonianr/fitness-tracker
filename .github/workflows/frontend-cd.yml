@@ -11,8 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./frontend
+        working-directory: ./frontend/react
     steps:
+      - name: Debug Working Directory
+        run: |
+          pwd
+          ls -l
+        working-directory: ${{ github.workspace }}
+
       - name: Build Number
         id: build-number
         run: echo "::set-output name=BUILD_NUMBER::$(date '+%-d.%-m.%Y.%-H.%-M.%-S')"
