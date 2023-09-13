@@ -20,7 +20,7 @@ Java 17 compatible & uses Gradle
    ```
    
 2.  Navigate to the project directory.
--   cd `src/main/ui`
+-   cd `frontend/react`
 
 5.  Install dependencies.
    ```sh
@@ -49,8 +49,8 @@ Here's how you can use this project:
 1.  Build and run the application.
 -   Build and run the application (use your preferred IDE).
 
-2.  run `npm start` in `src/main/ui`
--   Open a web browser and navigate to [http://localhost:3000](http://localhost:3000).
+2.  run `npm run start` in `frontend/react`
+-   Open a web browser and navigate to [http://localhost:5173](http://localhost:5173).
 
 
 ## Contributing
