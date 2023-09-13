@@ -5,6 +5,8 @@ on:
   workflow_dispatch:
   push:
     branches: [ "main" ]
+    paths:
+      - frontend/react/**
 
 jobs:
   deploy:
@@ -14,11 +16,6 @@ jobs:
         working-directory: ./frontend/react
     steps:
       - uses: actions/checkout@v2
-      - name: Debug Working Directory
-        run: |
-          pwd
-          ls -l
-        working-directory: ${{ github.workspace }}
 
       - name: Build Number
         id: build-number
