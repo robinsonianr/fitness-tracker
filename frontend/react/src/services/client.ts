@@ -9,7 +9,7 @@ const getAuthConfig = () => ({
 export const getCustomers = async () => {
     try {
         return await axios.get(
-            `http://localhost:8080/api/v1/customers`,
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/customers`,
             getAuthConfig(),
         )
     } catch (e) {
@@ -18,9 +18,11 @@ export const getCustomers = async () => {
 };
 
 export const login = async (formData: any) => {
+    // ${import.meta.env.VITE_API_BASE_URL}
+
     try {
         return await axios.post(
-            `http://localhost:8080/api/v1/auth/login`,
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/login`,
             formData
         )
     } catch (e) {
@@ -31,7 +33,7 @@ export const login = async (formData: any) => {
 export const updateCustomer = async (id: any, update: any) => {
     try {
         return await axios.put(
-            `http://localhost:8080/api/v1/customers/${id}`,
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/customers/${id}`,
             update,
             getAuthConfig()
         )
@@ -42,7 +44,7 @@ export const updateCustomer = async (id: any, update: any) => {
 export const createCustomer = async (formData: any) => {
     try {
         return await axios.post(
-            `http://localhost:8080/api/v1/customers`,
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/customers`,
             formData
         ).then(res => {
             const token = res.headers["authorization"];
@@ -55,7 +57,7 @@ export const createCustomer = async (formData: any) => {
 export const deleteCustomer = async (id: any) => {
     try {
         return await axios.delete(
-            `http://localhost:8080/api/v1/customers/${id}`,
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/customers/${id}`,
             getAuthConfig()
         )
     } catch (e) {

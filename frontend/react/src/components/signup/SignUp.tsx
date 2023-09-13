@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import "./signup.scss"
 import {useNavigate} from "react-router-dom";
 import {createCustomer} from "../../services/client";
@@ -37,7 +37,6 @@ export const SignUp = () => {
 
         await createCustomer(formData).then(() => {
             navigate("/");
-            window.location.reload();
         });
     };
 

@@ -16,10 +16,12 @@ jobs:
           POSTGRES_DB: robinsonir
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: root1234
-          DOCKER_HUB_USERNAME: robinsonir
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    defaults:
+      run:
+        working-directory: ./backend
     steps:
       - uses: actions/checkout@v2
 
@@ -35,7 +37,7 @@ jobs:
       - name: Docker Login
         uses: docker/login-action@f3364599c6aa293cdc2b8391b1b56d0c30e45c8a
         with:
-          username: ${{ env.DOCKER_HUB_USERNAME }}
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
@@ -43,19 +45,22 @@ jobs:
           gradle-version: 7.6.1
       - name: Gradle Build
         run: gradle clean build
-      - name: Install Node.js and npm
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'
-      - name: Install Frontend Dependencies
-        run: npm install  --prefix src/main/ui
-      - name: Build Frontend
-        run: npm run build --prefix src/main/ui
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag ${{env.DOCKER_HUB_USERNAME}}/fitness-tracker:${{steps.build-number.outputs.BUILD_NUMBER}}
-      - name: Publish dockerimage to docker hub
-        run: docker push ${{env.DOCKER_HUB_USERNAME}}/fitness-tracker:${{steps.build-number.outputs.BUILD_NUMBER}}
+        run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-api:${{steps.build-number.outputs.BUILD_NUMBER}}
+      - name: Publish docker image to docker hub
+        run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-api:${{steps.build-number.outputs.BUILD_NUMBER}}
       - name: Build Docker image with latest tag
-        run: docker build . --file Dockerfile --tag ${{env.DOCKER_HUB_USERNAME}}/fitness-tracker:latest
-      - name: Publish dockerimage to docker hub
-        run: docker push ${{env.DOCKER_HUB_USERNAME}}/fitness-tracker:latest
+        run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-api:latest
+      - name: Publish docker image to docker hub
+        run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-api:latest
+      - name: Deploy to Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: ${{ secrets.EB_APPLICATION_NAME }}
+          environment_name: ${{ secrets.EB_ENVIRONMENT_NAME }}
+          version_label: ${{ steps.build-number.outputs.BUILD_NUMBER }}
+          version_description: ${{ github.SHA }}
+          region: ${{ secrets.EB_REGION }}
+          deployment_package: Dockerrun.aws.json

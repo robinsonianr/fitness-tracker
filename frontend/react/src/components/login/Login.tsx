@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import  {useEffect, useState} from "react";
 import "./login.scss"
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../context/AuthContext";
@@ -23,14 +23,12 @@ export const Login = () => {
         await login(formData)
             .then(() => {
                 navigate("/");
-                window.location.reload();
             });
     };
 
     useEffect(() => {
         if (customer) {
             navigate("/");
-
         }
     })
     return (
