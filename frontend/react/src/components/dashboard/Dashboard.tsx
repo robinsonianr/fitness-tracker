@@ -6,7 +6,7 @@ export const Dashboard = () => {
     return (
         <div>
             <Header title="Fitness Tracker"/>
-            <h1 className="home-title">Welcome to the Dashboard App!</h1>
+            <h1 className="home-title">Welcome to the Dashboard!</h1>
         </div>
     );
 };
