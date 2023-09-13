@@ -28,8 +28,8 @@ jobs:
       - name: Setup Java JDK
         uses: actions/setup-java@v1.4.3
         with:
-          java-version: ${{ env.JAVA_VERSION }}
-
+          java-version: '17'
+          distribution: 'liberica'
       - name: Build Number
         id: build-number
         run: echo "::set-output name=BUILD_NUMBER::$(date '+%-d.%-m.%Y.%-H.%-M.%-S')"
