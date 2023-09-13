@@ -5,6 +5,7 @@ import SignUp from "./components/signup/SignUp";
 import Login from "./components/login/Login";
 import ProtectedRoute from "./components/shared/ProtectedRoute";
 
+
 export const router = createBrowserRouter([
     {
         path: "/login",

@@ -1,7 +1,6 @@
 import {useAuth} from "../context/AuthContext";
 
-// @ts-ignore
-export const Header = ({title}) => {
+export const Header = ({title}:{title: any}) => {
     const {logOut} = useAuth();
     return (
         <header>
