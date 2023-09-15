@@ -45,7 +45,7 @@ jobs:
       - name: Wait 1 minute
         run: |
           echo "Waiting 1 minute"
-          sleep 60
+          sleep 90
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
         with:
