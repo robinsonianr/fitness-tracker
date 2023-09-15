@@ -80,7 +80,7 @@ public class CustomerService {
         }
     }
 
-    // Todo: implement upload/update profile picture
+    // Todo: implement upload/update profile pictures
     // public void uploadProfilePicture (Integer id, MultipartFile file) {
     //  checkIfCustomerExistsOrThrow(id);
     //

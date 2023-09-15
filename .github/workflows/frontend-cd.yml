@@ -42,11 +42,8 @@ jobs:
           --build-arg api_base_url=http://fitness-tracker-env.eba-3f5efq3k.us-east-1.elasticbeanstalk.com:8080
       - name: Publish docker image to docker hub
         run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-react:latest
-      - name: Configure AWS Credentials
-        run: |
-          echo "[default]" > ~/.aws/config
-          echo "aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/config
-          echo "aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/config
+      - name: List AWS CLI versions
+        run: aws --version
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -57,7 +54,6 @@ jobs:
          status=$(aws elasticbeanstalk describe-environments --environment-names ${{ secrets.EB_ENVIRONMENT_NAME }} --query 'Environments[0].Status' --output text)
          echo "Elastic Beanstalk Status: $status"
          echo "::set-output name=status::$status"
-
       - name: Wait for Elastic Beanstalk to Be Ready
         run: |
            status=${{ steps.eb-status.outputs.status }}
