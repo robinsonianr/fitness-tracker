@@ -16,6 +16,16 @@ jobs:
         working-directory: ./frontend/react
     steps:
       - uses: actions/checkout@v2
+      - name: Check for Changes in Backend
+        id: backend-changes
+        run: |
+          if git diff --quiet HEAD^ HEAD -- backend/; then
+            echo "No changes detected in backend/ directory."
+            echo "::set-output name=backend_changed::false"
+          else
+            echo "Changes detected in backend/ directory."
+            echo "::set-output name=backend_changed::true"
+          fi
 
       - name: Build Number
         id: build-number
@@ -44,8 +54,12 @@ jobs:
         run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-react:latest
       - name: Wait 1 minute
         run: |
-          echo "Waiting 1 minute"
-          sleep 90
+          if: steps.backend-changes.outputs.backend_changed == 'true'
+          echo "Waiting 75 seconds"
+          sleep 75
+          else
+            echo "Proceeding with the job."
+          fi
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
         with:
