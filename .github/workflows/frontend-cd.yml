@@ -53,13 +53,10 @@ jobs:
       - name: Publish docker image to docker hub
         run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-react:latest
       - name: Wait 1 minute
+        if: steps.backend-changes.outputs.backend_changed == 'true'
         run: |
-          if: steps.backend-changes.outputs.backend_changed == 'true'
-            echo "Waiting 75 seconds"
-            sleep 75
-          else
-            echo "Proceeding with the job."
-          fi
+          echo "Waiting 75 seconds"
+          sleep 75  # Wait for 75 seconds
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
         with:
