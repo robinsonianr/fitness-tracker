@@ -42,27 +42,10 @@ jobs:
           --build-arg api_base_url=http://fitness-tracker-env.eba-3f5efq3k.us-east-1.elasticbeanstalk.com:8080
       - name: Publish docker image to docker hub
         run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-react:latest
-      - name: List AWS CLI versions
-        run: aws --version
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      - name: Check Elastic Beanstalk Environment Status
-        id: eb-status
+      - name: Wait 1 minute
         run: |
-         # Check Elastic Beanstalk environment status
-         status=$(aws elasticbeanstalk describe-environments --environment-names ${{ secrets.EB_ENVIRONMENT_NAME }} --query 'Environments[0].Status' --output text)
-         echo "Elastic Beanstalk Status: $status"
-         echo "::set-output name=status::$status"
-      - name: Wait for Elastic Beanstalk to Be Ready
-        run: |
-           status=${{ steps.eb-status.outputs.status }}
-           if [ "$status" != "Ready" ]; then
-             echo "Waiting for Elastic Beanstalk environment to be ready..."
-             sleep 120  # 120 seconds = 2 minutes (adjust as needed)
-           else
-             echo "Elastic Beanstalk environment is already in a ready state."
-           fi
+          echo "Waiting 1 minute"
+          sleep 60
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
         with:
