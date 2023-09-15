@@ -7,9 +7,10 @@ on:
     branches: [ "main" ]
     paths:
       - frontend/react/**
-
+      - backend/**
 jobs:
   deploy:
+    if: git diff --quiet HEAD^ HEAD -- frontend/react/;
     runs-on: ubuntu-latest
     defaults:
       run:
