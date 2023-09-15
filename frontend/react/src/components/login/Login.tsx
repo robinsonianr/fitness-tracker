@@ -13,6 +13,7 @@ export const Login = () => {
         "password": "",
     });
 
+    const [error, setError] = useState<String | null>(null);
     const handleChange = (event: { target: { name: any; value: any; }; }) => {
         const {name, value} = event.target;
         setFormData((prevFormData) => ({...prevFormData, [name]: value}))
@@ -20,10 +21,17 @@ export const Login = () => {
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        await login(formData)
-            .then(() => {
-                navigate("/");
-            });
+        setError(null);
+
+        try {
+            await login(formData)
+                .then(() => {
+                    navigate("/");
+                });
+        }catch (error) {
+            setError("Incorrect email or password");
+        }
+
     };
 
     useEffect(() => {
@@ -49,6 +57,7 @@ export const Login = () => {
                     {/* Other form fields */}
                     <button type="submit">Login</button>
                 </form>
+                <div style={{ fontSize: "10px", color: "red" }}>{error}</div>
                 <a href="/signup">Need an account? Register here</a>
             </div>
         </div>
