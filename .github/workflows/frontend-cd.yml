@@ -20,13 +20,13 @@ jobs:
       - name: Check for Changes in Backend
         id: backend-changes
         run: |
-          # Check if any files in the backend/ directory have been modified
-          if git diff --exit-code --quiet HEAD^ HEAD -- backend/; then
-            echo "No changes detected in backend/ directory."
-            echo "::set-output name=backend_changed::false"
-          else
+          # Check if the backend/ directory exists and contains files
+          if [ -d "backend/" ] && [ -n "$(find backend/ -type f)" ]; then
             echo "Changes detected in backend/ directory."
             echo "::set-output name=backend_changed::true"
+          else
+            echo "No changes detected in backend/ directory."
+            echo "::set-output name=backend_changed::false"
           fi
       
 
