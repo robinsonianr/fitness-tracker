@@ -6,7 +6,6 @@ plugins {
     java
     id("org.springframework.boot") version "3.0.4"
     id("io.spring.dependency-management") version "1.1.0"
-    id("com.palantir.docker") version "0.34.0"
     val kotlinVer = "1.8.10"
     kotlin("jvm") version "1.8.10"
     kotlin("plugin.spring") version kotlinVer
@@ -15,8 +14,12 @@ plugins {
 }
 
 group = "com.robinsonir"
-version = "0.0.1"
-java.sourceCompatibility = JavaVersion.VERSION_17
+version = "1.0.0"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
 repositories {
     mavenCentral()
@@ -35,6 +38,10 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-api:0.11.5")
     implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
     implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
+    implementation(platform("software.amazon.awssdk:bom:2.20.56"))
+    implementation("software.amazon.awssdk:s3")
+    implementation("software.amazon.awssdk:sso")
+    implementation("software.amazon.awssdk:ssooidc")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

@@ -80,6 +80,12 @@ public class CustomerService {
         }
     }
 
+    // Todo: implement upload/update profile picture
+    // public void uploadProfilePicture (Integer id, MultipartFile file) {
+    //  checkIfCustomerExistsOrThrow(id);
+    //
+    // }
+
     public void updateCustomer(Integer id, CustomerUpdateRequest updateRequest) {
         Customer customer = customerDAO.selectCustomerById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(

@@ -2,8 +2,8 @@
 FROM openjdk:17-jdk-alpine
 
 # Copy the backend (Java application) JAR file into the image
-COPY /build/libs/backend-0.0.1.jar fitness-tracker-0.0.1.jar
+COPY /build/libs/backend-*.jar fitness-tracker-api.jar
 
 
 # Define the command to run the Java backend
-CMD ["java", "-jar", "fitness-tracker-0.0.1.jar"]
+CMD ["java", "-jar", "fitness-tracker-api.jar"]
