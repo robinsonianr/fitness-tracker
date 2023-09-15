@@ -55,8 +55,8 @@ jobs:
       - name: Wait 1 minute
         run: |
           if: steps.backend-changes.outputs.backend_changed == 'true'
-          echo "Waiting 75 seconds"
-          sleep 75
+            echo "Waiting 75 seconds"
+            sleep 75
           else
             echo "Proceeding with the job."
           fi
