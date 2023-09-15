@@ -10,7 +10,7 @@ on:
       - backend/**
 jobs:
   deploy:
-    if: git diff --quiet HEAD^ HEAD -- frontend/react/;
+    if: "github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.modified, 'frontend/react/')"
     runs-on: ubuntu-latest
     defaults:
       run:
