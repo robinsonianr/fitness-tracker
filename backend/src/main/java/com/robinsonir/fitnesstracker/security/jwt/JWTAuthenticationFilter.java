@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -20,7 +21,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenUtil jwtTokenUtil;
 
-    private final CustomerUserDetailService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     public JWTAuthenticationFilter(
             JwtTokenUtil jwtTokenUtil,
@@ -42,11 +43,11 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String jwt = authHeader.substring(7);
-        String subject = jwtTokenUtil.retrieveUsername(jwt);
+        String subject = jwtTokenUtil.getSubject(jwt);
 
         if (subject != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(subject);
-            if (jwtTokenUtil.isTokenValid(jwt, userDetails)) {
+            if (jwtTokenUtil.isTokenValid(jwt, userDetails.getUsername())) {
                 UsernamePasswordAuthenticationToken authenticationToken =
                         new UsernamePasswordAuthenticationToken(
                                 userDetails,

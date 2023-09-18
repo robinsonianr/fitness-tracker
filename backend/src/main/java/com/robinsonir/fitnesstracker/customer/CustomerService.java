@@ -3,11 +3,17 @@ package com.robinsonir.fitnesstracker.customer;
 import com.robinsonir.fitnesstracker.exception.DuplicateResourceException;
 import com.robinsonir.fitnesstracker.exception.RequestValidationException;
 import com.robinsonir.fitnesstracker.exception.ResourceNotFoundException;
+import com.robinsonir.fitnesstracker.s3.S3Service;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,12 +25,20 @@ public class CustomerService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final S3Service s3Service;
+
+
+    @Value("${s3.bucket.name}")
+    private String s3Bucket;
+
     public CustomerService(@Qualifier("jdbc") CustomerDAO customerDAO,
                            CustomerDTOMapper customerDTOMapper,
-                           PasswordEncoder passwordEncoder) {
+                           PasswordEncoder passwordEncoder,
+                           S3Service s3Service) {
         this.customerDAO = customerDAO;
         this.customerDTOMapper = customerDTOMapper;
         this.passwordEncoder = passwordEncoder;
+        this.s3Service = s3Service;
     }
 
     public List<CustomerDTO> getAllCustomers() {
@@ -53,7 +67,6 @@ public class CustomerService {
 
         Customer customer = new Customer(
                 customerRegistrationRequest.name(),
-                customerRegistrationRequest.username(),
                 customerRegistrationRequest.email(),
                 passwordEncoder.encode(customerRegistrationRequest.password()),
                 customerRegistrationRequest.age(),
@@ -80,11 +93,41 @@ public class CustomerService {
         }
     }
 
-    // Todo: implement upload/update profile picture
-    // public void uploadProfilePicture (Integer id, MultipartFile file) {
-    //  checkIfCustomerExistsOrThrow(id);
-    //
-    // }
+    public void uploadCustomerProfilePicture(Integer customerId, MultipartFile file) {
+        checkIfCustomerExistsOrThrow(customerId);
+        String profileImageId = UUID.randomUUID().toString();
+        customerDAO.updateCustomerProfileImageId(profileImageId, customerId);
+        try {
+            s3Service.putObject(
+                    s3Bucket,
+                    "profile-images/%s/%s".formatted(customerId, profileImageId),
+                    file.getBytes());
+
+        } catch (IOException e) {
+            throw new RuntimeException("failed to upload profile image", e);
+        }
+
+
+    }
+
+
+    public byte[] getProfilePicture(Integer customerId) {
+        var customer = customerDAO.selectCustomerById(customerId)
+                .map(customerDTOMapper)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "customer with id [%s] not found".formatted(customerId)
+                ));
+
+        if (StringUtils.isBlank(customer.profileImageId())) {
+            throw new ResourceNotFoundException(
+                    "customer with id [%s] profile image not found".formatted(customerId));
+        }
+
+        return s3Service.getObject(
+                s3Bucket,
+                "profile-images/%s/%s".formatted(customerId, customer.profileImageId())
+        );
+    }
 
     public void updateCustomer(Integer id, CustomerUpdateRequest updateRequest) {
         Customer customer = customerDAO.selectCustomerById(id)

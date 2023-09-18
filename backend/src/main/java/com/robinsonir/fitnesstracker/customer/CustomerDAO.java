@@ -18,5 +18,7 @@ public interface CustomerDAO {
 
     void updateCustomer(Customer update);
 
-    Optional<Customer> findCustomerByUsername(String email);
+    Optional<Customer> selectCustomerByUsername(String email);
+
+    void updateCustomerProfileImageId(String profileImageId, Integer customerId);
 }

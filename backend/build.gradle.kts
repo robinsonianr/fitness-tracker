@@ -14,7 +14,7 @@ plugins {
 }
 
 group = "com.robinsonir"
-version = "1.0.0"
+version = "1.1.0"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -42,6 +42,8 @@ dependencies {
     implementation("software.amazon.awssdk:s3")
     implementation("software.amazon.awssdk:sso")
     implementation("software.amazon.awssdk:ssooidc")
+    implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
+    implementation("org.apache.commons:commons-lang3:3.13.0")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

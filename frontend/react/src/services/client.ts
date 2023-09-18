@@ -64,3 +64,23 @@ export const deleteCustomer = async (id: any) => {
         throw e;
     }
 }
+
+export const uploadCustomerProfileImage = async (id: any, formData: any) => {
+    try {
+
+        return axios.post(
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/customers/${id}/profile-image`,
+            formData,
+            {
+                ...getAuthConfig(),
+                // @ts-ignore
+                'Content-Type' : 'multipart/form-data'
+            }
+        );
+    } catch (e) {
+        throw e
+    }
+
+}
+
+export const getCustomerProfileImage = (id: any) => `${import.meta.env.VITE_API_BASE_URL}/api/v1/customers/${id}/profile-image`;

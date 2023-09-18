@@ -21,19 +21,45 @@ export const SignUp = () => {
         "name": "",
         "email": "",
         "password": "",
-        "username": "",
         "age": "",
         "gender": ""
     });
 
+    const [passwordError, setPasswordError] = useState("")
+    const [selectError, setSelectError] = useState("")
+
     const navigate = useNavigate();
+
 
     const handleChange = (event: { target: { name: any; value: any; }; }) => {
         const {name, value} = event.target;
         setFormData((prevFormData) => ({...prevFormData, [name]: value}))
+
+        if (name === "password") {
+            if (value.length >= 6) {
+                setPasswordError("");
+            }
+
+        }
+        if (name === "age" || name === "gender") {
+            if (value.length > 0) {
+                setSelectError("");
+            }
+        }
+
     };
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
+
+        if (formData.password.length < 6) {
+                setPasswordError("Password must be at least 6 characters long");
+                return;
+        }
+
+        if (formData.age === "" || formData.gender === "") {
+            setSelectError("Missing input data");
+            return;
+        }
 
         await createCustomer(formData).then(() => {
             navigate("/");
@@ -51,11 +77,12 @@ export const SignUp = () => {
                         <label htmlFor="name">Full Name</label>
                         <input type="text" id="name" name="name" value={formData.name} onChange={handleChange}/>
                         <label htmlFor="email">Email</label>
-                        <input type="text" id="email" name="email" value={formData.username = formData.email}
+                        <input type="text" id="email" name="email" value={formData.email}
                                onChange={handleChange}/>
                         <label htmlFor="password">Password</label>
                         <input type="password" id="password" name="password" value={formData.password}
                                onChange={handleChange}/>
+                        {passwordError && (<span style={{ fontSize: "10px", color: "red" }}>{passwordError}</span>)}
                     </div>
                     <div className="form-group inline">
                         <div className="form-subgroup">
@@ -75,6 +102,7 @@ export const SignUp = () => {
                             </select>
                         </div>
                     </div>
+                    {selectError && (<span style={{ fontSize: "10px", color: "red" }}>{selectError}</span>)}
                     {/* Other form fields */}
                     <button type="submit">Create Account</button>
                 </form>

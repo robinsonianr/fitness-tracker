@@ -53,9 +53,12 @@ public class CustomerJPADataAccessService implements CustomerDAO {
     }
 
     @Override
-    public Optional<Customer> findCustomerByUsername(String email) {
-        return customerRepository.findCustomerByUsername(email);
+    public Optional<Customer> selectCustomerByUsername(String email) {
+        return customerRepository.findCustomerByEmail(email);
     }
 
-
+    @Override
+    public void updateCustomerProfileImageId(String profileImageId, Integer customerId) {
+        customerRepository.updateProfileImageId(profileImageId, customerId);
+    }
 }

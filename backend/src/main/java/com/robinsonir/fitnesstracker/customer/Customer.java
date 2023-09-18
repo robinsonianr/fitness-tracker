@@ -17,6 +17,10 @@ import java.util.Objects;
                 @UniqueConstraint(
                         name = "customer_email_unique",
                         columnNames = "email"
+                ),
+                @UniqueConstraint(
+                        name = "profile_image_id_unique",
+                        columnNames = "profileImageId"
                 )
         }
 
@@ -43,25 +47,23 @@ public class Customer implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Column(nullable = false, unique = true)
-    private String username;
-
     @Column(nullable = false)
     private String password;
+
+    @Column(unique = true)
+    private String profileImageId;
 
     public Customer() {
     }
 
     public Customer(Integer id,
                     String name,
-                    String username,
                     String email,
                     String password,
                     Integer age,
                     Gender gender) {
         this.id = id;
         this.name = name;
-        this.username = username;
         this.email = email;
         this.password = password;
         this.age = age;
@@ -69,14 +71,24 @@ public class Customer implements UserDetails {
 
     }
 
+    public Customer(Integer id,
+                    String name,
+                    String email,
+                    String password,
+                    Integer age,
+                    Gender gender,
+                    String profileImageId) {
+        this(id, name, email, password, age, gender);
+        this.profileImageId = profileImageId;
+
+    }
+
     public Customer(String name,
-                    String username,
                     String email,
                     String password,
                     Integer age,
                     Gender gender) {
         this.name = name;
-        this.username = username;
         this.email = email;
         this.password = password;
         this.age = age;
@@ -130,6 +142,14 @@ public class Customer implements UserDetails {
         return gender;
     }
 
+    public String getProfileImageId() {
+        return profileImageId;
+    }
+
+    public void setProfileImageId(String profileImageId) {
+        this.profileImageId = profileImageId;
+    }
+
     public void setGender(Gender gender) {
         this.gender = gender;
     }
@@ -180,7 +200,7 @@ public class Customer implements UserDetails {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, age, gender, password);
+        return Objects.hash(id, name, email, age, gender, password, profileImageId);
     }
 
     @Override
@@ -192,6 +212,7 @@ public class Customer implements UserDetails {
                 ", age=" + age +
                 ", gender=" + gender +
                 ", password='" + password + '\'' +
+                ", profileImageId" + profileImageId + '\'' +
                 '}';
     }
 }
