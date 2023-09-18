@@ -1,17 +1,22 @@
 package com.robinsonir.fitnesstracker.customer;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
-
-@Repository
+@Transactional
 public interface CustomerRepository
         extends JpaRepository<Customer, Integer> {
     boolean existsCustomerByEmail(String email);
 
     boolean existsCustomerById(Integer id);
 
-    Optional<Customer> findCustomerByUsername(String email);
+    Optional<Customer> findCustomerByEmail(String email);
+
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE Customer c SET c.profileImageId = ?1 WHERE c.id = ?2")
+    void updateProfileImageId(String profileImageId, Integer customerId);
 }
