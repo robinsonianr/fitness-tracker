@@ -96,7 +96,7 @@ public class CustomerService {
     public void uploadCustomerProfilePicture(Integer customerId, MultipartFile file) {
         checkIfCustomerExistsOrThrow(customerId);
         String profileImageId = UUID.randomUUID().toString();
-        customerDAO.updateCustomerProfileImageId(profileImageId, customerId);
+
         try {
             s3Service.putObject(
                     s3Bucket,
@@ -107,7 +107,7 @@ public class CustomerService {
             throw new RuntimeException("failed to upload profile image", e);
         }
 
-
+        customerDAO.updateCustomerProfileImageId(profileImageId, customerId);
     }
 
 
