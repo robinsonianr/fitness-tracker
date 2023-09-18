@@ -15,19 +15,6 @@ jobs:
         working-directory: ./frontend/react
     steps:
       - uses: actions/checkout@v2
-      - name: Check for Changes in Backend
-        id: backend-changes
-        run: |
-          # Check if the backend/ directory exists and contains files
-          if [ -d "backend/" ] && [ -n "$(find backend/ -type f)" ]; then
-            echo "Changes detected in backend/ directory."
-            echo "::set-output name=backend_changed::true"
-          else
-            echo "No changes detected in backend/ directory."
-            echo "::set-output name=backend_changed::false"
-          fi
-      
-
       - name: Build Number
         id: build-number
         run: echo "::set-output name=BUILD_NUMBER::$(date '+%-d.%-m.%Y.%-H.%-M.%-S')"
@@ -53,11 +40,10 @@ jobs:
           --build-arg api_base_url=http://fitness-tracker-env.eba-3f5efq3k.us-east-1.elasticbeanstalk.com:8080
       - name: Publish docker image to docker hub
         run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-react:latest
-      - name: Wait 1 minute
-        if: steps.backend-changes.outputs.backend_changed == 'true'
+      - name: Wait 80 for Elastic Beanstalk status
         run: |
-          echo "Waiting 75 seconds"
-          sleep 75  # Wait for 75 seconds
+          echo "Waiting 80 seconds"
+          sleep 80  # Wait for 75 seconds
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
         with:
