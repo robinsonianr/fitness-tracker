@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     private final AuthenticationManager authenticationManager;
+
     private final CustomerDTOMapper customerDTOMapper;
 
     private final JwtTokenUtil jwtUtil;
