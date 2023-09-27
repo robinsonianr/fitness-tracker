@@ -10,7 +10,7 @@ import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -19,14 +19,17 @@ public class JwtTokenUtil {
     private static final String SECRET_KEY = "fitness_tracker_8702_tracker_fitness_2078";
 
 
-    public String generateToken(String subject) {
-        return generateToken(subject, new HashMap<>());
-    }
+    // public String generateToken(String subject) {
+    //    return generateToken(subject, Map.of());
+    // }
 
 
     public String generateToken(String subject, String... roles) {
-        Map<String, Object> extraClaims = Map.of("scopes", roles);
-        return generateToken(subject, extraClaims);
+        return generateToken(subject, Map.of("scopes", roles));
+    }
+
+    public String generateToken(String subject, List<String> roles) {
+        return generateToken(subject, Map.of("scopes", roles));
     }
 
     public String getSubject(String token) {
@@ -51,22 +54,6 @@ public class JwtTokenUtil {
     }
 
     private Claims getClaims(String token) {
-        Claims claims = Jwts
-                .parserBuilder()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-        return claims;
-    }
-
-
-    public boolean isTokenExpired(String token) {
-        return extractAllClaims(token).getExpiration().before(new Date());
-    }
-
-
-    private Claims extractAllClaims(String token) {
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSigningKey())
@@ -74,6 +61,13 @@ public class JwtTokenUtil {
                 .parseClaimsJws(token)
                 .getBody();
     }
+
+
+    public boolean isTokenExpired(String token) {
+        Date today = Date.from(Instant.now());
+        return getClaims(token).getExpiration().before(today);
+    }
+
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
