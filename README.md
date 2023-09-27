@@ -53,7 +53,7 @@ Here's how you can use this project:
 -   Open a web browser and navigate to [http://localhost:5173](http://localhost:5173).
 
 Dev Site:
-- http://fitness-tracker-env.eba-3f5efq3k.us-east-1.elasticbeanstalk.com
+-   http://fitness-tracker-env.eba-3f5efq3k.us-east-1.elasticbeanstalk.com
 
 
 ## Contributing
