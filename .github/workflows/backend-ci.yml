@@ -41,7 +41,4 @@ jobs:
         with:
           gradle-version: 7.6.1
       - name: Build with Gradle
-        run: |
-          export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-          export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-          gradle clean build
+        run: gradle clean build
