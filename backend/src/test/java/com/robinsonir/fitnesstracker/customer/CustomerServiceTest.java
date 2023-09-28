@@ -26,12 +26,16 @@ import static org.mockito.Mockito.*;
 public class CustomerServiceTest {
 
     private final CustomerDTOMapper customerDTOMapper = new CustomerDTOMapper();
+
     @Mock
     private CustomerDAO customerDAO;
+
     @Mock
     private PasswordEncoder passwordEncoder;
+
     @Mock
     private S3Service s3Service;
+
     private CustomerService customerTest;
 
     @BeforeEach
@@ -111,7 +115,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void deleteCustomerById_CustomerNotFound() {
+    void deleteCustomerByIdCustomerNotFound() {
         // Arrange: Mock behavior for customerDAO.existsCustomerById to return false (customer not found).
         int customerId = 1;
         when(customerDAO.existsCustomerById(customerId)).thenReturn(false);
@@ -124,7 +128,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void checkIfCustomerExistsOrThrow_CustomerExists() {
+    void checkIfCustomerExistsOrThrowCustomerExists() {
         // Arrange: Mock behavior for customerDAO.existsCustomerById to return true (customer exists).
         int customerId = 1;
         when(customerDAO.existsCustomerById(customerId)).thenReturn(true);
@@ -136,7 +140,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void checkIfCustomerExistsOrThrow_CustomerNotFound() {
+    void checkIfCustomerExistsOrThrowCustomerNotFound() {
         // Arrange: Mock behavior for customerDAO.existsCustomerById to return false (customer not found).
         int customerId = 1;
         when(customerDAO.existsCustomerById(customerId)).thenReturn(false);
@@ -146,7 +150,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void updateCustomer_ValidChanges() {
+    void updateCustomerValidChanges() {
         // Arrange: Create a test customer, mock behavior, and prepare the update request.
         int customerId = 1;
         Customer existingCustomer = new Customer(customerId, "John Doe", "johndoe@example.com", "hashedPassword", 30, Gender.MALE);
@@ -172,7 +176,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void updateCustomer_NoChanges() {
+    void updateCustomerNoChanges() {
         // Arrange: Create a test customer and mock behavior.
         int customerId = 1;
         Customer existingCustomer = new Customer(customerId, "John Doe", "johndoe@example.com", "hashedPassword", 30, Gender.MALE);
@@ -188,7 +192,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void uploadCustomerProfilePicture_Success() {
+    void uploadCustomerProfilePicture() {
         // Arrange: Create a test customer, mock behavior, and prepare a test file.
         int customerId = 1;
         when(customerDAO.existsCustomerById(customerId)).thenReturn(true);
@@ -219,7 +223,7 @@ public class CustomerServiceTest {
 
 
     @Test
-    void getProfilePicture_CustomerExists() {
+    void getProfilePictureCustomerExists() {
         // Arrange: Create a test customer and mock behavior.
         int customerId = 1;
         String profileImageId = "ca4cd8f6-3487-4e79-ba0f-56e8047d5a62";
@@ -240,7 +244,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void getProfilePicture_CustomerDoesNotExist() {
+    void getProfilePictureCustomerDoesNotExist() {
         // Arrange: Mock behavior for a customer that does not exist.
         int customerId = 1;
         when(customerDAO.selectCustomerById(customerId)).thenReturn(Optional.empty());
@@ -252,7 +256,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void getProfilePicture_CustomerHasNoProfileImage() {
+    void getProfilePictureCustomerHasNoProfileImage() {
         // Arrange: Create a test customer with no profile image.
         int customerId = 1;
         Customer testCustomer = new Customer(customerId, "John Doe", "johndoe@example.com", "hashedPassword", 30, Gender.MALE);
