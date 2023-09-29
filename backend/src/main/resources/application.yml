@@ -1,0 +1,50 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+
+aws_access_key_id: ${AWS_ACCESS_KEY_ID}
+aws_secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+
+management:
+  endpoints:
+    web:
+      cors:
+        allowed-headers: "*"
+        allowed-methods: "*"
+        allowed-origins: "*"
+        exposed-headers: "*"
+      exposure:
+        include: "health,info"
+
+s3:
+  region:
+    name: us-east-1
+  bucket:
+    name: fitness-tracker-customers
+
+spring:
+  datasource:
+    username: postgres
+    password: root1234
+    url: jdbc:postgresql://localhost:5432/robinsonir
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+  config:
+    import: optional:file:.env[.properties]
+  main:
+    web-application-type: servlet
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  codec:
+    max-in-memory-size: 10MB
+
+

@@ -4,17 +4,17 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
-    id("org.springframework.boot") version "3.0.4"
+    id("org.springframework.boot") version "3.1.4"
     id("io.spring.dependency-management") version "1.1.0"
     val kotlinVer = "1.8.10"
-    kotlin("jvm") version "1.8.10"
+    kotlin("jvm") version kotlinVer
     kotlin("plugin.spring") version kotlinVer
     kotlin("plugin.jpa") version kotlinVer
     kotlin("plugin.allopen") version kotlinVer
 }
 
 group = "com.robinsonir"
-version = "1.1.0"
+version = "1.1.1"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
