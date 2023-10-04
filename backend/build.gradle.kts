@@ -7,14 +7,14 @@ plugins {
     id("org.springframework.boot") version "3.0.4"
     id("io.spring.dependency-management") version "1.1.0"
     val kotlinVer = "1.8.10"
-    kotlin("jvm") version "1.8.10"
+    kotlin("jvm") version kotlinVer
     kotlin("plugin.spring") version kotlinVer
     kotlin("plugin.jpa") version kotlinVer
     kotlin("plugin.allopen") version kotlinVer
 }
 
 group = "com.robinsonir"
-version = "1.1.0"
+version = "1.1.1"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -47,6 +47,7 @@ dependencies {
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.mockito:mockito-inline:5.2.0")
 }
 
 tasks.withType<KotlinCompile> {
@@ -58,4 +59,5 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    systemProperty("org.mockito.mock-inline.mock-maker", "true")
 }

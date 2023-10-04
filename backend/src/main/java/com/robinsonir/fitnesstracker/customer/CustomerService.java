@@ -165,4 +165,8 @@ public class CustomerService {
 
         customerDAO.updateCustomer(customer);
     }
+
+    public void setS3Bucket(String s3Bucket) {
+        this.s3Bucket = s3Bucket;
+    }
 }
