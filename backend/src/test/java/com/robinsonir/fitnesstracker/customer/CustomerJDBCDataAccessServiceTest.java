@@ -21,6 +21,7 @@ import static org.mockito.Mockito.when;
 public class CustomerJDBCDataAccessServiceTest {
 
     private final CustomerRowMapper customerRowMapper = new CustomerRowMapper();
+
     @MockBean
     private JdbcTemplate jdbcTemplate;
 
