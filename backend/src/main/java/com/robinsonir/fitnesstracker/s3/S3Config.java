@@ -1,5 +1,6 @@
 package com.robinsonir.fitnesstracker.s3;
 
+import com.robinsonir.fitnesstracker.decrypt.EnvFileDecryptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,17 +13,17 @@ import software.amazon.awssdk.services.s3.S3Client;
 @Configuration
 public class S3Config {
 
-    @Value("${aws_access_key_id}")
-    private String accessKeyId;
-
-    @Value("${aws_secret_access_key}")
-    private String accessKeySecret;
+    private final EnvFileDecryptor fileDecryptor = new EnvFileDecryptor();
 
     @Value("${s3.region.name}")
     private String s3RegionName;
 
     @Bean
-    public S3Client s3Client() {
+    public S3Client s3Client() throws Exception {
+        fileDecryptor.decryptFile();
+        String accessKeyId = fileDecryptor.variables.get("AWS_ACCESS_KEY_ID");
+        String accessKeySecret = fileDecryptor.variables.get("AWS_SECRET_ACCESS_KEY");
+
         AwsCredentialsProvider awsCredentialsProvider = StaticCredentialsProvider.create(
                 awsCredentials(accessKeyId, accessKeySecret)
         );
