@@ -40,7 +40,7 @@ public class EnvFileDecryptor {
 
     public void decryptFile() throws Exception {
         // Path to the encrypted file
-        String encryptedFilePath = ".env.enc";
+        String encryptedFilePath = "backend/.env.enc";
         // Path to save the decrypted file
         // Key and IV used for encryption (in hexadecimal format)
         String keyHex = "9c041637890f2cf3a5698c2f6d08ec1bf68ba5bcdb41a35b1ba71ea6fed37787"; // 32 bytes (256 bits)
