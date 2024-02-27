@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-alpine
 COPY /build/libs/backend-*.jar fitness-tracker-api.jar
 
 # Copy the .env.enc file into the image
-COPY .env.enc .env.enc
+COPY .env.enc backend/.env.enc
 
 # Define the command to run the Java backend
 CMD ["java", "-jar", "fitness-tracker-api.jar"]
