@@ -1,5 +1,10 @@
-package com.robinsonir.fitnesstracker.customer;
+package com.robinsonir.fitnesstracker.data.service.customer;
 
+import com.robinsonir.fitnesstracker.data.Gender;
+import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
+import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDAO;
+import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDTO;
+import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDTOMapper;
 import com.robinsonir.fitnesstracker.exception.RequestValidationException;
 import com.robinsonir.fitnesstracker.exception.ResourceNotFoundException;
 import com.robinsonir.fitnesstracker.s3.S3Service;
@@ -56,11 +61,11 @@ public class CustomerServiceTest {
     @Test
     void testGetCustomer() {
         // Arrange: Create a test customer instance and mock behavior.
-        int id = 1;
-        Customer testCustomer = new Customer(id, "John Doe", "johndoe@example.com", "hashedPassword", 30, Gender.MALE);
-        when(customerDAO.selectCustomerById(id)).thenReturn(Optional.of(testCustomer));
+        Long id = 1L;
+        CustomerEntity testCustomerEntity = new CustomerEntity(id, "John Doe", "johndoe@example.com", "hashedPassword", 30, Gender.MALE);
+        when(customerDAO.selectCustomerById(id)).thenReturn(Optional.of(testCustomerEntity));
 
-        CustomerDTO expected = customerDTOMapper.apply(testCustomer);
+        CustomerDTO expected = customerDTOMapper.apply(testCustomerEntity);
 
         // When
         CustomerDTO actual = customerTest.getCustomer(id);
@@ -104,7 +109,7 @@ public class CustomerServiceTest {
     @Test
     void deleteCustomerById() {
         // Arrange: Mock behavior for customerDAO.existsCustomerById to return true (customer exists).
-        int customerId = 1;
+        Long customerId = 1L;
         when(customerDAO.existsCustomerById(customerId)).thenReturn(true);
 
         // Act: Delete the customer.
@@ -117,7 +122,7 @@ public class CustomerServiceTest {
     @Test
     void deleteCustomerByIdCustomerNotFound() {
         // Arrange: Mock behavior for customerDAO.existsCustomerById to return false (customer not found).
-        int customerId = 1;
+        Long customerId = 1L;
         when(customerDAO.existsCustomerById(customerId)).thenReturn(false);
 
         // Act and Assert: Deleting a non-existent customer should throw a ResourceNotFoundException.
@@ -130,7 +135,7 @@ public class CustomerServiceTest {
     @Test
     void checkIfCustomerExistsOrThrowCustomerExists() {
         // Arrange: Mock behavior for customerDAO.existsCustomerById to return true (customer exists).
-        int customerId = 1;
+        Long customerId = 1L;
         when(customerDAO.existsCustomerById(customerId)).thenReturn(true);
 
         // Act: Check if the customer exists.
@@ -142,7 +147,7 @@ public class CustomerServiceTest {
     @Test
     void checkIfCustomerExistsOrThrowCustomerNotFound() {
         // Arrange: Mock behavior for customerDAO.existsCustomerById to return false (customer not found).
-        int customerId = 1;
+        Long customerId = 1L;
         when(customerDAO.existsCustomerById(customerId)).thenReturn(false);
 
         // Act and Assert: Checking for a non-existent customer should throw a ResourceNotFoundException.
@@ -152,9 +157,9 @@ public class CustomerServiceTest {
     @Test
     void updateCustomerValidChanges() {
         // Arrange: Create a test customer, mock behavior, and prepare the update request.
-        int customerId = 1;
-        Customer existingCustomer = new Customer(customerId, "John Doe", "johndoe@example.com", "hashedPassword", 30, Gender.MALE);
-        when(customerDAO.selectCustomerById(customerId)).thenReturn(Optional.of(existingCustomer));
+        Long customerId = 1L;
+        CustomerEntity existingCustomerEntity = new CustomerEntity(customerId, "John Doe", "johndoe@example.com", "hashedPassword", 30, Gender.MALE);
+        when(customerDAO.selectCustomerById(customerId)).thenReturn(Optional.of(existingCustomerEntity));
 
         CustomerUpdateRequest updateRequest = new CustomerUpdateRequest("Updated Name", "updatedemail@example.com", 35);
 
@@ -169,8 +174,8 @@ public class CustomerServiceTest {
                                 updatedCustomer.getEmail().equals(updateRequest.email()) &&
                                 updatedCustomer.getAge().equals(updateRequest.age()) &&
                                 // Other fields are not changed
-                                updatedCustomer.getPassword().equals(existingCustomer.getPassword()) &&
-                                updatedCustomer.getGender().equals(existingCustomer.getGender())
+                                updatedCustomer.getPassword().equals(existingCustomerEntity.getPassword()) &&
+                                updatedCustomer.getGender().equals(existingCustomerEntity.getGender())
                 )
         );
     }
@@ -178,9 +183,9 @@ public class CustomerServiceTest {
     @Test
     void updateCustomerNoChanges() {
         // Arrange: Create a test customer and mock behavior.
-        int customerId = 1;
-        Customer existingCustomer = new Customer(customerId, "John Doe", "johndoe@example.com", "hashedPassword", 30, Gender.MALE);
-        when(customerDAO.selectCustomerById(customerId)).thenReturn(Optional.of(existingCustomer));
+        Long customerId = 1L;
+        CustomerEntity existingCustomerEntity = new CustomerEntity(customerId, "John Doe", "johndoe@example.com", "hashedPassword", 30, Gender.MALE);
+        when(customerDAO.selectCustomerById(customerId)).thenReturn(Optional.of(existingCustomerEntity));
 
         CustomerUpdateRequest updateRequest = new CustomerUpdateRequest(null, null, null);
 
@@ -194,7 +199,7 @@ public class CustomerServiceTest {
     @Test
     void uploadCustomerProfilePicture() {
         // Arrange: Create a test customer, mock behavior, and prepare a test file.
-        int customerId = 1;
+        Long customerId = 1L;
         when(customerDAO.existsCustomerById(customerId)).thenReturn(true);
 
         byte[] bytes = "Hello World".getBytes();
@@ -225,14 +230,14 @@ public class CustomerServiceTest {
     @Test
     void getProfilePictureCustomerExists() {
         // Arrange: Create a test customer and mock behavior.
-        int customerId = 1;
+        Long customerId = 1L;
         String profileImageId = "ca4cd8f6-3487-4e79-ba0f-56e8047d5a62";
         byte[] expectedImageData = "Hello World".getBytes();
 
-        Customer testCustomer = new Customer(customerId, "John Doe", "johndoe@example.com", "hashedPassword", 30, Gender.MALE);
-        testCustomer.setProfileImageId(profileImageId);
+        CustomerEntity testCustomerEntity = new CustomerEntity(customerId, "John Doe", "johndoe@example.com", "hashedPassword", 30, Gender.MALE);
+        testCustomerEntity.setProfileImageId(profileImageId);
 
-        when(customerDAO.selectCustomerById(customerId)).thenReturn(Optional.of(testCustomer));
+        when(customerDAO.selectCustomerById(customerId)).thenReturn(Optional.of(testCustomerEntity));
         when(s3Service.getObject("fitness-tracker-customers", "profile-images/1/ca4cd8f6-3487-4e79-ba0f-56e8047d5a62"))
                 .thenReturn(expectedImageData);
 
@@ -246,7 +251,7 @@ public class CustomerServiceTest {
     @Test
     void getProfilePictureCustomerDoesNotExist() {
         // Arrange: Mock behavior for a customer that does not exist.
-        int customerId = 1;
+        Long customerId = 1L;
         when(customerDAO.selectCustomerById(customerId)).thenReturn(Optional.empty());
 
         // Act and Assert: Ensure that a ResourceNotFoundException is thrown.
@@ -258,9 +263,9 @@ public class CustomerServiceTest {
     @Test
     void getProfilePictureCustomerHasNoProfileImage() {
         // Arrange: Create a test customer with no profile image.
-        int customerId = 1;
-        Customer testCustomer = new Customer(customerId, "John Doe", "johndoe@example.com", "hashedPassword", 30, Gender.MALE);
-        when(customerDAO.selectCustomerById(customerId)).thenReturn(Optional.of(testCustomer));
+        Long customerId = 1L;
+        CustomerEntity testCustomerEntity = new CustomerEntity(customerId, "John Doe", "johndoe@example.com", "hashedPassword", 30, Gender.MALE);
+        when(customerDAO.selectCustomerById(customerId)).thenReturn(Optional.of(testCustomerEntity));
 
         // Act and Assert: Ensure that a ResourceNotFoundException is thrown.
         assertThatThrownBy(() -> customerTest.getProfilePicture(customerId))

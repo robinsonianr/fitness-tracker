@@ -1,5 +1,8 @@
-package com.robinsonir.fitnesstracker.customer;
+package com.robinsonir.fitnesstracker.data.service.customer;
 
+import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDAO;
+import com.robinsonir.fitnesstracker.data.repository.customer.CustomerRowMapper;
+import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +22,7 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
     }
 
     @Override
-    public List<Customer> selectAllCustomers() {
+    public List<CustomerEntity> selectAllCustomers() {
         var sql = """
                 SELECT id, password, name, email, age, gender, profile_image_id
                 FROM customer
@@ -29,7 +32,7 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
     }
 
     @Override
-    public Optional<Customer> selectCustomerById(Integer id) {
+    public Optional<CustomerEntity> selectCustomerById(Long id) {
         var sql = """
                 SELECT id, password, name, email, age, gender, profile_image_id
                 FROM customer
@@ -41,9 +44,9 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
     }
 
     @Override
-    public void insertCustomer(Customer customer) {
+    public void insertCustomer(CustomerEntity customerEntity) {
         var sql = """
-                INSERT INTO customer(
+                INSERT INTO customer (
                 name,
                 email,
                 password,
@@ -53,11 +56,11 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
                 """;
         int result = jdbcTemplate.update(
                 sql,
-                customer.getName(),
-                customer.getEmail(),
-                customer.getPassword(),
-                customer.getAge(),
-                customer.getGender().name()
+                customerEntity.getName(),
+                customerEntity.getEmail(),
+                customerEntity.getPassword(),
+                customerEntity.getAge(),
+                customerEntity.getGender().name()
         );
 
         System.out.println("insertCustomer result: " + result + " row affected");
@@ -75,7 +78,7 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
     }
 
     @Override
-    public boolean existsCustomerById(Integer id) {
+    public boolean existsCustomerById(Long id) {
         var sql = """
                 SELECT count(id)
                 FROM customer
@@ -86,7 +89,7 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
     }
 
     @Override
-    public void deleteCustomerById(Integer customerId) {
+    public void deleteCustomerById(Long customerId) {
         var sql = """
                 DELETE
                 FROM customer
@@ -97,7 +100,7 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
     }
 
     @Override
-    public void updateCustomer(Customer update) {
+    public void updateCustomer(CustomerEntity update) {
         if (update.getName() != null) {
             String sql = "UPDATE customer SET name = ? WHERE id = ?";
             int result = jdbcTemplate.update(
@@ -105,7 +108,7 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
                     update.getName(),
                     update.getId()
             );
-            System.out.println("update customer name result: " + result + " row affected");
+            System.out.println("update customerEntity name result: " + result + " row affected");
         }
         if (update.getAge() != null) {
             String sql = "UPDATE customer SET age = ? WHERE id = ?";
@@ -114,7 +117,7 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
                     update.getAge(),
                     update.getId()
             );
-            System.out.println("update customer age result: " + result + " row affected");
+            System.out.println("update customerEntity age result: " + result + " row affected");
         }
         if (update.getEmail() != null) {
             String sql = "UPDATE customer SET email = ? WHERE id = ?";
@@ -122,12 +125,12 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
                     sql,
                     update.getEmail(),
                     update.getId());
-            System.out.println("update customer email result: " + result + " row affected");
+            System.out.println("update customerEntity email result: " + result + " row affected");
         }
     }
 
     @Override
-    public Optional<Customer> selectCustomerByUsername(String email) {
+    public Optional<CustomerEntity> selectCustomerByUsername(String email) {
         var sql = """
                 SELECT id, name, email, password, age, gender, profile_image_id
                 FROM customer
@@ -139,7 +142,7 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
     }
 
     @Override
-    public void updateCustomerProfileImageId(String profileImageId, Integer customerId) {
+    public void updateCustomerProfileImageId(String profileImageId, Long customerId) {
         var sql = """
                 UPDATE customer
                 SET profile_image_id = ?

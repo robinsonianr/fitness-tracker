@@ -1,9 +1,14 @@
-package com.robinsonir.fitnesstracker.customer;
+package com.robinsonir.fitnesstracker.data.service.customer;
 
+import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
+import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDAO;
+import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDTO;
+import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDTOMapper;
 import com.robinsonir.fitnesstracker.exception.DuplicateResourceException;
 import com.robinsonir.fitnesstracker.exception.RequestValidationException;
 import com.robinsonir.fitnesstracker.exception.ResourceNotFoundException;
 import com.robinsonir.fitnesstracker.s3.S3Service;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +32,7 @@ public class CustomerService {
 
     private final S3Service s3Service;
 
-
+    @Setter
     @Value("${s3.bucket.name}")
     private String s3Bucket;
 
@@ -49,7 +54,7 @@ public class CustomerService {
     }
 
 
-    public CustomerDTO getCustomer(Integer id) {
+    public CustomerDTO getCustomer(Long id) {
         return customerDAO.selectCustomerById(id)
                 .map(customerDTOMapper)
                 .orElseThrow(() -> new ResourceNotFoundException(
@@ -65,17 +70,17 @@ public class CustomerService {
             );
         }
 
-        Customer customer = new Customer(
+        CustomerEntity customerEntity = new CustomerEntity(
                 customerRegistrationRequest.name(),
                 customerRegistrationRequest.email(),
                 passwordEncoder.encode(customerRegistrationRequest.password()),
                 customerRegistrationRequest.age(),
                 customerRegistrationRequest.gender());
 
-        customerDAO.insertCustomer(customer);
+        customerDAO.insertCustomer(customerEntity);
     }
 
-    public void deleteCustomerById(Integer id) {
+    public void deleteCustomerById(Long id) {
         if (!customerDAO.existsCustomerById(id)) {
             throw new ResourceNotFoundException(
                     "customer with id [%s] not found".formatted(id)
@@ -85,7 +90,7 @@ public class CustomerService {
         customerDAO.deleteCustomerById(id);
     }
 
-    public void checkIfCustomerExistsOrThrow(Integer customerId) {
+    public void checkIfCustomerExistsOrThrow(Long customerId) {
         if (!customerDAO.existsCustomerById(customerId)) {
             throw new ResourceNotFoundException(
                     "customer with id [%s] not found".formatted(customerId)
@@ -93,7 +98,7 @@ public class CustomerService {
         }
     }
 
-    public void uploadCustomerProfilePicture(Integer customerId, MultipartFile file) {
+    public void uploadCustomerProfilePicture(Long customerId, MultipartFile file) {
         checkIfCustomerExistsOrThrow(customerId);
         String profileImageId = UUID.randomUUID().toString();
 
@@ -111,7 +116,7 @@ public class CustomerService {
     }
 
 
-    public byte[] getProfilePicture(Integer customerId) {
+    public byte[] getProfilePicture(Long customerId) {
         var customer = customerDAO.selectCustomerById(customerId)
                 .map(customerDTOMapper)
                 .orElseThrow(() -> new ResourceNotFoundException(
@@ -129,32 +134,32 @@ public class CustomerService {
         );
     }
 
-    public void updateCustomer(Integer id, CustomerUpdateRequest updateRequest) {
-        Customer customer = customerDAO.selectCustomerById(id)
+    public void updateCustomer(Long id, CustomerUpdateRequest updateRequest) {
+        CustomerEntity customerEntity = customerDAO.selectCustomerById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "customer with id [%s] not found".formatted(id)
                 ));
 
         boolean changes = false;
 
-        if (updateRequest.name() != null && !updateRequest.name().equals(customer.getName())) {
-            customer.setName(updateRequest.name());
+        if (updateRequest.name() != null && !updateRequest.name().equals(customerEntity.getName())) {
+            customerEntity.setName(updateRequest.name());
             changes = true;
         }
 
         if (updateRequest.email() != null &&
-                !updateRequest.email().equals(customer.getEmail())) {
+                !updateRequest.email().equals(customerEntity.getEmail())) {
             if (customerDAO.existsCustomerWithEmail(updateRequest.email())) {
                 throw new DuplicateResourceException(
                         "email already taken"
                 );
             }
-            customer.setEmail(updateRequest.email());
+            customerEntity.setEmail(updateRequest.email());
             changes = true;
         }
 
-        if (updateRequest.age() != null && !updateRequest.age().equals(customer.getAge())) {
-            customer.setAge(updateRequest.age());
+        if (updateRequest.age() != null && !updateRequest.age().equals(customerEntity.getAge())) {
+            customerEntity.setAge(updateRequest.age());
             changes = true;
         }
 
@@ -163,10 +168,7 @@ public class CustomerService {
         }
 
 
-        customerDAO.updateCustomer(customer);
+        customerDAO.updateCustomer(customerEntity);
     }
 
-    public void setS3Bucket(String s3Bucket) {
-        this.s3Bucket = s3Bucket;
-    }
 }

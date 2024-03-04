@@ -1,5 +1,8 @@
-package com.robinsonir.fitnesstracker.customer;
+package com.robinsonir.fitnesstracker.data.service.customer;
 
+import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDAO;
+import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
+import com.robinsonir.fitnesstracker.data.repository.customer.CustomerRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -17,19 +20,19 @@ public class CustomerJPADataAccessService implements CustomerDAO {
     }
 
     @Override
-    public List<Customer> selectAllCustomers() {
-        Page<Customer> page = customerRepository.findAll(Pageable.ofSize(1000));
+    public List<CustomerEntity> selectAllCustomers() {
+        Page<CustomerEntity> page = customerRepository.findAll(Pageable.ofSize(1000));
         return page.getContent();
     }
 
     @Override
-    public Optional<Customer> selectCustomerById(Integer id) {
+    public Optional<CustomerEntity> selectCustomerById(Long id) {
         return customerRepository.findById(id);
     }
 
     @Override
-    public void insertCustomer(Customer customer) {
-        customerRepository.save(customer);
+    public void insertCustomer(CustomerEntity customerEntity) {
+        customerRepository.save(customerEntity);
     }
 
     @Override
@@ -38,27 +41,27 @@ public class CustomerJPADataAccessService implements CustomerDAO {
     }
 
     @Override
-    public boolean existsCustomerById(Integer id) {
+    public boolean existsCustomerById(Long id) {
         return customerRepository.existsCustomerById(id);
     }
 
     @Override
-    public void deleteCustomerById(Integer customerId) {
+    public void deleteCustomerById(Long customerId) {
         customerRepository.deleteById(customerId);
     }
 
     @Override
-    public void updateCustomer(Customer update) {
+    public void updateCustomer(CustomerEntity update) {
         customerRepository.save(update);
     }
 
     @Override
-    public Optional<Customer> selectCustomerByUsername(String email) {
+    public Optional<CustomerEntity> selectCustomerByUsername(String email) {
         return customerRepository.findCustomerByEmail(email);
     }
 
     @Override
-    public void updateCustomerProfileImageId(String profileImageId, Integer customerId) {
+    public void updateCustomerProfileImageId(String profileImageId, Long customerId) {
         customerRepository.updateProfileImageId(profileImageId, customerId);
     }
 }

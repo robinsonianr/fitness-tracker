@@ -1,5 +1,8 @@
-package com.robinsonir.fitnesstracker.customer;
+package com.robinsonir.fitnesstracker.data.service.customer;
 
+import com.robinsonir.fitnesstracker.data.Gender;
+import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
+import com.robinsonir.fitnesstracker.data.repository.customer.CustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -30,38 +33,38 @@ class CustomerJPADataAccessServiceTest {
     @BeforeEach
     void setUp() {
         customerService = new CustomerJPADataAccessService(customerRepository);
-        List<Customer> mockCustomers = List.of(
-                new Customer(1, "John", "john@example.com", "password", 30, Gender.MALE),
-                new Customer(2, "Alice", "alice@example.com", "password", 25, Gender.FEMALE)
+        List<CustomerEntity> mockCustomerEntities = List.of(
+                new CustomerEntity(1L, "John", "john@example.com", "password", 30, Gender.MALE),
+                new CustomerEntity(2L, "Alice", "alice@example.com", "password", 25, Gender.FEMALE)
         );
 
         // Mock the findAll method of the customerRepository
-        Page<Customer> page = new PageImpl<>(mockCustomers, Pageable.unpaged(), mockCustomers.size());
+        Page<CustomerEntity> page = new PageImpl<>(mockCustomerEntities, Pageable.unpaged(), mockCustomerEntities.size());
         when(customerRepository.findAll(Pageable.ofSize(1000))).thenReturn(page);
     }
 
     @Test
     void selectAllCustomers() {
         // Call the selectAllCustomers method
-        List<Customer> customers = customerService.selectAllCustomers();
+        List<CustomerEntity> customerEntities = customerService.selectAllCustomers();
 
         // Verify that the correct number of customers is returned
-        assertEquals(2, customers.size());
+        assertEquals(2, customerEntities.size());
 
     }
 
     @Test
     void selectCustomerById() {
         // Mock the behavior of the customerRepository's findById method
-        int customerId = 1;
-        Customer expectedCustomer = new Customer(customerId, "John", "john@example.com", "password", 30, Gender.MALE);
-        when(customerRepository.findById(customerId)).thenReturn(Optional.of(expectedCustomer));
+        Long customerId = 1L;
+        CustomerEntity expectedCustomerEntity = new CustomerEntity(customerId, "John", "john@example.com", "password", 30, Gender.MALE);
+        when(customerRepository.findById(customerId)).thenReturn(Optional.of(expectedCustomerEntity));
 
         // Call the selectCustomerById method
-        Optional<Customer> result = customerService.selectCustomerById(customerId);
+        Optional<CustomerEntity> result = customerService.selectCustomerById(customerId);
 
         // Verify that the expected customer is returned
-        assertEquals(expectedCustomer, result.orElse(null));
+        assertEquals(expectedCustomerEntity, result.orElse(null));
     }
 
     @Test
@@ -80,7 +83,7 @@ class CustomerJPADataAccessServiceTest {
     @Test
     void existsCustomerById() {
         // Mock the behavior of the customerRepository's existsCustomerById method
-        Integer customerIdToCheck = 1;
+        Long customerIdToCheck = 1L;
         when(customerRepository.existsCustomerById(customerIdToCheck)).thenReturn(true);
 
         // Call the existsCustomerById method
@@ -93,7 +96,7 @@ class CustomerJPADataAccessServiceTest {
     @Test
     void deleteCustomerById() {
         // Mock the behavior of the customerRepository's deleteById method
-        Integer customerIdToDelete = 1;
+        Long customerIdToDelete = 1L;
         when(customerRepository.existsById(customerIdToDelete)).thenReturn(true);
 
         // Call the deleteCustomerById method
@@ -105,16 +108,16 @@ class CustomerJPADataAccessServiceTest {
 
     @Test
     void updateCustomer() {
-        Customer customerToUpdate = new Customer(1, "John", "john@example.com", "password", 30, Gender.MALE);
+        CustomerEntity customerEntityToUpdate = new CustomerEntity(1L, "John", "john@example.com", "password", 30, Gender.MALE);
 
         // Mock the behavior of the customerRepository's save method
-        when(customerRepository.save(customerToUpdate)).thenReturn(customerToUpdate);
+        when(customerRepository.save(customerEntityToUpdate)).thenReturn(customerEntityToUpdate);
 
         // Call the updateCustomer method
-        customerService.updateCustomer(customerToUpdate);
+        customerService.updateCustomer(customerEntityToUpdate);
 
         // Verify that the save method was called with the correct customer
-        verify(customerRepository).save(customerToUpdate);
+        verify(customerRepository).save(customerEntityToUpdate);
     }
 
     @Test
@@ -123,23 +126,23 @@ class CustomerJPADataAccessServiceTest {
         String testEmail = "john@example.com";
 
         // Create a mock customer to return
-        Customer mockCustomer = new Customer(1, "John", testEmail, "password", 30, Gender.MALE);
+        CustomerEntity mockCustomerEntity = new CustomerEntity(1L, "John", testEmail, "password", 30, Gender.MALE);
 
         // Mock the behavior of the customerRepository's findCustomerByEmail method
-        when(customerRepository.findCustomerByEmail(testEmail)).thenReturn(Optional.of(mockCustomer));
+        when(customerRepository.findCustomerByEmail(testEmail)).thenReturn(Optional.of(mockCustomerEntity));
 
         // Call the selectCustomerByUsername method
-        Optional<Customer> selectedCustomer = customerService.selectCustomerByUsername(testEmail);
+        Optional<CustomerEntity> selectedCustomer = customerService.selectCustomerByUsername(testEmail);
 
         // Verify that the expected customer is returned
-        assertEquals(mockCustomer, selectedCustomer.orElse(null));
+        assertEquals(mockCustomerEntity, selectedCustomer.orElse(null));
     }
 
     @Test
     void updateCustomerProfileImageId() {
         // Define a test profile image ID and customer ID
         String testProfileImageId = "profile123";
-        Integer testCustomerId = 1;
+        Long testCustomerId = 1L;
 
         // Call the updateCustomerProfileImageId method
         customerService.updateCustomerProfileImageId(testProfileImageId, testCustomerId);

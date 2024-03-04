@@ -34,14 +34,18 @@ const AuthProvider = ({children}: { children: any }) => {
         }
     }
     useEffect(() => {
-        setCustomerFromToken()
+        if (localStorage.getItem("access_token") !== undefined) {
+            setCustomerFromToken()
+        }
     }, [])
 
     const login = async (formData: any): Promise<void> => {
         return new Promise<void>((resolve: any, reject: any): void => {
             performLogin(formData).then(res => {
                 const jwtToken = res.headers["authorization"];
-                localStorage.setItem("access_token", jwtToken);
+                if (jwtToken !== undefined) {
+                    localStorage.setItem("access_token", jwtToken);
+                }
 
                 const decodedToken: any = jwtDecode(jwtToken);
 

@@ -50,5 +50,10 @@ spring:
     jdbc:
       repositories:
         enabled: off
-
+logging:
+  level:
+    org.springframework: debug
+    com.robinsonir.fitnesstracker: debug
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"  # Pattern for console logs
 

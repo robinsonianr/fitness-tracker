@@ -1,4 +1,4 @@
-package com.robinsonir.fitnesstracker.customer;
+package com.robinsonir.fitnesstracker.data;
 
 public enum Gender {
     MALE,

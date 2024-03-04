@@ -1,4 +1,4 @@
-package com.robinsonir.fitnesstracker.customer;
+package com.robinsonir.fitnesstracker.data.service.customer;
 
 public record CustomerUpdateRequest(
       String name,

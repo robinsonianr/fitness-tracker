@@ -1,5 +1,9 @@
-package com.robinsonir.fitnesstracker.customer;
+package com.robinsonir.fitnesstracker.api;
 
+import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDTO;
+import com.robinsonir.fitnesstracker.data.service.customer.CustomerRegistrationRequest;
+import com.robinsonir.fitnesstracker.data.service.customer.CustomerService;
+import com.robinsonir.fitnesstracker.data.service.customer.CustomerUpdateRequest;
 import com.robinsonir.fitnesstracker.security.jwt.JwtTokenUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -30,7 +34,7 @@ public class CustomerController {
 
     @GetMapping("{customerId}")
     public CustomerDTO getCustomer(
-            @PathVariable("customerId") Integer customerId) {
+            @PathVariable("customerId") Long customerId) {
         return customerService.getCustomer(customerId);
     }
 
@@ -43,13 +47,13 @@ public class CustomerController {
     }
 
     @DeleteMapping("{customerId}")
-    public void deleteCustomer(@PathVariable("customerId") Integer customerId) {
+    public void deleteCustomer(@PathVariable("customerId") Long customerId) {
         customerService.deleteCustomerById(customerId);
     }
 
     @PutMapping("{customerId}")
     public void updateCustomer(
-            @PathVariable("customerId") Integer customerId,
+            @PathVariable("customerId") Long customerId,
             @RequestBody CustomerUpdateRequest updateRequest) {
         customerService.updateCustomer(customerId, updateRequest);
     }
@@ -59,7 +63,7 @@ public class CustomerController {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
     )
     public void uploadCustomerProfileImage(
-            @PathVariable("customerId") Integer customerId,
+            @PathVariable("customerId") Long customerId,
             @RequestParam("file") MultipartFile file) {
         customerService.uploadCustomerProfilePicture(customerId, file);
     }
@@ -69,7 +73,7 @@ public class CustomerController {
             produces = MediaType.IMAGE_JPEG_VALUE
     )
     public byte[] getCustomerProfileImage(
-            @PathVariable("customerId") Integer customerId) {
+            @PathVariable("customerId") Long customerId) {
         return customerService.getProfilePicture(customerId);
     }
 

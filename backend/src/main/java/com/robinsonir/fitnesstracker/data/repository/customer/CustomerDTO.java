@@ -1,10 +1,12 @@
-package com.robinsonir.fitnesstracker.customer;
+package com.robinsonir.fitnesstracker.data.repository.customer;
+
+import com.robinsonir.fitnesstracker.data.Gender;
 
 import java.util.List;
 
 public record CustomerDTO(
 
-        Integer id,
+        Long id,
         String name,
         String email,
         Gender gender,
