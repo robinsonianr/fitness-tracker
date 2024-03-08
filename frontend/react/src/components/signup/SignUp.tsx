@@ -62,7 +62,7 @@ export const SignUp = () => {
         }
 
         await createCustomer(formData).then(() => {
-            navigate("/");
+            navigate("/login");
         });
     };
 

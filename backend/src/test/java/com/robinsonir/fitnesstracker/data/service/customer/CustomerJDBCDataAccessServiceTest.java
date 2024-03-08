@@ -1,8 +1,10 @@
 package com.robinsonir.fitnesstracker.data.service.customer;
 
+import com.robinsonir.fitnesstracker.data.JDBCDataAccessService;
 import com.robinsonir.fitnesstracker.data.Gender;
 import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
 import com.robinsonir.fitnesstracker.data.repository.customer.CustomerRowMapper;
+import com.robinsonir.fitnesstracker.data.repository.workout.WorkoutRowMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -24,17 +26,18 @@ import static org.mockito.Mockito.when;
 public class CustomerJDBCDataAccessServiceTest {
 
     private final CustomerRowMapper customerRowMapper = new CustomerRowMapper();
+    private final WorkoutRowMapper workoutRowMapper = new WorkoutRowMapper();
 
     @MockBean
     private JdbcTemplate jdbcTemplate;
 
-    private CustomerJDBCDataAccessService customerService;
+    private JDBCDataAccessService customerService;
 
 
     @BeforeEach
     void setUp() {
         // Initialize customerService here using an instance of CustomerJDBCDataAccessService
-        customerService = new CustomerJDBCDataAccessService(jdbcTemplate, customerRowMapper);
+        customerService = new JDBCDataAccessService(jdbcTemplate, workoutRowMapper, customerRowMapper);
         // Set up mock data for jdbcTemplate
         List<CustomerEntity> mockCustomerEntities = List.of(
                 new CustomerEntity(1L, "John", "john@example.com", "password", 30, Gender.MALE),

@@ -1,15 +1,13 @@
 import {createContext, useContext, useEffect, useState} from "react";
 import {login as performLogin} from "../../services/client";
 import jwtDecode from "jwt-decode";
+import {Customer} from "../../typing";
 
 
-type Customer = {
-    username: string;
-    roles: String[];
-};
+
 
 type AuthContextType = {
-    customer: Customer | null;
+    customer: Customer | undefined;
     login: (formData: any) => Promise<void>;
     logOut: () => void;
     isCustomerAuthenticated: () => boolean;
@@ -20,7 +18,7 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 const AuthProvider = ({children}: { children: any }) => {
-    const [customer, setCustomer] = useState<Customer | null>(null);
+    const [customer, setCustomer] = useState<Customer | undefined>(undefined);
 
     const setCustomerFromToken = () => {
         let token: any = localStorage.getItem("access_token");
@@ -40,30 +38,34 @@ const AuthProvider = ({children}: { children: any }) => {
     }, [])
 
     const login = async (formData: any): Promise<void> => {
-        return new Promise<void>((resolve: any, reject: any): void => {
             performLogin(formData).then(res => {
                 const jwtToken = res.headers["authorization"];
                 if (jwtToken !== undefined) {
                     localStorage.setItem("access_token", jwtToken);
                 }
+                const customerId = res.data.customerDTO.id;
+                if (customerId !== undefined) {
+                    localStorage.setItem("customerId", customerId);
+                }
 
                 const decodedToken: any = jwtDecode(jwtToken);
 
                 const customer: Customer = {
+                    id: customerId,
                     username: decodedToken.sub,
                     roles: decodedToken.scopes
                 };
                 setCustomer(customer)
-                resolve();
             }).catch(err => {
-                reject(err);
+                console.error("Login failed:", err);
+                throw err;
             })
-        })
     }
 
     const logOut = () => {
         localStorage.removeItem("access_token")
-        setCustomer(null)
+        localStorage.removeItem("customerId")
+        setCustomer(undefined)
     }
 
     const isCustomerAuthenticated = () => {

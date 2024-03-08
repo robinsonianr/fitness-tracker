@@ -17,6 +17,17 @@ export const getCustomers = async () => {
     }
 };
 
+export const getCustomer = async (id: number) => {
+    try {
+        return await axios.get(
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/customers/${id}`,
+            getAuthConfig(),
+        )
+    } catch (e) {
+        throw e
+    }
+};
+
 export const login = async (formData: any) => {
     // ${import.meta.env.VITE_API_BASE_URL}
 
@@ -46,10 +57,7 @@ export const createCustomer = async (formData: any) => {
         return await axios.post(
             `${import.meta.env.VITE_API_BASE_URL}/api/v1/customers`,
             formData
-        ).then(res => {
-            const token = res.headers["authorization"];
-            localStorage.setItem("access_token", token);
-        })
+        )
     } catch (e) {
         throw e;
     }

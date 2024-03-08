@@ -1,8 +1,11 @@
-package com.robinsonir.fitnesstracker.data.service.customer;
+package com.robinsonir.fitnesstracker.data;
 
+import com.robinsonir.fitnesstracker.data.entity.workout.WorkoutEntity;
 import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDAO;
 import com.robinsonir.fitnesstracker.data.repository.customer.CustomerRowMapper;
 import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
+import com.robinsonir.fitnesstracker.data.repository.workout.WorkoutDAO;
+import com.robinsonir.fitnesstracker.data.repository.workout.WorkoutRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -10,15 +13,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository("jdbc")
-public class CustomerJDBCDataAccessService implements CustomerDAO {
+public class JDBCDataAccessService implements CustomerDAO, WorkoutDAO {
 
     private final JdbcTemplate jdbcTemplate;
     private final CustomerRowMapper customerRowMapper;
+    private final WorkoutRowMapper workoutRowMapper;
 
-    public CustomerJDBCDataAccessService(JdbcTemplate jdbcTemplate,
-                                         CustomerRowMapper customerRowMapper) {
+    public JDBCDataAccessService(JdbcTemplate jdbcTemplate,
+                                 WorkoutRowMapper workoutRowMapper,
+                                 CustomerRowMapper customerRowMapper) {
         this.jdbcTemplate = jdbcTemplate;
         this.customerRowMapper = customerRowMapper;
+        this.workoutRowMapper = workoutRowMapper;
     }
 
     @Override
@@ -150,5 +156,80 @@ public class CustomerJDBCDataAccessService implements CustomerDAO {
                 """;
         int result = jdbcTemplate.update(sql, profileImageId, customerId);
         System.out.println("updateCustomerProfileImageId result: " + result + " row affected");
+    }
+    @Override
+    public List<WorkoutEntity> selectAllWorkouts() {
+        var sql = """
+                SELECT id, customer_id, workout_type, calories, duration_minutes FROM workout
+                """;
+
+        return jdbcTemplate.query(sql, workoutRowMapper);
+    }
+
+    @Override
+    public Optional<WorkoutEntity> selectWorkoutById(Long id) {
+        var sql = """
+                SELECT *
+                FROM workout
+                WHERE id = ?
+                """;
+        return jdbcTemplate.query(sql, workoutRowMapper, id)
+                .stream()
+                .findFirst();
+    }
+
+    @Override
+    public void insertWorkout(WorkoutEntity workoutEntity) {
+        var sql = """
+                INSERT INTO workout (
+                customer_id,
+                workout_type,
+                calories,
+                duration_minutes)
+                VALUES (?, ?, ?, ?)
+                """;
+        int result = jdbcTemplate.update(
+                sql,
+                workoutEntity.getCustomer().getId(),
+                workoutEntity.getWorkoutType(),
+                workoutEntity.getCalories(),
+                workoutEntity.getDurationMinutes()
+
+        );
+        System.out.println("insertWorkout result: " + result + " row affected");
+    }
+
+    @Override
+    public boolean existsWorkoutEntityById(Long id) {
+        var sql = """
+                SELECT count(id)
+                FROM workout
+                WHERE id = ?
+                """;
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, id);
+        return count != null && count > 0;
+    }
+
+    @Override
+    public boolean existsWorkoutEntityByCustomer(CustomerEntity customer) {
+        var sql = """
+                SELECT count(id)
+                FROM workout
+                WHERE customer = ?
+                """;
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, customer);
+        return count != null && count > 0;
+    }
+
+
+    @Override
+    public void deleteWorkoutById(Long id) {
+        var sql = """
+                DELETE
+                FROM workout
+                WHERE id = ?
+                """;
+        int result = jdbcTemplate.update(sql, id);
+        System.out.println("deleteCustomerById result: " + result + " row affected");
     }
 }

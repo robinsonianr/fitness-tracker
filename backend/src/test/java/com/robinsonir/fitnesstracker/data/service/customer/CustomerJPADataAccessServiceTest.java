@@ -1,8 +1,10 @@
 package com.robinsonir.fitnesstracker.data.service.customer;
 
+import com.robinsonir.fitnesstracker.data.JPADataAccessService;
 import com.robinsonir.fitnesstracker.data.Gender;
 import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
 import com.robinsonir.fitnesstracker.data.repository.customer.CustomerRepository;
+import com.robinsonir.fitnesstracker.data.repository.workout.WorkoutRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -24,15 +26,17 @@ import static org.mockito.Mockito.when;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class CustomerJPADataAccessServiceTest {
 
-    private CustomerJPADataAccessService customerService;
+    private JPADataAccessService customerService;
 
     @MockBean
     private CustomerRepository customerRepository;
 
+    @MockBean
+    private WorkoutRepository workoutRepository;
 
     @BeforeEach
     void setUp() {
-        customerService = new CustomerJPADataAccessService(customerRepository);
+        customerService = new JPADataAccessService(customerRepository, workoutRepository);
         List<CustomerEntity> mockCustomerEntities = List.of(
                 new CustomerEntity(1L, "John", "john@example.com", "password", 30, Gender.MALE),
                 new CustomerEntity(2L, "Alice", "alice@example.com", "password", 25, Gender.FEMALE)
