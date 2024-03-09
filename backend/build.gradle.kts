@@ -44,10 +44,12 @@ dependencies {
     implementation("software.amazon.awssdk:ssooidc")
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
     implementation("org.apache.commons:commons-lang3:3.13.0")
+    implementation("org.projectlombok:lombok:1.18.30")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.mockito:mockito-inline:5.2.0")
+    annotationProcessor("org.projectlombok:lombok:1.18.30") // Add Lombok annotation processor dependency
 }
 
 tasks.withType<KotlinCompile> {

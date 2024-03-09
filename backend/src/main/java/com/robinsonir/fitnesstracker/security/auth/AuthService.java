@@ -1,8 +1,8 @@
 package com.robinsonir.fitnesstracker.security.auth;
 
-import com.robinsonir.fitnesstracker.customer.Customer;
-import com.robinsonir.fitnesstracker.customer.CustomerDTO;
-import com.robinsonir.fitnesstracker.customer.CustomerDTOMapper;
+import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDTO;
+import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDTOMapper;
+import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
 import com.robinsonir.fitnesstracker.security.jwt.JwtTokenUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,7 +30,7 @@ public class AuthService {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.username(),
                         request.password()));
-        Customer principal = (Customer) authentication.getPrincipal();
+        CustomerEntity principal = (CustomerEntity) authentication.getPrincipal();
         CustomerDTO customerDTO = customerDTOMapper.apply(principal);
         var token = jwtUtil.generateToken(customerDTO.username(), customerDTO.roles());
         return new AuthResponse(token, customerDTO);

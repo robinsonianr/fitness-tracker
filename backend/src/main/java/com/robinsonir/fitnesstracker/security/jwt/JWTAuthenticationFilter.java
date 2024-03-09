@@ -1,6 +1,6 @@
 package com.robinsonir.fitnesstracker.security.jwt;
 
-import com.robinsonir.fitnesstracker.customer.CustomerUserDetailService;
+import com.robinsonir.fitnesstracker.data.service.customer.CustomerUserDetailService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

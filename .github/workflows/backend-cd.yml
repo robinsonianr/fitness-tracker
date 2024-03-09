@@ -43,6 +43,9 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 7.6.1
+      - name: Create fit_tracker schema
+        run: |
+          echo "CREATE SCHEMA IF NOT EXISTS fit_tracker;" | PGPASSWORD=${{ env.POSTGRESQL_PASSWORD }} psql -h localhost -U ${{ env.POSTGRESQL_USER }} ${{ env.POSTGRESQL_DB }}
       - name: Build with Gradle
         run: gradle clean build
       - name: Build the Docker image
