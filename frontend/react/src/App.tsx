@@ -1,6 +1,5 @@
-// @ts-ignore
 import React from "react";
-import './App.css';
+import "./App.css";
 import {createBrowserRouter, Navigate} from "react-router-dom";
 import Dashboard from "./components/dashboard/Dashboard";
 import SignUp from "./components/signup/SignUp";
@@ -27,8 +26,8 @@ export const router = createBrowserRouter([
         element: <ProtectedRoute><Dashboard /></ProtectedRoute>
     },
     {
-        path: `/profile/:id`,
+        path: "/profile/:id",
         element: <ProtectedRoute><Profile /></ProtectedRoute>
     }
-])
+]);
 

@@ -1,3 +1,4 @@
+import React from "react";
 import {createContext, useContext, useEffect, useState} from "react";
 import {login as performLogin} from "../../services/client";
 import jwtDecode from "jwt-decode";
@@ -28,45 +29,45 @@ const AuthProvider = ({children}: { children: any }) => {
                 username: token.sub,
                 roles: token.scopes
             };
-            setCustomer(customer)
+            setCustomer(customer);
         }
-    }
+    };
     useEffect(() => {
         if (localStorage.getItem("access_token") !== undefined) {
-            setCustomerFromToken()
+            setCustomerFromToken();
         }
-    }, [])
+    }, []);
 
     const login = async (formData: any): Promise<void> => {
-            performLogin(formData).then(res => {
-                const jwtToken = res.headers["authorization"];
-                if (jwtToken !== undefined) {
-                    localStorage.setItem("access_token", jwtToken);
-                }
-                const customerId = res.data.customerDTO.id;
-                if (customerId !== undefined) {
-                    localStorage.setItem("customerId", customerId);
-                }
+        performLogin(formData).then(res => {
+            const jwtToken = res.headers["authorization"];
+            if (jwtToken !== undefined) {
+                localStorage.setItem("access_token", jwtToken);
+            }
+            const customerId = res.data.customerDTO.id;
+            if (customerId !== undefined) {
+                localStorage.setItem("customerId", customerId);
+            }
 
-                const decodedToken: any = jwtDecode(jwtToken);
+            const decodedToken: any = jwtDecode(jwtToken);
 
-                const customer: Customer = {
-                    id: customerId,
-                    username: decodedToken.sub,
-                    roles: decodedToken.scopes
-                };
-                setCustomer(customer)
-            }).catch(err => {
-                console.error("Login failed:", err);
-                throw err;
-            })
-    }
+            const customer: Customer = {
+                id: customerId,
+                username: decodedToken.sub,
+                roles: decodedToken.scopes
+            };
+            setCustomer(customer);
+        }).catch(err => {
+            console.error("Login failed:", err);
+            throw err;
+        });
+    };
 
     const logOut = () => {
-        localStorage.removeItem("access_token")
-        localStorage.removeItem("customerId")
-        setCustomer(undefined)
-    }
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("customerId");
+        setCustomer(undefined);
+    };
 
     const isCustomerAuthenticated = () => {
         const token = localStorage.getItem("access_token");
@@ -74,13 +75,13 @@ const AuthProvider = ({children}: { children: any }) => {
             return false;
         }
         const decodeToken: any = jwtDecode(token);
-        const expiration = decodeToken.exp
+        const expiration = decodeToken.exp;
         if (Date.now() > expiration * 1000) {
-            logOut()
+            logOut();
             return false;
         }
         return true;
-    }
+    };
 
     return (
         <AuthContext.Provider value={{
@@ -93,14 +94,14 @@ const AuthProvider = ({children}: { children: any }) => {
         }}>
             {children}
         </AuthContext.Provider>
-    )
-}
+    );
+};
 
 
 export const useAuth = (): AuthContextType => {
     const context = useContext(AuthContext);
     if (!context) {
-        throw new Error('useAuth must be used within an AuthProvider');
+        throw new Error("useAuth must be used within an AuthProvider");
     }
     return context;
 };

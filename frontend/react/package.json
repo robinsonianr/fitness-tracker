@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "start": "vite --host",
-    "build": "vite build"
+    "build": "vite build",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix --ext .ts,.tsx ."
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",

@@ -1,5 +1,6 @@
+import React from "react";
 import {useState} from "react";
-import "./signup.scss"
+import "./signup.scss";
 import {useNavigate} from "react-router-dom";
 import {createCustomer} from "../../services/client";
 
@@ -25,15 +26,15 @@ export const SignUp = () => {
         "gender": ""
     });
 
-    const [passwordError, setPasswordError] = useState("")
-    const [selectError, setSelectError] = useState("")
+    const [passwordError, setPasswordError] = useState("");
+    const [selectError, setSelectError] = useState("");
 
     const navigate = useNavigate();
 
 
     const handleChange = (event: { target: { name: any; value: any; }; }) => {
         const {name, value} = event.target;
-        setFormData((prevFormData) => ({...prevFormData, [name]: value}))
+        setFormData((prevFormData) => ({...prevFormData, [name]: value}));
 
         if (name === "password") {
             if (value.length >= 6) {
@@ -52,8 +53,8 @@ export const SignUp = () => {
         e.preventDefault();
 
         if (formData.password.length < 6) {
-                setPasswordError("Password must be at least 6 characters long");
-                return;
+            setPasswordError("Password must be at least 6 characters long");
+            return;
         }
 
         if (formData.age === "" || formData.gender === "") {
@@ -78,10 +79,10 @@ export const SignUp = () => {
                         <input type="text" id="name" name="name" value={formData.name} onChange={handleChange}/>
                         <label htmlFor="email">Email</label>
                         <input type="text" id="email" name="email" value={formData.email}
-                               onChange={handleChange}/>
+                            onChange={handleChange}/>
                         <label htmlFor="password">Password</label>
                         <input type="password" id="password" name="password" value={formData.password}
-                               onChange={handleChange}/>
+                            onChange={handleChange}/>
                         {passwordError && (<span style={{ fontSize: "10px", color: "red" }}>{passwordError}</span>)}
                     </div>
                     <div className="form-group inline">

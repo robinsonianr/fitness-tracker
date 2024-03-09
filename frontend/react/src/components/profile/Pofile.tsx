@@ -1,6 +1,5 @@
-// @ts-ignore
 import React, {useEffect, useState} from "react";
-import "./profile.scss"
+import "./profile.scss";
 import {Customer} from "../../typing";
 import {getCustomer} from "../../services/client";
 
@@ -9,8 +8,8 @@ export const Profile = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // @ts-ignore
-                const customerId = parseInt(localStorage.getItem("customerId"), 10);
+                const id = localStorage.getItem("customerId")!;
+                const customerId = parseInt(id, 10);
                 const response = await getCustomer(customerId);
                 setCustomer(response.data);
                 console.log(response.data);
@@ -19,7 +18,7 @@ export const Profile = () => {
             }
         };
 
-        fetchData()
+        fetchData();
     }, []);
 
     return (

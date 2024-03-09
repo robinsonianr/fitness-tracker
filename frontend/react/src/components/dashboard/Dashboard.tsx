@@ -1,9 +1,8 @@
-// @ts-ignore
 import React, {useEffect, useState} from "react";
-import "./dashboard.scss"
+import "./dashboard.scss";
 import Header from "../../components/header/Header";
 import {Customer} from "../../typing";
-import {getCustomer} from '../../services/client';
+import {getCustomer} from "../../services/client";
 
 
 export const Dashboard = () => {
@@ -11,17 +10,18 @@ export const Dashboard = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // @ts-ignore
-                const customerId = parseInt(localStorage.getItem("customerId"), 10);
+                const id = localStorage.getItem("customerId")!;
+                const customerId = parseInt(id, 10);
                 const response = await getCustomer(customerId);
                 console.log(response.data);
+
                 setCustomer(response.data);
             } catch (error) {
                 console.error("Could not retrieve customer: ", error);
             }
         };
 
-        fetchData()
+        fetchData();
     }, []);
     return (
         <div>
