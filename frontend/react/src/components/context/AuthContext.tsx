@@ -60,7 +60,6 @@ const AuthProvider = ({children}: { children: any }) => {
             setCustomer(customer);
         }).catch(err => {
             console.error("Login failed:", err);
-            throw err;
         });
     };
 

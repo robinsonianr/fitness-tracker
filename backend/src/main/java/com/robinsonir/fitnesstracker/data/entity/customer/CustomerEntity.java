@@ -54,7 +54,7 @@ public class CustomerEntity extends AbstractEntity implements UserDetails {
     @Column(name = "activity")
     private String activity;
 
-    @Column(name = "bodt_fat")
+    @Column(name = "body_fat")
     private Integer bodyFat;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
