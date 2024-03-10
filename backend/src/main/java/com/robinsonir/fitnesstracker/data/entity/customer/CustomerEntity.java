@@ -40,12 +40,25 @@ public class CustomerEntity extends AbstractEntity implements UserDetails {
     private String password;
 
     @Column(name = "profile_image_id", unique = true)
-
     private String profileImageId;
+
+    @Column(name = "weight")
+    private Integer weight;
+
+    @Column(name = "height")
+    private Integer height;
+
+    @Column(name = "weight_goal")
+    private Integer weightGoal;
+
+    @Column(name = "activity")
+    private String activity;
+
+    @Column(name = "bodt_fat")
+    private Integer bodyFat;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<WorkoutEntity> customerWorkouts;
-
     public CustomerEntity(Long id, String name, String email, String password, int age, Gender gender, String profileImageId) {
         setId(id);
         this.name = name;

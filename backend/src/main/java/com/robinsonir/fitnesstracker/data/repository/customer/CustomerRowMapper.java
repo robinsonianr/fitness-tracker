@@ -24,24 +24,31 @@ public class CustomerRowMapper implements RowMapper<CustomerEntity> {
                 Gender.valueOf(rs.getString("gender")),
                 rs.getString("profile_image_id"));
 
-        // Initialize list to store WorkoutEntity objects
-        List<WorkoutEntity> workouts = new ArrayList<>();
 
-        // Iterate over the result set to retrieve WorkoutEntity data
-        do {
-            Long workoutId = rs.getLong("workout_id");
-            // Check if a workout exists
-            WorkoutEntity workout = new WorkoutEntity();
-            workout.setId(workoutId);
-            workout.setWorkoutType(rs.getString("workout_type"));
-            workout.setCalories(rs.getInt("calories"));
-            workout.setDurationMinutes(rs.getInt("duration_minutes"));
-            // Add the workout to the list
-            workouts.add(workout);
-        } while (rs.next());
+        List<WorkoutEntity> workouts;
 
-        // Set the list of workouts to the customer
-        customer.setCustomerWorkouts(workouts);
+        if (rs.getLong("workout_id") > 0 && !rs.wasNull()) {
+            // Initialize list to store WorkoutEntity objects
+            workouts = new ArrayList<>();
+
+            // Iterate over the result set to retrieve WorkoutEntity data
+            do {
+                Long workoutId = rs.getLong("workout_id");
+                // Check if a workout exists
+                WorkoutEntity workout = new WorkoutEntity();
+                workout.setId(workoutId);
+                workout.setWorkoutType(rs.getString("workout_type"));
+                workout.setCalories(rs.getInt("calories"));
+                workout.setDurationMinutes(rs.getInt("duration_minutes"));
+                // Add the workout to the list
+                workouts.add(workout);
+            } while (rs.next());
+
+            // Set the list of workouts to the customer
+            customer.setCustomerWorkouts(workouts);
+        } else {
+            customer.setCustomerWorkouts(new ArrayList<>());
+        }
 
         return customer;
     }
