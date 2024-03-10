@@ -30,8 +30,10 @@ public class JDBCDataAccessService implements CustomerDAO, WorkoutDAO {
     @Override
     public List<CustomerEntity> selectAllCustomers() {
         var sql = """
-                SELECT id, password, name, email, age, gender, profile_image_id
-                FROM customer
+                SELECT c.id, c.password, c.name, c.email, c.age, c.gender, c.profile_image_id,
+                w.id as workout_id,  w.workout_type, w.calories, w.duration_minutes
+                FROM fit_tracker.customer c
+                LEFT JOIN fit_tracker.workout w ON c.id = w.customer_id
                 """;
 
         return jdbcTemplate.query(sql, customerRowMapper);
@@ -42,8 +44,8 @@ public class JDBCDataAccessService implements CustomerDAO, WorkoutDAO {
         var sql = """
                 SELECT c.id, c.password, c.name, c.email, c.age, c.gender, c.profile_image_id,
                 w.id as workout_id,  w.workout_type, w.calories, w.duration_minutes
-                FROM customer c
-                LEFT JOIN workout w ON c.id = w.customer_id
+                FROM fit_tracker.customer c
+                LEFT JOIN fit_tracker.workout w ON c.id = w.customer_id
                 WHERE c.id = ?;
                 """;
         return jdbcTemplate.query(sql, customerRowMapper, id)
@@ -54,7 +56,7 @@ public class JDBCDataAccessService implements CustomerDAO, WorkoutDAO {
     @Override
     public void insertCustomer(CustomerEntity customerEntity) {
         var sql = """
-                INSERT INTO customer (
+                INSERT INTO fit_tracker.customer (
                 name,
                 email,
                 password,
@@ -78,7 +80,7 @@ public class JDBCDataAccessService implements CustomerDAO, WorkoutDAO {
     public boolean existsCustomerWithEmail(String email) {
         var sql = """
                 SELECT count(id)
-                FROM customer
+                FROM fit_tracker.customer
                 WHERE email = ?
                 """;
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, email);
@@ -89,7 +91,7 @@ public class JDBCDataAccessService implements CustomerDAO, WorkoutDAO {
     public boolean existsCustomerById(Long id) {
         var sql = """
                 SELECT count(id)
-                FROM customer
+                FROM fit_tracker.customer
                 WHERE id = ?
                 """;
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, id);
@@ -100,7 +102,7 @@ public class JDBCDataAccessService implements CustomerDAO, WorkoutDAO {
     public void deleteCustomerById(Long customerId) {
         var sql = """
                 DELETE
-                FROM customer
+                FROM fit_tracker.customer
                 WHERE id = ?
                 """;
         int result = jdbcTemplate.update(sql, customerId);
@@ -110,7 +112,7 @@ public class JDBCDataAccessService implements CustomerDAO, WorkoutDAO {
     @Override
     public void updateCustomer(CustomerEntity update) {
         if (update.getName() != null) {
-            String sql = "UPDATE customer SET name = ? WHERE id = ?";
+            String sql = "UPDATE fit_tracker.customer SET name = ? WHERE id = ?";
             int result = jdbcTemplate.update(
                     sql,
                     update.getName(),
@@ -119,7 +121,7 @@ public class JDBCDataAccessService implements CustomerDAO, WorkoutDAO {
             System.out.println("update customerEntity name result: " + result + " row affected");
         }
         if (update.getAge() != null) {
-            String sql = "UPDATE customer SET age = ? WHERE id = ?";
+            String sql = "UPDATE fit_tracker.customer SET age = ? WHERE id = ?";
             int result = jdbcTemplate.update(
                     sql,
                     update.getAge(),
@@ -128,7 +130,7 @@ public class JDBCDataAccessService implements CustomerDAO, WorkoutDAO {
             System.out.println("update customerEntity age result: " + result + " row affected");
         }
         if (update.getEmail() != null) {
-            String sql = "UPDATE customer SET email = ? WHERE id = ?";
+            String sql = "UPDATE fit_tracker.customer SET email = ? WHERE id = ?";
             int result = jdbcTemplate.update(
                     sql,
                     update.getEmail(),
@@ -141,7 +143,7 @@ public class JDBCDataAccessService implements CustomerDAO, WorkoutDAO {
     public Optional<CustomerEntity> selectCustomerByUsername(String email) {
         var sql = """
                 SELECT id, name, email, password, age, gender, profile_image_id
-                FROM customer
+                FROM fit_tracker.customer
                 WHERE email = ?
                 """;
         return jdbcTemplate.query(sql, customerRowMapper, email)
@@ -152,7 +154,7 @@ public class JDBCDataAccessService implements CustomerDAO, WorkoutDAO {
     @Override
     public void updateCustomerProfileImageId(String profileImageId, Long customerId) {
         var sql = """
-                UPDATE customer
+                UPDATE fit_tracker.customer
                 SET profile_image_id = ?
                 WHERE id = ?
                 """;
@@ -162,7 +164,7 @@ public class JDBCDataAccessService implements CustomerDAO, WorkoutDAO {
     @Override
     public List<WorkoutEntity> selectAllWorkouts() {
         var sql = """
-                SELECT id, customer_id, workout_type, calories, duration_minutes FROM workout
+                SELECT id, customer_id, workout_type, calories, duration_minutes FROM fit_tracker.workout
                 """;
 
         return jdbcTemplate.query(sql, workoutRowMapper);
@@ -172,7 +174,7 @@ public class JDBCDataAccessService implements CustomerDAO, WorkoutDAO {
     public Optional<WorkoutEntity> selectWorkoutById(Long id) {
         var sql = """
                 SELECT *
-                FROM workout
+                FROM fit_tracker.workout
                 WHERE id = ?
                 """;
         return jdbcTemplate.query(sql, workoutRowMapper, id)
@@ -183,7 +185,7 @@ public class JDBCDataAccessService implements CustomerDAO, WorkoutDAO {
     @Override
     public void insertWorkout(WorkoutEntity workoutEntity) {
         var sql = """
-                INSERT INTO workout (
+                INSERT INTO fit_tracker.workout (
                 customer_id,
                 workout_type,
                 calories,
@@ -205,7 +207,7 @@ public class JDBCDataAccessService implements CustomerDAO, WorkoutDAO {
     public boolean existsWorkoutEntityById(Long id) {
         var sql = """
                 SELECT count(id)
-                FROM workout
+                FROM fit_tracker.workout
                 WHERE id = ?
                 """;
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, id);
@@ -216,7 +218,7 @@ public class JDBCDataAccessService implements CustomerDAO, WorkoutDAO {
     public boolean existsWorkoutEntityByCustomer(CustomerEntity customer) {
         var sql = """
                 SELECT count(id)
-                FROM workout
+                FROM fit_tracker.workout
                 WHERE customer = ?
                 """;
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, customer);
@@ -228,7 +230,7 @@ public class JDBCDataAccessService implements CustomerDAO, WorkoutDAO {
     public void deleteWorkoutById(Long id) {
         var sql = """
                 DELETE
-                FROM workout
+                FROM fit_tracker.workout
                 WHERE id = ?
                 """;
         int result = jdbcTemplate.update(sql, id);

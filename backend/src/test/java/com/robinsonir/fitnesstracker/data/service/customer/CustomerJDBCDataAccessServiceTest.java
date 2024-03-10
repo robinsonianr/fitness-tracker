@@ -157,7 +157,7 @@ public class CustomerJDBCDataAccessServiceTest {
 
         String sql = """
                 DELETE
-                FROM customer
+                FROM fit_tracker.customer
                 WHERE id = ?
                 """;
 
@@ -184,7 +184,7 @@ public class CustomerJDBCDataAccessServiceTest {
 
         // Verify that the jdbcTemplate.update method was called with the correct SQL and parameters
         verify(jdbcTemplate).update(
-                "UPDATE customer SET name = ? WHERE id = ?",
+                "UPDATE fit_tracker.customer SET name = ? WHERE id = ?",
                 updatedCustomerEntity.getName(),
                 customerIdToUpdate);
 
@@ -228,7 +228,7 @@ public class CustomerJDBCDataAccessServiceTest {
         // Verify that the update method was called with the correct SQL and parameters
         verify(jdbcTemplate).update(
                 """
-                        UPDATE customer
+                        UPDATE fit_tracker.customer
                         SET profile_image_id = ?
                         WHERE id = ?
                         """,
