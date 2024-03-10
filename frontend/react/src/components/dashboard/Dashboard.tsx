@@ -13,7 +13,6 @@ export const Dashboard = () => {
                 const id = localStorage.getItem("customerId")!;
                 const customerId = parseInt(id, 10);
                 const response = await getCustomer(customerId);
-                console.log(response.data);
 
                 setCustomer(response.data);
             } catch (error) {
