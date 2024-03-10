@@ -43,14 +43,12 @@ public class SecurityFilterChainConfig {
                         HttpMethod.POST,
                         "/api/v1/customers",
                         "/api/v1/auth/login",
-                        "/api/v1/workouts"
                 )
                 .permitAll()
                 .requestMatchers(
                         HttpMethod.GET,
                         "/ping",
                         "/api/v1/customers/*/profile-image",
-                        "/api/v1/workouts"
                 )
                 .permitAll()
                 .requestMatchers(HttpMethod.GET, "/actuator/**")
