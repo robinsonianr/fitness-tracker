@@ -3,6 +3,17 @@ server:
     include-message: always
     include-binding-errors: always
 
+management:
+  endpoints:
+    web:
+      cors:
+        allowed-headers: "*"
+        allowed-methods: "*"
+        allowed-origins: "*"
+        exposed-headers: "*"
+      exposure:
+        include: "health,info"
+
 s3:
   region:
     name: us-east-1
