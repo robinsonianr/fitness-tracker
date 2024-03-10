@@ -2,6 +2,7 @@ package com.robinsonir.fitnesstracker.data.service.customer;
 
 import com.robinsonir.fitnesstracker.data.Gender;
 import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
+import com.robinsonir.fitnesstracker.data.entity.workout.WorkoutEntity;
 import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDAO;
 import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDTO;
 import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDTOMapper;
@@ -18,6 +19,8 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -62,7 +65,10 @@ public class CustomerServiceTest {
     void testGetCustomer() {
         // Arrange: Create a test customer instance and mock behavior.
         Long id = 1L;
+        List<WorkoutEntity> workouts = new ArrayList<>();
         CustomerEntity testCustomerEntity = new CustomerEntity(id, "John Doe", "johndoe@example.com", "hashedPassword", 30, Gender.MALE);
+        workouts.add(new WorkoutEntity());
+        testCustomerEntity.setCustomerWorkouts(workouts);
         when(customerDAO.selectCustomerById(id)).thenReturn(Optional.of(testCustomerEntity));
 
         CustomerDTO expected = customerDTOMapper.apply(testCustomerEntity);
@@ -233,9 +239,12 @@ public class CustomerServiceTest {
         Long customerId = 1L;
         String profileImageId = "ca4cd8f6-3487-4e79-ba0f-56e8047d5a62";
         byte[] expectedImageData = "Hello World".getBytes();
+        List<WorkoutEntity> workouts = new ArrayList<>();
 
         CustomerEntity testCustomerEntity = new CustomerEntity(customerId, "John Doe", "johndoe@example.com", "hashedPassword", 30, Gender.MALE);
         testCustomerEntity.setProfileImageId(profileImageId);
+        workouts.add(new WorkoutEntity());
+        testCustomerEntity.setCustomerWorkouts(workouts);
 
         when(customerDAO.selectCustomerById(customerId)).thenReturn(Optional.of(testCustomerEntity));
         when(s3Service.getObject("fitness-tracker-customers", "profile-images/1/ca4cd8f6-3487-4e79-ba0f-56e8047d5a62"))
@@ -264,7 +273,10 @@ public class CustomerServiceTest {
     void getProfilePictureCustomerHasNoProfileImage() {
         // Arrange: Create a test customer with no profile image.
         Long customerId = 1L;
+        List<WorkoutEntity> workouts = new ArrayList<>();
         CustomerEntity testCustomerEntity = new CustomerEntity(customerId, "John Doe", "johndoe@example.com", "hashedPassword", 30, Gender.MALE);
+        workouts.add(new WorkoutEntity());
+        testCustomerEntity.setCustomerWorkouts(workouts);
         when(customerDAO.selectCustomerById(customerId)).thenReturn(Optional.of(testCustomerEntity));
 
         // Act and Assert: Ensure that a ResourceNotFoundException is thrown.
