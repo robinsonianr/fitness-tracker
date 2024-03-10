@@ -40,10 +40,12 @@ const AuthProvider = ({children}: { children: any }) => {
 
     const login = async (formData: any): Promise<void> => {
         performLogin(formData).then(res => {
+            console.log(res.data.customerDTO);
             const jwtToken = res.headers["authorization"];
             if (jwtToken !== undefined) {
                 localStorage.setItem("access_token", jwtToken);
             }
+
             const customerId = res.data.customerDTO.id;
             if (customerId !== undefined) {
                 localStorage.setItem("customerId", customerId);

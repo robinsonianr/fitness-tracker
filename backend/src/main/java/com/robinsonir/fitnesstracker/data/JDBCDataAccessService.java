@@ -40,9 +40,11 @@ public class JDBCDataAccessService implements CustomerDAO, WorkoutDAO {
     @Override
     public Optional<CustomerEntity> selectCustomerById(Long id) {
         var sql = """
-                SELECT id, password, name, email, age, gender, profile_image_id
-                FROM customer
-                WHERE id = ?
+                SELECT c.id, c.password, c.name, c.email, c.age, c.gender, c.profile_image_id,
+                w.id as workout_id,  w.workout_type, w.calories, w.duration_minutes
+                FROM customer c
+                LEFT JOIN workout w ON c.id = w.customer_id
+                WHERE c.id = ?;
                 """;
         return jdbcTemplate.query(sql, customerRowMapper, id)
                 .stream()

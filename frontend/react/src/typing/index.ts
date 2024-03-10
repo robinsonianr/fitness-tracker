@@ -7,7 +7,7 @@ export interface Customer {
     roles?: string[]
     username?: string
     profileImageId?: string
-    customerWorkouts?: Workout[]
+    workouts?: Workout[]
 }
 
 
