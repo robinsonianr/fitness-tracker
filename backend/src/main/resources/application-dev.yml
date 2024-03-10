@@ -32,6 +32,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+        default_schema: fit_tracker
     show-sql: true
   main:
     web-application-type: servlet
