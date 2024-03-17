@@ -1,35 +1,15 @@
-header {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.dashboard-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #3f76c0;
-  padding: 20px;
+  align-items: center; /* Vertically center items */
 }
 
-h1 {
-  text-align: center;
-  color: white;
-}
 
-h1.home-title {
-  color: black;
-}
 
-nav {
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
 
-    li {
-      display: inline-block;
-      margin-right: 10px;
 
-      a {
-        text-decoration: none;
-        color: white;
-      }
-    }
-  }
-}
