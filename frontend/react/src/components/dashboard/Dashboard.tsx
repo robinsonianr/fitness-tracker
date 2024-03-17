@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import "./dashboard.scss";
-import Header from "../../components/header/Header";
 import {Customer} from "../../typing";
 import {getCustomer} from "../../services/client";
+import Sidebar from "../sidebar/Sidebar.tsx";
+import Navbar from "../navbar/Navbar.tsx";
 
 
 export const Dashboard = () => {
@@ -23,11 +24,13 @@ export const Dashboard = () => {
         fetchData();
     }, []);
     return (
-        <div>
-            <Header title="Fit Track"/>
-            Welcome {customer?.name}!
+        <div className="dashboardContainer">
+            <Sidebar/>
+            <Navbar title={"Dashboard"} name={customer?.name}/>
         </div>
     );
+
+
 };
 
 export default Dashboard;

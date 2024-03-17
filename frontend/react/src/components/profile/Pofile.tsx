@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import "./profile.scss";
 import {Customer} from "../../typing";
 import {getCustomer} from "../../services/client";
+import Sidebar from "../sidebar/Sidebar.tsx";
+import Navbar from "../navbar/Navbar.tsx";
 
 export const Profile = () => {
     const [customer, setCustomer] = useState<Customer | undefined>(undefined);
@@ -22,10 +24,9 @@ export const Profile = () => {
     }, []);
 
     return (
-        <div>
-            <h1>
-                Hello {customer?.name}
-            </h1>
+        <div className="profileContainer">
+            <Sidebar/>
+            <Navbar title={"Profile"} name={customer?.name}/>
         </div>
     );
 };

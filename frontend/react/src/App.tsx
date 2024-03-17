@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
         element: <ProtectedRoute><Dashboard /></ProtectedRoute>
     },
     {
-        path: "/profile/:id",
+        path: "/:id/profile",
         element: <ProtectedRoute><Profile /></ProtectedRoute>
     }
 ]);

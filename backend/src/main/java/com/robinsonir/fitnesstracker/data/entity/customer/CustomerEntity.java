@@ -59,6 +59,7 @@ public class CustomerEntity extends AbstractEntity implements UserDetails {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<WorkoutEntity> customerWorkouts;
+
     public CustomerEntity(Long id, String name, String email, String password, int age, Gender gender, String profileImageId) {
         setId(id);
         this.name = name;

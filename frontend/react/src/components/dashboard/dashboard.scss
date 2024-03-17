@@ -33,3 +33,19 @@ nav {
     }
   }
 }
+
+// Reset default margin and padding
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.dashboardContainer {
+  display: flex;
+  align-items: center; /* Vertically center items */
+  }
+
+
+
+
+
