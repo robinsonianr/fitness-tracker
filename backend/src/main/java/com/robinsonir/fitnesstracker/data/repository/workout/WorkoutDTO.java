@@ -1,9 +1,12 @@
 package com.robinsonir.fitnesstracker.data.repository.workout;
 
+import java.time.OffsetDateTime;
+
 public record WorkoutDTO(
         Long id,
         String workoutType,
         Integer calories,
-        Integer durationMinutes
+        Integer durationMinutes,
+        OffsetDateTime workoutDate
 ) {
 }

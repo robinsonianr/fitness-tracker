@@ -19,7 +19,8 @@ public class CustomerDTOMapper implements Function<CustomerEntity, CustomerDTO> 
                         workout.getId(),
                         workout.getWorkoutType(),
                         workout.getCalories(),
-                        workout.getDurationMinutes()))
+                        workout.getDurationMinutes(),
+                        workout.getWorkoutDate()))
                 .collect(Collectors.toList());
     }
 
