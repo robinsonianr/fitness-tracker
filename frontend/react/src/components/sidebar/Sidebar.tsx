@@ -1,11 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 import "./sidebar.scss";
 import {useAuth} from "../context/AuthContext.tsx";
 import {useNavigate} from "react-router-dom";
+import WorkoutModal from "../modals/workout-modal/WorkoutModal.tsx";
+import {Customer} from "../../typing";
 
-export const Sidebar = () => {
+export const Sidebar = ({customer}: {customer: Customer | undefined}) => {
     const {logOut} = useAuth();
     const navigate = useNavigate();
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
     const id = localStorage.getItem("customerId");
     const goDash = () => {
@@ -14,8 +26,10 @@ export const Sidebar = () => {
     const goProfile = () => {
         navigate(`/${id}/profile`);
     };
+
     return(
         <div className="sidebar">
+            <WorkoutModal isOpen={isModalOpen} onClose={closeModal} customer={customer} />
             <div className="sidebar-logo">
                 <div  className="logo" onClick={goDash}>
                     <img src="/assets/weight.png" alt="Gym Icon " className="gym-icon"/>
@@ -39,8 +53,8 @@ export const Sidebar = () => {
                 </ul>
                 {/* Other sidebar content */}
             </div>
-            <div className="add-workout">
-                <a className="font-w500" href="/">Add New Workout</a>
+            <div className="add-workout" onClick={openModal} >
+                <a className="font-w500" >Add New Workout</a>
             </div>
             <div className="logout-button-container">
                 <button className="logout-button" onClick={logOut}>Logout</button>

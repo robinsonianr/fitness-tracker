@@ -14,7 +14,6 @@ export const Profile = () => {
                 const customerId = parseInt(id, 10);
                 const response = await getCustomer(customerId);
                 setCustomer(response.data);
-                console.log(response.data);
             } catch (error) {
                 console.error("Could not retrieve customer: ", error);
             }
@@ -25,7 +24,7 @@ export const Profile = () => {
 
     return (
         <div className="profileContainer">
-            <Sidebar/>
+            <Sidebar customer={customer}/>
             <Navbar title={"Profile"} name={customer?.name}/>
         </div>
     );
