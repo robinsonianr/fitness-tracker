@@ -58,6 +58,14 @@ export const createCustomer = async (formData: any) => {
         throw e;
     }
 };
+
+export const addWorkout = async (formData: any) => {
+    try {
+        return await axiosInstance.post("/api/v1/workouts", formData);
+    } catch (e) {
+        throw e;
+    }
+};
 export const deleteCustomer = async (id: any) => {
     try {
         return await axiosInstance.delete(`/api/v1/customers/${id}`);

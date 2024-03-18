@@ -189,15 +189,17 @@ public class JDBCDataAccessService implements CustomerDAO, WorkoutDAO {
                 customer_id,
                 workout_type,
                 calories,
-                duration_minutes)
-                VALUES (?, ?, ?, ?)
+                duration_minutes,
+                workout_date)
+                VALUES (?, ?, ?, ?, ?)
                 """;
         int result = jdbcTemplate.update(
                 sql,
                 workoutEntity.getCustomer().getId(),
                 workoutEntity.getWorkoutType(),
                 workoutEntity.getCalories(),
-                workoutEntity.getDurationMinutes()
+                workoutEntity.getDurationMinutes(),
+                workoutEntity.getWorkoutDate()
 
         );
         System.out.println("insertWorkout result: " + result + " row affected");

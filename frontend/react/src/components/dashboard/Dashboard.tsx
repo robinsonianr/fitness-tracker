@@ -25,7 +25,7 @@ export const Dashboard = () => {
     }, []);
     return (
         <div className="dashboard-container">
-            <Sidebar/>
+            <Sidebar customer={customer}/>
             <Navbar title={"Dashboard"} name={customer?.name}/>
         </div>
     );

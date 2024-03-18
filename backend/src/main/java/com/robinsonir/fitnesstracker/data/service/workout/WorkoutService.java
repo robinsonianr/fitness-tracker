@@ -45,7 +45,8 @@ public class WorkoutService {
                 workoutCreationRequest.customer(),
                 workoutCreationRequest.workoutType(),
                 workoutCreationRequest.calories(),
-                workoutCreationRequest.durationMinutes());
+                workoutCreationRequest.durationMinutes(),
+                workoutCreationRequest.workoutDate());
 
         workoutDAO.insertWorkout(newWorkout);
     }

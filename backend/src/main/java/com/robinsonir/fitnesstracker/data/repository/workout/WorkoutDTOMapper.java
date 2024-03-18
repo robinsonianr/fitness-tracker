@@ -13,7 +13,8 @@ public class WorkoutDTOMapper implements Function<WorkoutEntity, WorkoutDTO> {
                 workoutEntity.getId(),
                 workoutEntity.getWorkoutType(),
                 workoutEntity.getCalories(),
-                workoutEntity.getDurationMinutes()
+                workoutEntity.getDurationMinutes(),
+                workoutEntity.getWorkoutDate()
         );
     }
 }
