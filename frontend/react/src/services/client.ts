@@ -28,7 +28,7 @@ export const getCustomers = async () => {
     }
 };
 
-export const getCustomer = async (id: number) => {
+export const getCustomer = async (id: any) => {
     try {
         return await axiosInstance.get(`/api/v1/customers/${id}`);
     } catch (e) {

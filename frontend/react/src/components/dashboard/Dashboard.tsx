@@ -12,8 +12,7 @@ export const Dashboard = () => {
         const fetchData = async () => {
             try {
                 const id = localStorage.getItem("customerId")!;
-                const customerId = parseInt(id, 10);
-                const response = await getCustomer(customerId);
+                const response = await getCustomer(id);
 
                 setCustomer(response.data);
             } catch (error) {
