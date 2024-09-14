@@ -2,9 +2,10 @@
   position: fixed;
   top: 0;
   right: 0;
+  z-index: 1;
   width: calc(100% - 300px); // Adjust width considering the sidebar width
   height: 100px; // Adjust height as needed
-  background-color: #444; // Navbar background color
+  background-color: #222; // Navbar background color
   color: #fff; // Text color
   padding: 0 20px; // Adjust padding as needed
 
@@ -12,7 +13,7 @@
     text-align: left;
     margin-right: 20px; /* Adjust margin as needed */
     padding: 30px;
-    font-size: 1.5rem;
+  font-size: 1.5rem;
     font-weight: bold;
   }
 

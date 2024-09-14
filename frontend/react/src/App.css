@@ -13,6 +13,10 @@
   }
 }
 
+body {
+  background-color: #444;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

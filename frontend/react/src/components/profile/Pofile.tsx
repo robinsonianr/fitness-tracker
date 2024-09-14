@@ -23,9 +23,19 @@ export const Profile = () => {
     }, []);
 
     return (
-        <div className="profileContainer">
+        <div className="profile-container">
             <Sidebar customer={customer}/>
-            <Navbar title={"Profile"} name={customer?.name}/>
+            <div className="main-content">
+                <Navbar title={"Profile"} name={customer?.name}/>
+                <div className="content">
+                    {/* Your profile content */}
+                    {/* Replace this with the actual content you want to display */}
+                    <h1>Profile Details</h1>
+                    <p>Name: {customer?.name}</p>
+                    <p>Email: {customer?.email}</p>
+                    {/* Add more profile details as needed */}
+                </div>
+            </div>
         </div>
     );
 };
