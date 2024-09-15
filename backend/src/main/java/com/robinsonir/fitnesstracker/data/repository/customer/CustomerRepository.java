@@ -34,7 +34,9 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> 
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query("update CustomerEntity cust set cust.name = :name, cust.email = :email, cust.age = :age, cust.gender = :gender, cust.weight = :weight, cust.height = :height, cust.weightGoal = :weightGoal, cust.activity = :activity, cust.bodyFat = :bodyFat where cust.id = :id")
+    @Query("update CustomerEntity cust set cust.name = :name, cust.email = :email, cust.age = :age," +
+            " cust.gender = :gender, cust.weight = :weight, cust.height = :height, cust.weightGoal = :weightGoal," +
+            " cust.activity = :activity, cust.bodyFat = :bodyFat where cust.id = :id")
     void updateCustomer(Long id,
                         String name,
                         String email,

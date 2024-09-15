@@ -44,4 +44,4 @@ jobs:
         run: |
           echo "CREATE SCHEMA IF NOT EXISTS fit_tracker;" | PGPASSWORD=${{ env.POSTGRESQL_PASSWORD }} psql -h localhost -U ${{ env.POSTGRESQL_USER }} ${{ env.POSTGRESQL_DB }}
       - name: Build with Gradle
-        run: gradle clean build
+        run: gradle build
