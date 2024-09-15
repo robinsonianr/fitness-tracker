@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -17,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Transactional
 @Rollback
 public class CustomerRepositoryTest {
 
@@ -157,6 +155,7 @@ public class CustomerRepositoryTest {
 
         // Assert: Check if customer was updated
         Optional<CustomerEntity> updatedCustomerOpt = customerRepository.findCustomerById(customerId);
+        assertTrue(updatedCustomerOpt.isPresent());
         CustomerEntity updatedCustomer = updatedCustomerOpt.get();
 
         assertEquals(updateRequest.name(), updatedCustomer.getName());
