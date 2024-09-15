@@ -33,8 +33,7 @@ public class CustomerController {
     }
 
     @GetMapping("{customerId}")
-    public CustomerDTO getCustomer(
-            @PathVariable("customerId") Long customerId) {
+    public CustomerDTO getCustomer(@PathVariable("customerId") Long customerId) {
         return customerService.getCustomer(customerId);
     }
 
@@ -46,14 +45,9 @@ public class CustomerController {
                 .build();
     }
 
-    @DeleteMapping("{customerId}")
-    public void deleteCustomer(@PathVariable("customerId") Long customerId) {
-        customerService.deleteCustomerById(customerId);
-    }
 
-    @PutMapping("{customerId}")
-    public void updateCustomer(
-            @PathVariable("customerId") Long customerId,
+    @PutMapping("update/{customerId}")
+    public void updateCustomer(@PathVariable("customerId") Long customerId,
             @RequestBody CustomerUpdateRequest updateRequest) {
         customerService.updateCustomer(customerId, updateRequest);
     }
@@ -62,8 +56,7 @@ public class CustomerController {
             value = "{customerId}/profile-image",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
     )
-    public void uploadCustomerProfileImage(
-            @PathVariable("customerId") Long customerId,
+    public void uploadCustomerProfileImage(@PathVariable("customerId") Long customerId,
             @RequestParam("file") MultipartFile file) {
         customerService.uploadCustomerProfilePicture(customerId, file);
     }
@@ -72,8 +65,7 @@ public class CustomerController {
             value = "{customerId}/profile-image",
             produces = MediaType.IMAGE_JPEG_VALUE
     )
-    public byte[] getCustomerProfileImage(
-            @PathVariable("customerId") Long customerId) {
+    public byte[] getCustomerProfileImage(@PathVariable("customerId") Long customerId) {
         return customerService.getProfilePicture(customerId);
     }
 

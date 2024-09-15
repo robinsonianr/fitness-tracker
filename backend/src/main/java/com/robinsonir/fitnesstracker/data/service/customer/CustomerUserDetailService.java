@@ -1,7 +1,6 @@
 package com.robinsonir.fitnesstracker.data.service.customer;
 
-import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDAO;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.robinsonir.fitnesstracker.data.repository.customer.CustomerRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,15 +9,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomerUserDetailService implements UserDetailsService {
 
-    private final CustomerDAO customerDAO;
+    private final CustomerRepository customerRepository;
 
-    public CustomerUserDetailService(@Qualifier("jpa") CustomerDAO customerDAO) {
-        this.customerDAO = customerDAO;
+    public CustomerUserDetailService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return customerDAO.selectCustomerByUsername(username)
+        return customerRepository.findCustomerByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(
                         "Username " + username + " not found"));
     }
