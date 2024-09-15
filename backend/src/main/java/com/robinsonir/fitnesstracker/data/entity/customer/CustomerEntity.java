@@ -80,6 +80,29 @@ public class CustomerEntity extends AbstractEntity implements UserDetails {
 
     }
 
+    public CustomerEntity(String name,
+                          String email,
+                          String password,
+                          Integer age,
+                          Gender gender,
+                          Integer weight,
+                          Integer height,
+                          Integer weightGoal,
+                          String activity,
+                          Integer bodyFat) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.age = age;
+        this.gender = gender;
+        this.weight = weight;
+        this.height = height;
+        this.weightGoal = weightGoal;
+        this.activity = activity;
+        this.bodyFat = bodyFat;
+
+    }
+
     public CustomerEntity(
             String name,
             String email,

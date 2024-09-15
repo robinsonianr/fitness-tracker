@@ -1,16 +1,14 @@
 package com.robinsonir.fitnesstracker.data.service.customer;
 
 import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
-import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDAO;
 import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDTO;
 import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDTOMapper;
+import com.robinsonir.fitnesstracker.data.repository.customer.CustomerRepository;
 import com.robinsonir.fitnesstracker.exception.DuplicateResourceException;
-import com.robinsonir.fitnesstracker.exception.RequestValidationException;
 import com.robinsonir.fitnesstracker.exception.ResourceNotFoundException;
 import com.robinsonir.fitnesstracker.s3.S3Service;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,30 +22,32 @@ import java.util.stream.Collectors;
 @Service
 public class CustomerService {
 
-    private final CustomerDAO customerDAO;
-
     private final CustomerDTOMapper customerDTOMapper;
 
     private final PasswordEncoder passwordEncoder;
 
     private final S3Service s3Service;
+    private final CustomerRepository customerRepository;
+    private final CustomerDataService customerDataService;
 
     @Setter
     @Value("${s3.bucket.name}")
     private String s3Bucket;
 
-    public CustomerService(@Qualifier("jdbc") CustomerDAO customerDAO,
-                           CustomerDTOMapper customerDTOMapper,
+    public CustomerService(CustomerDTOMapper customerDTOMapper,
                            PasswordEncoder passwordEncoder,
-                           S3Service s3Service) {
-        this.customerDAO = customerDAO;
+                           S3Service s3Service,
+                           CustomerRepository customerRepository,
+                           CustomerDataService customerDataService) {
         this.customerDTOMapper = customerDTOMapper;
         this.passwordEncoder = passwordEncoder;
         this.s3Service = s3Service;
+        this.customerRepository = customerRepository;
+        this.customerDataService = customerDataService;
     }
 
     public List<CustomerDTO> getAllCustomers() {
-        return customerDAO.selectAllCustomers()
+        return customerRepository.findAllCustomers()
                 .stream()
                 .map(customerDTOMapper)
                 .collect(Collectors.toList());
@@ -55,7 +55,7 @@ public class CustomerService {
 
 
     public CustomerDTO getCustomer(Long id) {
-        return customerDAO.selectCustomerById(id)
+        return customerRepository.findCustomerById(id)
                 .map(customerDTOMapper)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "customer with id [%s] not found".formatted(id)
@@ -64,7 +64,7 @@ public class CustomerService {
 
     public void addCustomer(CustomerRegistrationRequest customerRegistrationRequest) {
         String email = customerRegistrationRequest.email();
-        if (customerDAO.existsCustomerWithEmail(email)) {
+        if (customerDataService.existsByEmail(email)) {
             throw new DuplicateResourceException(
                     "email already taken"
             );
@@ -77,21 +77,12 @@ public class CustomerService {
                 customerRegistrationRequest.age(),
                 customerRegistrationRequest.gender());
 
-        customerDAO.insertCustomer(customerEntity);
+        customerRepository.save(customerEntity);
     }
 
-    public void deleteCustomerById(Long id) {
-        if (!customerDAO.existsCustomerById(id)) {
-            throw new ResourceNotFoundException(
-                    "customer with id [%s] not found".formatted(id)
-            );
-        }
-
-        customerDAO.deleteCustomerById(id);
-    }
 
     public void checkIfCustomerExistsOrThrow(Long customerId) {
-        if (!customerDAO.existsCustomerById(customerId)) {
+        if (!customerRepository.existsById(customerId)) {
             throw new ResourceNotFoundException(
                     "customer with id [%s] not found".formatted(customerId)
             );
@@ -112,12 +103,12 @@ public class CustomerService {
             throw new RuntimeException("failed to upload profile image", e);
         }
 
-        customerDAO.updateCustomerProfileImageId(profileImageId, customerId);
+        customerRepository.updateProfileImageId(profileImageId, customerId);
     }
 
 
     public byte[] getProfilePicture(Long customerId) {
-        var customer = customerDAO.selectCustomerById(customerId)
+        var customer = customerRepository.findCustomerById(customerId)
                 .map(customerDTOMapper)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "customer with id [%s] not found".formatted(customerId)
@@ -135,40 +126,32 @@ public class CustomerService {
     }
 
     public void updateCustomer(Long id, CustomerUpdateRequest updateRequest) {
-        CustomerEntity customerEntity = customerDAO.selectCustomerById(id)
+        CustomerEntity customerEntity = customerRepository.findCustomerById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "customer with id [%s] not found".formatted(id)
                 ));
 
-        boolean changes = false;
-
-        if (updateRequest.name() != null && !updateRequest.name().equals(customerEntity.getName())) {
-            customerEntity.setName(updateRequest.name());
-            changes = true;
-        }
-
         if (updateRequest.email() != null &&
                 !updateRequest.email().equals(customerEntity.getEmail())) {
-            if (customerDAO.existsCustomerWithEmail(updateRequest.email())) {
+            if (customerRepository.existsByEmail(updateRequest.email())) {
                 throw new DuplicateResourceException(
                         "email already taken"
                 );
             }
             customerEntity.setEmail(updateRequest.email());
-            changes = true;
         }
 
-        if (updateRequest.age() != null && !updateRequest.age().equals(customerEntity.getAge())) {
-            customerEntity.setAge(updateRequest.age());
-            changes = true;
-        }
-
-        if (!changes) {
-            throw new RequestValidationException("no data changes found");
-        }
-
-
-        customerDAO.updateCustomer(customerEntity);
+        customerRepository.updateCustomer(id,
+                updateRequest.name(),
+                updateRequest.email(),
+                updateRequest.age(),
+                updateRequest.gender(),
+                updateRequest.weight(),
+                updateRequest.height(),
+                updateRequest.weightGoal(),
+                updateRequest.activity(),
+                updateRequest.bodyFat()
+        );
     }
 
 }

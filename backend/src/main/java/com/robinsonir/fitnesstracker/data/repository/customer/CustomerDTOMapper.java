@@ -17,6 +17,7 @@ public class CustomerDTOMapper implements Function<CustomerEntity, CustomerDTO> 
         return workouts.stream()
                 .map(workout -> new WorkoutDTO(
                         workout.getId(),
+                        workout.getCustomer().getId(),
                         workout.getWorkoutType(),
                         workout.getCalories(),
                         workout.getDurationMinutes(),
@@ -32,6 +33,11 @@ public class CustomerDTOMapper implements Function<CustomerEntity, CustomerDTO> 
                 customerEntity.getEmail(),
                 customerEntity.getGender(),
                 customerEntity.getAge(),
+                customerEntity.getWeight(),
+                customerEntity.getHeight(),
+                customerEntity.getWeightGoal(),
+                customerEntity.getActivity(),
+                customerEntity.getBodyFat(),
                 customerEntity.getAuthorities()
                         .stream()
                         .map(GrantedAuthority::getAuthority)
