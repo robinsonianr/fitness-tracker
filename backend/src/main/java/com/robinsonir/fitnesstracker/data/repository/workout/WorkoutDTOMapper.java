@@ -11,6 +11,7 @@ public class WorkoutDTOMapper implements Function<WorkoutEntity, WorkoutDTO> {
     public WorkoutDTO apply(WorkoutEntity workoutEntity) {
         return new WorkoutDTO(
                 workoutEntity.getId(),
+                workoutEntity.getCustomer().getId(),
                 workoutEntity.getWorkoutType(),
                 workoutEntity.getCalories(),
                 workoutEntity.getDurationMinutes(),
