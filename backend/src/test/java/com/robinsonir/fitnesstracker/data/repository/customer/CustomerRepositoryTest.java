@@ -157,7 +157,6 @@ public class CustomerRepositoryTest {
 
         // Assert: Check if customer was updated
         Optional<CustomerEntity> updatedCustomerOpt = customerRepository.findCustomerById(customerId);
-        assertTrue(updatedCustomerOpt.isPresent());
         CustomerEntity updatedCustomer = updatedCustomerOpt.get();
 
         assertEquals(updateRequest.name(), updatedCustomer.getName());
