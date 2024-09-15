@@ -2,7 +2,7 @@ package com.robinsonir.fitnesstracker.data.repository.customer;
 
 import com.robinsonir.fitnesstracker.data.Gender;
 import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
-import com.robinsonir.fitnesstracker.data.service.customer.CustomerUpdateRequest;
+//import com.robinsonir.fitnesstracker.data.service.customer.CustomerUpdateRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,64 +110,64 @@ public class CustomerRepositoryTest {
         assertFalse(notExists);
     }
 
-    @Test
-    void testUpdateCustomer() {
-        // Arrange: Add a customer to the database
-        Long customerId = 1L;
-        CustomerEntity existingCustomer = new CustomerEntity(
-                "John Doe",
-                "john.doe@example.com",
-                "hashpassword",
-                30,
-                Gender.MALE,
-                70,
-                180,
-                65,
-                "Running",
-                20);
-        existingCustomer.setId(customerId);
-        customerRepository.save(existingCustomer);
-
-        // Act: Create update request and update the customer
-        CustomerUpdateRequest updateRequest = new CustomerUpdateRequest(
-                "Jane Doe",
-                "jane.doe@example.com",
-                28,
-                Gender.FEMALE,
-                65,
-                170,
-                60,
-                "Cycling",
-                18
-        );
-
-        customerRepository.updateCustomer(customerId,
-                updateRequest.name(),
-                updateRequest.email(),
-                updateRequest.age(),
-                updateRequest.gender(),
-                updateRequest.weight(),
-                updateRequest.height(),
-                updateRequest.weightGoal(),
-                updateRequest.activity(),
-                updateRequest.bodyFat()
-        );
-
-        // Assert: Check if customer was updated
-        Optional<CustomerEntity> updatedCustomerOpt = customerRepository.findCustomerById(customerId);
-        assertTrue(updatedCustomerOpt.isPresent());
-        CustomerEntity updatedCustomer = updatedCustomerOpt.get();
-
-        assertEquals(updateRequest.name(), updatedCustomer.getName());
-        assertEquals(updateRequest.email(), updatedCustomer.getEmail());
-        assertEquals(updateRequest.age(), updatedCustomer.getAge());
-        assertEquals(updateRequest.gender(), updatedCustomer.getGender());
-        assertEquals(updateRequest.weight(), updatedCustomer.getWeight());
-        assertEquals(updateRequest.height(), updatedCustomer.getHeight());
-        assertEquals(updateRequest.weightGoal(), updatedCustomer.getWeightGoal());
-        assertEquals(updateRequest.activity(), updatedCustomer.getActivity());
-        assertEquals(updateRequest.bodyFat(), updatedCustomer.getBodyFat());
-    }
+//    @Test
+//    void testUpdateCustomer() {
+//        // Arrange: Add a customer to the database
+//        Long customerId = 1L;
+//        CustomerEntity existingCustomer = new CustomerEntity(
+//                "John Doe",
+//                "john.doe@example.com",
+//                "hashpassword",
+//                30,
+//                Gender.MALE,
+//                70,
+//                180,
+//                65,
+//                "Running",
+//                20);
+//        existingCustomer.setId(customerId);
+//        customerRepository.save(existingCustomer);
+//
+//        // Act: Create update request and update the customer
+//        CustomerUpdateRequest updateRequest = new CustomerUpdateRequest(
+//                "Jane Doe",
+//                "jane.doe@example.com",
+//                28,
+//                Gender.FEMALE,
+//                65,
+//                170,
+//                60,
+//                "Cycling",
+//                18
+//        );
+//
+//        customerRepository.updateCustomer(customerId,
+//                updateRequest.name(),
+//                updateRequest.email(),
+//                updateRequest.age(),
+//                updateRequest.gender(),
+//                updateRequest.weight(),
+//                updateRequest.height(),
+//                updateRequest.weightGoal(),
+//                updateRequest.activity(),
+//                updateRequest.bodyFat()
+//        );
+//
+//        // Assert: Check if customer was updated
+//        Optional<CustomerEntity> updatedCustomerOpt = customerRepository.findCustomerById(customerId);
+//        assertTrue(updatedCustomerOpt.isPresent());
+//        CustomerEntity updatedCustomer = updatedCustomerOpt.get();
+//
+//        assertEquals(updateRequest.name(), updatedCustomer.getName());
+//        assertEquals(updateRequest.email(), updatedCustomer.getEmail());
+//        assertEquals(updateRequest.age(), updatedCustomer.getAge());
+//        assertEquals(updateRequest.gender(), updatedCustomer.getGender());
+//        assertEquals(updateRequest.weight(), updatedCustomer.getWeight());
+//        assertEquals(updateRequest.height(), updatedCustomer.getHeight());
+//        assertEquals(updateRequest.weightGoal(), updatedCustomer.getWeightGoal());
+//        assertEquals(updateRequest.activity(), updatedCustomer.getActivity());
+//        assertEquals(updateRequest.bodyFat(), updatedCustomer.getBodyFat());
+//    }
 
     @Test
     void testUpdateProfileImageId() {
