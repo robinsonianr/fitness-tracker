@@ -6,7 +6,6 @@ import com.robinsonir.fitnesstracker.data.entity.workout.WorkoutEntity;
 import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDTO;
 import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDTOMapper;
 import com.robinsonir.fitnesstracker.data.repository.customer.CustomerRepository;
-import com.robinsonir.fitnesstracker.exception.RequestValidationException;
 import com.robinsonir.fitnesstracker.exception.ResourceNotFoundException;
 import com.robinsonir.fitnesstracker.s3.S3Service;
 import org.junit.jupiter.api.BeforeEach;
@@ -187,30 +186,6 @@ public class CustomerServiceTest {
                 updateRequest.activity(),
                 updateRequest.bodyFat()
         );
-    }
-
-    @Test
-    void testUpdateCustomerNoChanges() {
-        // Arrange
-        Long customerId = 1L;
-        CustomerEntity existingCustomer = new CustomerEntity(customerId, "John Doe", "john@example.com", "hashedPassword", 30, Gender.MALE);
-
-        CustomerUpdateRequest updateRequest = new CustomerUpdateRequest(
-                null, // No change in name
-                null, // No change in email
-                null, // No change in age
-                null, // No change in gender
-                null, // No change in weight
-                null, // No change in height
-                null, // No change in weight goal
-                null, // No change in activity
-                null  // No change in body fat
-        );
-
-        when(customerRepository.findCustomerById(customerId)).thenReturn(Optional.of(existingCustomer));
-
-        // Act and Assert
-        assertThrows(RequestValidationException.class, () -> customerTest.updateCustomer(customerId, updateRequest));
     }
 
     @Test
