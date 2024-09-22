@@ -37,9 +37,9 @@ Java 17 compatible & uses Gradle 7.6.1
    docker run --name (my-postgres-container) -p 5432:5432 --network=db -v dbdata:/var/lib/postgres/data -e POSTGRES_PASSWORD=root -e POSTGRES_DB=robinsonir -d postgres
    ```
 
-   -   replace (my-postgres-container) with whatever name you like
+   - replace (my-postgres-container) with whatever name you like
       
-   -   run `docker ps` to see if container is running if not, run `docker start (container-name)`
+   - run `docker ps` to see if container is running if not, run `docker start (container-name)`
 
 
 ## Usage
@@ -47,7 +47,7 @@ Java 17 compatible & uses Gradle 7.6.1
 Here's how you can use this project:
 1. Build and run the application.
    -   Build and run the application (use your preferred IDE).
-2. run `npm run start` in `fit-tracl-ui/react` 
+2. run `npm run start` in `fit-tracl-ui/react`
    -   Open a web browser and navigate to [http://localhost:5173](http://localhost:5173).
 
 Dev Site:
