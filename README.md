@@ -12,45 +12,43 @@
 ## Installation
 To install this project, follow these steps:
 
-Java 17 compatible & uses Gradle
+Java 17 compatible & uses Gradle 7.6.1
 
 1.  Clone the repository.
-   ```sh
-   git clone https://github.com/robinsonianr/fitness-tracker.git
-   ```
+    ```sh
+    git clone https://github.com/robinsonianr/fitness-tracker.git
+    ```
    
 2.  Navigate to the project directory.
--   cd `frontend/react`
+    -   cd `fit-track-ui/react`
 
-5.  Install dependencies.
-   ```sh
-   npm install
-   ```
+3.  Install dependencies.
+    ```sh
+    npm install
+    ```
    
-7.  Database setup
--   Install Docker Desktop or setup Docker in terminal
+4. Database setup
+   -   Install Docker Desktop or setup Docker in terminal
      
--   run `docker pull postgres` or search postgres in docker desktop and pull image
+   -   run `docker pull postgres` or search postgres in docker desktop and pull image
        
-```sh
-docker network create db
-docker run --name (my-postgres-container) -p 5432:5432 --network=db -v dbdata:/var/lib/postgres/data -e POSTGRES_PASSWORD=root -e POSTGRES_DB=robinsonir -d postgres
-```
+   ```sh
+   docker network create db
+   docker run --name (my-postgres-container) -p 5432:5432 --network=db -v dbdata:/var/lib/postgres/data -e POSTGRES_PASSWORD=root -e POSTGRES_DB=robinsonir -d postgres
+   ```
 
-replace (my-postgres-container) with whatever name you like
+   - replace (my-postgres-container) with whatever name you like
       
-run `docker ps` to see if container is running if not, run `docker start (container-name)`
+   - run `docker ps` to see if container is running if not, run `docker start (container-name)`
 
 
 ## Usage
 
 Here's how you can use this project:
-
-1.  Build and run the application.
--   Build and run the application (use your preferred IDE).
-
-2.  run `npm run start` in `frontend/react`
--   Open a web browser and navigate to [http://localhost:5173](http://localhost:5173).
+1. Build and run the application.
+   -   Build and run the application (use your preferred IDE).
+2. run `npm run start` in `fit-tracl-ui/react`
+   -   Open a web browser and navigate to [http://localhost:5173](http://localhost:5173).
 
 Dev Site:
 -   http://fitness-tracker-env.eba-3f5efq3k.us-east-1.elasticbeanstalk.com

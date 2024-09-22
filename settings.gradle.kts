@@ -1,2 +1,2 @@
 rootProject.name = "fitness-tracker"
-include("backend")
+include("fit-track")
