@@ -1,0 +1,41 @@
+// Define variables for colors and styles (optional for easy customization)
+$border-color: #ccc;
+$widget-padding: 1rem;
+$border-radius: 8px;
+$box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+$avatar-size: 100px;
+$back-ground: #222;
+
+.profile-widget {
+  //border: 1px solid $border-color;
+  padding: $widget-padding;
+  border-radius: $border-radius;
+  width: 100%;
+  box-shadow: $box-shadow;
+  background-color: $back-ground;
+
+  // Profile Section
+  .profile-section {
+    text-align: center;
+
+    // Avatar image
+    .avatar {
+      width: $avatar-size;
+      height: $avatar-size;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    // Profile text (Name, Age, Gender)
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    p {
+      font-size: 1rem;
+      margin: 0.25rem 0;
+    }
+  }
+
+}
