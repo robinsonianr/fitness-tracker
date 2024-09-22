@@ -3,6 +3,7 @@ package com.robinsonir.fitnesstracker.data.service.workout;
 import com.robinsonir.fitnesstracker.data.Gender;
 import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
 import com.robinsonir.fitnesstracker.data.entity.workout.WorkoutEntity;
+import com.robinsonir.fitnesstracker.data.repository.customer.CustomerRepository;
 import com.robinsonir.fitnesstracker.data.repository.workout.WorkoutDTO;
 import com.robinsonir.fitnesstracker.data.repository.workout.WorkoutDTOMapper;
 import com.robinsonir.fitnesstracker.data.repository.workout.WorkoutRepository;
@@ -26,6 +27,9 @@ public class WorkoutServiceTest {
 
     @Mock
     private WorkoutRepository workoutRepository;
+
+    @Mock
+    private CustomerRepository customerRepository;
 
     @Mock
     private WorkoutDTOMapper workoutDTOMapper;
@@ -104,14 +108,16 @@ public class WorkoutServiceTest {
         // Arrange
         WorkoutCreationRequest workoutCreationRequest = new WorkoutCreationRequest(customer, "Swimming", 400, 60, OffsetDateTime.now());
 
-        WorkoutEntity workout = new WorkoutEntity(
-                workoutCreationRequest.customer(),
-                workoutCreationRequest.workoutType(),
-                workoutCreationRequest.calories(),
-                workoutCreationRequest.durationMinutes(),
-                workoutCreationRequest.workoutDate());
+        WorkoutEntity newWorkout = new WorkoutEntity();
+        newWorkout.setWorkoutType(workoutCreationRequest.workoutType());
+        newWorkout.setCalories(workoutCreationRequest.calories());
+        newWorkout.setDurationMinutes(workoutCreationRequest.durationMinutes());
+        newWorkout.setWorkoutDate(workoutCreationRequest.workoutDate());
 
-        when(workoutRepository.save(any(WorkoutEntity.class))).thenReturn(workout);
+        Optional<CustomerEntity> cust = customerRepository.findCustomerById(customer.getId());
+        cust.ifPresent(newWorkout::setCustomer);
+
+        when(workoutRepository.save(any(WorkoutEntity.class))).thenReturn(newWorkout);
 
         // Act
         workoutService.addWorkout(workoutCreationRequest);
