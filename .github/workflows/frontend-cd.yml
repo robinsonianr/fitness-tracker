@@ -6,7 +6,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - frontend/react/**
+      - ../../fit-track-ui/react/**
 jobs:
   deploy:
     runs-on: ubuntu-latest

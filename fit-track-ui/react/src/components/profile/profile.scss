@@ -1,0 +1,46 @@
+.profile-container {
+  display: flex;
+}
+
+.main-content {
+  flex-grow: 1; /* Allow main content to grow and fill remaining space */
+  padding: 20px; /* Add padding to separate main content from sidebar */
+  color: white;
+}
+
+.content {
+  padding-left: 300px;
+  padding-top: 100px ;
+  /* Style your profile content */
+  /* Make sure the content stays within the boundaries of the sidebar and navbar */
+
+  .health-info {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+}
+
+.edit-health-button {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background:  #3f76c0;
+  padding: 20px 18px;
+  border-radius: .625rem;
+  margin: 25px 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+  cursor: pointer;
+
+  .font-w500 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  &:hover {
+    background-color: #355a8f;
+  }
+}
