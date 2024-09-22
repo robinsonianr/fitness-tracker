@@ -1,0 +1,37 @@
+// Health information widget styles
+$border-radius: 10px;
+$box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+$back-ground: #222;
+
+.workout-history-widget {
+  //border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: $border-radius;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 1rem;
+  box-shadow: $box-shadow;
+  background-color: $back-ground;
+
+  .workout-section {
+    text-align: center;
+    h3 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .workout-select {
+      font-size: 1.25rem;
+      width: 300px;
+      margin: 0.75rem 0;
+    }
+
+
+    .workout-data {
+      p {
+        font-size: 1.25rem;
+        margin: 0.75rem 0;
+      }
+    }
+  }
+}
