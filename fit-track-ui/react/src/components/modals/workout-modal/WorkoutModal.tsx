@@ -26,6 +26,10 @@ export const WorkoutModal = ({isOpen, onClose, customer}: {isOpen: boolean, onCl
         formData.customer = {id: customer?.id};
         addWorkout(formData)
             .then(onClose());
+
+        setTimeout(() => {
+            window.location.reload();
+        }, 500);
     };
 
     return (
