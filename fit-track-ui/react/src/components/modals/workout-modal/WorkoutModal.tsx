@@ -8,7 +8,7 @@ export const WorkoutModal = ({isOpen, onClose, customer}: {isOpen: boolean, onCl
     const [formData, setFormData] = useState({
         // Initialize form data state
         // Example:
-        customer: "",
+        customer: {},
         workoutType: "",
         calories: "",
         durationMinutes: "",
