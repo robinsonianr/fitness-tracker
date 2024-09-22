@@ -6,7 +6,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - backend/**
+      - fit-track/**
 
 env:
   POSTGRESQL_DB: robinsonir
@@ -28,7 +28,7 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     defaults:
       run:
-        working-directory: ./backend
+        working-directory: ./fit-track
     steps:
       - uses: actions/checkout@v4
       - name: Setup Java JDK

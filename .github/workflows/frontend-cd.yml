@@ -6,13 +6,13 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - frontend/react/**
+      - fit-track-ui/react/**
 jobs:
   deploy:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./frontend/react
+        working-directory: ./fit-track-ui/react
     steps:
       - uses: actions/checkout@v2
       - name: Build Number
