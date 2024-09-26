@@ -3,7 +3,6 @@ package com.robinsonir.fitnesstracker.data.repository.customer;
 import com.robinsonir.fitnesstracker.data.Gender;
 import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
 import jakarta.transaction.Transactional;
-import org.springframework.boot.actuate.autoconfigure.tracing.ConditionalOnEnabledTracing;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
