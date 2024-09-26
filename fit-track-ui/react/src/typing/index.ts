@@ -1,28 +1,28 @@
 export interface Customer {
-    id?: number
-    name?: string
-    email?: string
-    gender?: string
-    age?: number
-    weight?: number
-    height?: number
-    weightGoal?: number
-    activity?: string
-    bodyFat?: number
-    roles?: string[]
-    username?: string
-    profileImageId?: string
-    workouts?: Workout[]
+    id?: number;
+    name?: string;
+    email?: string;
+    gender?: string;
+    age?: number;
+    weight?: number;
+    height?: number;
+    weightGoal?: number;
+    activity?: string;
+    bodyFat?: number;
+    roles?: string[];
+    username?: string;
+    profileImageId?: string;
+    workouts?: Workout[];
 }
 
 
 export interface Workout {
-    id?: number
-    customerId?: string
-    workoutType?: string
-    calories?: number
-    durationMinutes?: number
-    workoutDate?: string
+    id?: number;
+    customerId?: string;
+    workoutType?: string;
+    calories?: number;
+    durationMinutes?: number;
+    workoutDate?: string;
 }
 
 export type ProfileDetails = {
@@ -42,7 +42,8 @@ export type HealthInfo = {
 
 
 export type ProfileDetailsWidget = {
-    profile: ProfileDetails
+    profile: ProfileDetails,
+    pfp?: string | undefined,
 }
 
 export type HealthInfoWidget = {
