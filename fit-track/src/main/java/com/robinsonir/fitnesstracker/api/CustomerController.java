@@ -52,7 +52,7 @@ public class CustomerController {
         customerService.updateCustomer(customerId, updateRequest);
     }
 
-    @PostMapping(
+    @PutMapping(
             value = "{customerId}/profile-image",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
     )

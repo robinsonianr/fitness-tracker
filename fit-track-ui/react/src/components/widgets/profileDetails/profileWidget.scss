@@ -13,20 +13,49 @@ $back-ground: #222;
   width: 100%;
   box-shadow: $box-shadow;
   background-color: $back-ground;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  z-index: 1;
+
+  .edit-pfp {
+    position: relative;
+    width: 100px;
+    z-index: 1;
+
+    .profile-img {
+      width: 70px; // Adjust image width as needed
+      height: 70px; // Adjust image height as needed
+      border-radius: 50%;  /* Makes the image a circle */
+      object-fit: cover; /* Ensures the image covers the circle nicely */
+      z-index: 1;
+    }
+
+    .edit-button {
+      position: absolute;
+      bottom: 5px; /* Adjust position relative to the bottom */
+      right: 5px;  /* Adjust position relative to the right */
+      background-color: #fff;
+      border: 2px solid #ccc;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      padding: 0;
+    }
+
+    .edit-button:hover {
+      background-color: #eee; /* Hover effect for the button */
+    }
+  }
 
   // Profile Section
   .profile-section {
-    text-align: center;
-
-    // Avatar image
-    .avatar {
-      width: $avatar-size;
-      height: $avatar-size;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    // Profile text (Name, Age, Gender)
     h2 {
       font-size: 1.5rem;
       margin-top: 0.5rem;
@@ -37,5 +66,6 @@ $back-ground: #222;
       margin: 0.25rem 0;
     }
   }
+
 
 }

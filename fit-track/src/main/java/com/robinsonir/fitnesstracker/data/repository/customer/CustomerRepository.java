@@ -26,9 +26,9 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> 
 
     boolean existsByEmail(String email);
 
-
+    @Transactional
     @Modifying(clearAutomatically = true)
-    @Query("UPDATE CustomerEntity c SET c.profileImageId = ?1 WHERE c.id = ?2")
+    @Query("update CustomerEntity c set c.profileImageId = ?1 where c.id = ?2")
     void updateProfileImageId(String profileImageId, Long customerId);
 
 

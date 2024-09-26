@@ -32,6 +32,7 @@
       height: 40px; // Adjust image height as needed
       margin-right: 10px;
       border-radius: 50%; // Make image round
+      object-fit: cover; /* Ensures the image covers the circle nicely */
     }
   }
 }

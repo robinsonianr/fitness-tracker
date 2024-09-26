@@ -3,13 +3,20 @@ import axios from "axios";
 
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
-    headers: {
-        "Content-Type": "application/json",
-    },
 });
 axiosInstance.interceptors.request.use(
     (config) => {
         const accessToken = localStorage.getItem("access_token");
+
+        if (config.data && config.data instanceof FormData) {
+            // If the request contains FormData, don't set the 'Content-Type', 
+            // the browser will handle it automatically
+            delete config.headers["Content-Type"];
+        } else {
+            // Default to 'application/json' if not FormData
+            config.headers["Content-Type"] = "application/json";
+        }
+
         if (accessToken) {
             config.headers["Authorization"] = `Bearer ${accessToken}`;
         }
@@ -77,7 +84,7 @@ export const deleteCustomer = async (id: any) => {
 export const uploadCustomerProfileImage = async (id: any, formData: any) => {
     try {
 
-        return axiosInstance.post(`/api/v1/customers/${id}/profile-image`, formData);
+        return axiosInstance.put(`/api/v1/customers/${id}/profile-image`, formData);
     } catch (e) {
         throw e;
     }
