@@ -3,6 +3,7 @@ package com.robinsonir.fitnesstracker.data.repository.customer;
 import com.robinsonir.fitnesstracker.data.Gender;
 import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
 import jakarta.transaction.Transactional;
+import org.springframework.boot.actuate.autoconfigure.tracing.ConditionalOnEnabledTracing;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -26,9 +27,9 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> 
 
     boolean existsByEmail(String email);
 
-
+    @Transactional
     @Modifying(clearAutomatically = true)
-    @Query("UPDATE CustomerEntity c SET c.profileImageId = ?1 WHERE c.id = ?2")
+    @Query("update CustomerEntity c set c.profileImageId = ?1 where c.id = ?2")
     void updateProfileImageId(String profileImageId, Long customerId);
 
 
