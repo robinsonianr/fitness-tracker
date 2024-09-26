@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import "./workout-modal.scss";
 import {addWorkout} from "../../../services/client.ts";
 import {Customer} from "../../../typing";
+import ReactDOM from "react-dom";
 
 
 export const WorkoutModal = ({isOpen, onClose, customer}: {isOpen: boolean, onClose: any, customer: Customer | undefined}) => {
@@ -20,22 +21,31 @@ export const WorkoutModal = ({isOpen, onClose, customer}: {isOpen: boolean, onCl
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e: { preventDefault: () => void; }) => {
+    const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
+        if (customer?.id) {
+            try {
+                formData.customer = {id: customer?.id};
+                await addWorkout(formData);
+                onClose();
 
-        formData.customer = {id: customer?.id};
-        addWorkout(formData)
-            .then(onClose());
+                setTimeout(() => {
+                    window.location.reload();
+                }, 500);
+            } catch (error) {
+                console.error("Could not add workout to customer", error);
+            }
+        }
 
-        setTimeout(() => {
-            window.location.reload();
-        }, 500);
     };
 
-    return (
+
+    if (!isOpen) return null;
+
+    return ReactDOM.createPortal(
         <div className={`modal ${isOpen ? "open" : ""}`}>
             <div className="modal-overlay" onClick={onClose}></div>
-            <div className="modal-content">
+            <div className="workout-modal-content">
                 <span className="close" onClick={onClose}>&times;</span>
                 <h2>Add Workout</h2>
                 <form className="modal-inputs" onSubmit={handleSubmit}>
@@ -66,7 +76,8 @@ export const WorkoutModal = ({isOpen, onClose, customer}: {isOpen: boolean, onCl
                     </div>
                 </form>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 };
 

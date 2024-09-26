@@ -2,33 +2,34 @@ import {Customer} from "../../../typing";
 import React, {useEffect, useState} from "react";
 import {updateCustomer} from "../../../services/client.ts";
 import "./health-info-modal.scss";
+import ReactDOM from "react-dom";
 
 export const HealthInfoModal = ({isOpen, onClose, customer}: {isOpen: boolean, onClose: any, customer: Customer | undefined}) => {
     const [formData, setFormData] = useState({
-        name: undefined,
-        email: undefined,
-        age: undefined,
-        gender: undefined,
-        weight: undefined,
-        height: undefined,
-        weightGoal: undefined,
-        activity: undefined,
-        bodyFat: undefined
+        name: "",
+        email: "",
+        age: "",
+        gender: "",
+        weight: "",
+        height: "",
+        weightGoal: "",
+        activity: "",
+        bodyFat: ""
     });
 
     // Use useEffect to update formData when customer data is available
     useEffect(() => {
         if (customer) {
             setFormData({
-                name: customer.name || undefined,
-                email: customer.email || undefined,
-                age: customer.age || undefined, // Converting numbers to strings for input fields
-                gender: customer.gender || undefined,
-                weight: customer.weight || undefined,
-                height: customer.height || undefined,
-                weightGoal: customer.weightGoal || undefined,
-                activity: customer.activity || undefined,
-                bodyFat: customer.bodyFat || undefined
+                name: customer.name || "",
+                email: customer.email || "",
+                age: customer.age?.toString() || "", // Converting numbers to strings for input fields
+                gender: customer.gender || "",
+                weight: customer.weight?.toString() || "",
+                height: customer.height?.toString() || "",
+                weightGoal: customer.weightGoal?.toString() || "",
+                activity: customer.activity || "",
+                bodyFat: customer.bodyFat?.toString() || ""
             });
         }
     }, [customer]);
@@ -38,21 +39,29 @@ export const HealthInfoModal = ({isOpen, onClose, customer}: {isOpen: boolean, o
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e: { preventDefault: () => void; }) => {
+    const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
 
-        updateCustomer(customer?.id, formData)
-            .then(onClose());
+        if (customer?.id) {
+            try {
+                await updateCustomer(customer?.id, formData);
+                onClose();
 
-        setTimeout(() => {
-            window.location.reload();
-        }, 500);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 500);
+            } catch (error) {
+                console.error("Failed to update customer.", error);
+            }
+        }
     };
 
-    return (
-        <div className={`modal ${isOpen ? "open" : ""}`}>
-            <div className="modal-overlay" onClick={onClose}></div>
-            <div className="modal-content">
+    if (!isOpen) return null;
+
+    return ReactDOM.createPortal(
+        <div className={`health-modal ${isOpen ? "open" : ""}`}>
+            <div className="health-modal-overlay" onClick={onClose}></div>
+            <div className="health-modal-content">
                 <span className="close" onClick={onClose}>&times;</span>
                 <h2>Edit Health Information</h2>
                 <form className="modal-inputs" onSubmit={handleSubmit}>
@@ -89,7 +98,8 @@ export const HealthInfoModal = ({isOpen, onClose, customer}: {isOpen: boolean, o
                     </div>
                 </form>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 };
 
