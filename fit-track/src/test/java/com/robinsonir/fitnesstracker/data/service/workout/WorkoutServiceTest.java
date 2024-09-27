@@ -47,14 +47,14 @@ public class WorkoutServiceTest {
     @Test
     void getAllWorkouts() {
         // Arrange
-        WorkoutEntity workout1 = new WorkoutEntity(customer, "Running", 500, 60, OffsetDateTime.now());
-        WorkoutEntity workout2 = new WorkoutEntity(customer, "Cycling", 300, 45, OffsetDateTime.now());
+        WorkoutEntity workout1 = new WorkoutEntity(customer, "Running", 500, 60, OffsetDateTime.now(), null, null);
+        WorkoutEntity workout2 = new WorkoutEntity(customer, "Cycling", 300, 45, OffsetDateTime.now(), null, null);
 
         List<WorkoutEntity> workoutList = List.of(workout1, workout2);
         when(workoutRepository.findAllWorkouts()).thenReturn(workoutList);
 
-        WorkoutDTO workoutDTO1 = new WorkoutDTO(1L, customer.getId(), "Running", 500, 60, OffsetDateTime.now());
-        WorkoutDTO workoutDTO2 = new WorkoutDTO(2L, customer.getId(), "Cycling", 300, 45, OffsetDateTime.now());
+        WorkoutDTO workoutDTO1 = new WorkoutDTO(1L, customer.getId(), "Running", 500, 60,null, null, OffsetDateTime.now());
+        WorkoutDTO workoutDTO2 = new WorkoutDTO(2L, customer.getId(), "Cycling", 300, 45, null, null, OffsetDateTime.now());
 
         when(workoutDTOMapper.apply(workout1)).thenReturn(workoutDTO1);
         when(workoutDTOMapper.apply(workout2)).thenReturn(workoutDTO2);
@@ -73,8 +73,8 @@ public class WorkoutServiceTest {
     void getWorkoutSuccess() {
         // Arrange
         Long workoutId = 1L;
-        WorkoutEntity workout = new WorkoutEntity(customer, "Running", 500, 60, OffsetDateTime.now());
-        WorkoutDTO expectedDTO = new WorkoutDTO(workoutId, customer.getId(), "Running", 500, 60, OffsetDateTime.now());
+        WorkoutEntity workout = new WorkoutEntity(customer, "Running", 500, 60, OffsetDateTime.now(), null, null);
+        WorkoutDTO expectedDTO = new WorkoutDTO(workoutId, customer.getId(), "Running", 500, 60, null, null, OffsetDateTime.now());
 
         when(workoutRepository.findWorkoutById(workoutId)).thenReturn(Optional.of(workout));
         when(workoutDTOMapper.apply(workout)).thenReturn(expectedDTO);
@@ -106,7 +106,7 @@ public class WorkoutServiceTest {
     @Test
     void addWorkout() {
         // Arrange
-        WorkoutCreationRequest workoutCreationRequest = new WorkoutCreationRequest(customer, "Swimming", 400, 60, OffsetDateTime.now());
+        WorkoutCreationRequest workoutCreationRequest = new WorkoutCreationRequest(customer, 1, "Swimming", 400, 60, 15673, OffsetDateTime.now());
 
         WorkoutEntity newWorkout = new WorkoutEntity();
         newWorkout.setWorkoutType(workoutCreationRequest.workoutType());
