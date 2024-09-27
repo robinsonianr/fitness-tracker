@@ -37,7 +37,7 @@ const WorkoutHistoryWidget = ({customer}: { customer: Customer | undefined }) =>
                         <p><b>Duration:</b> {Math.floor(workouts[parseInt(selectedOption)].durationMinutes! / 60)}hr(s)
                             &nbsp;{workouts[parseInt(selectedOption)].durationMinutes! % 60} minutes</p>
                         <p><b>Date:</b> {convertDate(workouts[parseInt(selectedOption)]?.workoutDate)}</p>
-                        <p><b>Volume:</b> {workouts[parseInt(selectedOption)]?.volume} lbs</p>
+                        <p><b>Volume:</b> {workouts[parseInt(selectedOption)]?.volume.toLocaleString()} lbs</p>
                     </div>
                 ) : null}
             </div>
