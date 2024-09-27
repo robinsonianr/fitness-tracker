@@ -66,31 +66,31 @@ export const HealthInfoModal = ({isOpen, onClose, customer}: {isOpen: boolean, o
                 <h2>Edit Health Information</h2>
                 <form className="modal-inputs" onSubmit={handleSubmit}>
                     <div className="modal-column">
-                        <label className="modal-label">Age: </label>
+                        <label className="health-modal-label">Age</label>
                         <input type="number" name="age" value={formData.age} onChange={handleChange}/>
                     </div>
                     <div className="modal-column">
-                        <label className="modal-label">Gender:</label>
+                        <label className="health-modal-label">Gender</label>
                         <input type="text" name="gender" value={formData.gender} onChange={handleChange}/>
                     </div>
                     <div className="modal-column">
-                        <label className="modal-label">Weight:</label>
+                        <label className="health-modal-label">Weight</label>
                         <input type="number" name="weight" value={formData.weight} onChange={handleChange}/>
                     </div>
                     <div className="modal-column">
-                        <label className="modal-label">Height: </label>
+                        <label className="health-modal-label">Height</label>
                         <input type="number" name="height" value={formData.height} onChange={handleChange}/>
                     </div>
                     <div className="modal-column">
-                        <label className="modal-label">Weight Goal:</label>
+                        <label className="health-modal-label">Weight Goal</label>
                         <input type="number" name="weightGoal" value={formData.weightGoal} onChange={handleChange}/>
                     </div>
                     <div className="modal-column">
-                        <label className="modal-label">Activity:</label>
+                        <label className="health-modal-label">Activity</label>
                         <input type="text" name="activity" value={formData.activity} onChange={handleChange}/>
                     </div>
                     <div className="modal-column">
-                        <label className="modal-label">Body Fat Percentage:</label>
+                        <label className="health-modal-label">Body Fat Percentage</label>
                         <input type="number" name="bodyFat" value={formData.bodyFat} onChange={handleChange}/>
                     </div>
                     <div className="modal-column">

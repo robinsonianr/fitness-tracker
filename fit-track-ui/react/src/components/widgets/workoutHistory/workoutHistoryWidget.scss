@@ -24,6 +24,12 @@ $back-ground: #222;
       font-size: 1.25rem;
       width: 300px;
       margin: 0.75rem 0;
+      border: none; /* Remove default border */
+      border-bottom: 2px solid #3f76c0; /* Blue underline */
+      outline: none; /* Remove default focus outline */
+      padding: 5px 0; /* Add some padding */
+      color: white;
+      background: #222222 none;
     }
 
 

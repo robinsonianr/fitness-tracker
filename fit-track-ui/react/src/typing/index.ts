@@ -9,6 +9,7 @@ export interface Customer {
     weightGoal?: number;
     activity?: string;
     bodyFat?: number;
+    memberSince?: Date;
     roles?: string[];
     username?: string;
     profileImageId?: string;
@@ -23,11 +24,14 @@ export interface Workout {
     calories?: number;
     durationMinutes?: number;
     workoutDate?: string;
+    exercises?: number;
+    volume?: number;
 }
 
 export type ProfileDetails = {
     name?: string
     email?: string
+    memberSince?: Date;
 }
 
 export type HealthInfo = {

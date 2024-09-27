@@ -17,6 +17,21 @@ body {
   background-color: #444;
 }
 
+input, select {
+  border: none; /* Remove default border */
+  border-bottom: 2px solid #3f76c0; /* Blue underline */
+  background: #222;
+  outline: none; /* Remove default focus outline */
+  padding: 5px 0; /* Add some padding */
+  width: 100%; /* Adjust width */
+  color: white;
+}
+
+/* Change the underline color when the input is focused */
+input:focus {
+  border-bottom-color: #224773; /* Change the color when focused */
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

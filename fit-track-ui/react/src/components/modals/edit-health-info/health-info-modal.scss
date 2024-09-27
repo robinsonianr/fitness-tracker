@@ -1,5 +1,20 @@
+/* Chrome, Safari, Edge, and Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+
 .health-modal {
-  display: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -31,7 +46,7 @@
   top: 50%;
   left: 50%;
   width: 500px;
-  height: 450px;
+  height: 540px;
   align-content: center;
   transform: translate(-50%, -50%);
   background-color: #222;
@@ -53,21 +68,17 @@
     display: flex;
     flex-direction: column;
     padding-top: 10px;
-    font-size: 25px;
+    font-size: 14px;
 
-    input {
-      width: 125px;
-      height: 25px;
-    }
-
-    .modal-label {
-      padding: 10px;
+    .health-modal-label {
+      font-weight: bold;
     }
   }
 
   button {
     border: none;
     background: #3f76c0;
+    margin-top: 10px;
     padding: 5px 20px;
     align-self: center;
     border-radius: 0.625rem;

@@ -13,6 +13,8 @@ export const WorkoutModal = ({isOpen, onClose, customer}: {isOpen: boolean, onCl
         workoutType: "",
         calories: "",
         durationMinutes: "",
+        exercises: "",
+        volume: "",
         workoutDate: new Date().toISOString()
     });
 
@@ -50,7 +52,7 @@ export const WorkoutModal = ({isOpen, onClose, customer}: {isOpen: boolean, onCl
                 <h2>Add Workout</h2>
                 <form className="modal-inputs" onSubmit={handleSubmit}>
                     <div className="modal-column">
-                        <label className="modal-label">Workout Type:</label>
+                        <label className="modal-label">Workout Type</label>
                         <select id="workoutType" name="workoutType" onChange={handleChange}>
                             <option value="">
                                 Select Workout Type
@@ -64,12 +66,21 @@ export const WorkoutModal = ({isOpen, onClose, customer}: {isOpen: boolean, onCl
                         </select>
                     </div>
                     <div className="modal-column">
-                        <label className="modal-label">Calories:</label>
+                        <label className="modal-label">Exercises</label>
+                        <input type="number" name="exercises" value={formData.exercises} onChange={handleChange}/>
+                    </div>
+                    <div className="modal-column">
+                        <label className="modal-label">Calories</label>
                         <input type="number" name="calories" value={formData.calories} onChange={handleChange}/>
                     </div>
                     <div className="modal-column">
-                        <label className="modal-label">Workout Duration:</label>
-                        <input type="number" name="durationMinutes" value={formData.durationMinutes} onChange={handleChange}/>
+                        <label className="modal-label">Workout Duration</label>
+                        <input type="number" name="durationMinutes" value={formData.durationMinutes} 
+                            onChange={handleChange}/>
+                    </div>
+                    <div className="modal-column">
+                        <label className="modal-label">Volume</label>
+                        <input type="number" name="volume" value={formData.volume} onChange={handleChange}/>
                     </div>
                     <div className="modal-column">
                         <button type="submit">Submit</button>

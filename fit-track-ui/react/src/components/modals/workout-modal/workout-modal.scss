@@ -1,3 +1,15 @@
+/* Chrome, Safari, Edge, and Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 .modal {
   display: none;
   position: fixed;
@@ -29,7 +41,7 @@
   top: 50%;
   left: 50%;
   width: 500px;
-  height: 350px;
+  height: 440px;
   align-content: center;
   transform: translate(-50%, -50%);
   background-color: #222;
@@ -51,21 +63,11 @@
     flex-direction: column;
     color: white;
     padding-top: 10px;
-    font-size: 25px;
-
-    input {
-      width: 125px;
-      height: 25px;
-    }
-
-    select {
-      width: 150px;
-      height: 25px;
-    }
+    font-size: 14px;
 
 
     .modal-label {
-      padding: 10px;
+      font-weight: bold;
     }
   }
 
@@ -73,6 +75,7 @@
     border: none;
     background: #3f76c0;
     padding: 5px 20px;
+    margin-top: 10px;
     align-self: center;
     border-radius: .625rem;
     cursor: pointer;
