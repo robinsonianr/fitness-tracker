@@ -61,7 +61,7 @@ export const SignUp = () => {
             setSelectError("Missing input data");
             return;
         }
-
+        
         await createCustomer(formData).then(() => {
             navigate("/login");
         });
@@ -70,20 +70,23 @@ export const SignUp = () => {
 
     return (
         <div className="signup-form">
+            <div className="signup-logo">
+                <img src="/assets/weight.png" alt="Gym Icon " className="gym-icon"/>
+                Fit Track
+            </div>
             <div className="signup-form-container">
-                <h2>Create a Fitness account</h2>
+                <h2>Create a Fit Track Account</h2>
                 <form onSubmit={handleSubmit}>
                     {/* Form fields go here */}
                     <div className="form-group">
                         <label htmlFor="name">Full Name</label>
                         <input type="text" id="name" name="name" value={formData.name} onChange={handleChange}/>
                         <label htmlFor="email">Email</label>
-                        <input type="text" id="email" name="email" value={formData.email}
-                            onChange={handleChange}/>
+                        <input type="email" id="email" name="email" value={formData.email} onChange={handleChange}/>
                         <label htmlFor="password">Password</label>
-                        <input type="password" id="password" name="password" value={formData.password}
+                        <input type="password" id="password" name="password" value={formData.password} 
                             onChange={handleChange}/>
-                        {passwordError && (<span style={{ fontSize: "10px", color: "red" }}>{passwordError}</span>)}
+                        {passwordError && (<div className="error-message">{passwordError}</div>)}
                     </div>
                     <div className="form-group inline">
                         <div className="form-subgroup">
@@ -103,7 +106,7 @@ export const SignUp = () => {
                             </select>
                         </div>
                     </div>
-                    {selectError && (<span style={{ fontSize: "10px", color: "red" }}>{selectError}</span>)}
+                    {selectError && (<div className="error-message">{selectError}</div>)}
                     {/* Other form fields */}
                     <button type="submit">Create Account</button>
                 </form>

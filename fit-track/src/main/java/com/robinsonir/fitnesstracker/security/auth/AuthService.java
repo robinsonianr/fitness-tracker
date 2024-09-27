@@ -28,7 +28,7 @@ public class AuthService {
 
     public AuthResponse login(AuthRequest request) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.username(),
+                new UsernamePasswordAuthenticationToken(request.email(),
                         request.password()));
         CustomerEntity principal = (CustomerEntity) authentication.getPrincipal();
         CustomerDTO customerDTO = customerDTOMapper.apply(principal);

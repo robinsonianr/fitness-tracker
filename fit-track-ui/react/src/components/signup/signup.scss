@@ -3,27 +3,46 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   height: 100vh;
-  background-color: #ebebeb;
+  background-color: #444;
+
+
+  .signup-logo {
+    align-items: center;
+    display: flex;
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 100px;
+
+    .gym-icon {
+      width: 100px;
+      height: 100px;
+      margin-right: 10px;
+    }
+  }
   
   .signup-form-container {
-    background-color: white;
-    border: 2px solid #d1d1d1;
+    background-color: #222;
+    width: 500px;
+    height: 450px;
+    border-radius: 8px;
+    color: white;
     padding-bottom: 20px;
-
+    box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
+    align-items: center;
+    align-content: center;
+    text-align: center;
 
     h2 {
       margin-bottom: 10px;
-      color: black;
+      color: white;
     }
 
     form {
-      width: 300px;
-      padding: 20px;
+      padding: 30px 100px 20px;
       border-radius: 10px;
-      align-items: center;
-      justify-content: center;
 
 
       .form-group {
@@ -33,6 +52,7 @@
         label {
           display: block;
           margin-bottom: 5px;
+          margin-top: 5px;
         }
 
         input {
@@ -46,10 +66,10 @@
       .inline {
         display: flex;
         justify-content: space-between;
+        gap: 10px;
 
         .form-subgroup {
           flex: 1;
-          margin-right: 10px;
 
           label {
             display: block;
@@ -58,6 +78,7 @@
 
           select {
             width: 100%;
+            height: 25px;
           }
         }
       }
@@ -69,14 +90,26 @@
         color: white;
         border: none;
         border-radius: 3px;
+        transition: background-color 0.3s;
         cursor: pointer;
+
+        &:hover {
+          background-color: #355a8f; /* Example hover background color */
+        }
       }
 
     }
 
+    .error-message {
+      color: rgb(179 64 64);
+      font-size: 12px;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+
     a {
       text-decoration: none;
-      color: black;
+      color: white;
       font-size: 14px;
     }
   }
