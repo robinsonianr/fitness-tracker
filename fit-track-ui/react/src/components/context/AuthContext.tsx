@@ -26,7 +26,7 @@ const AuthProvider = ({children}: { children: any }) => {
         if (token) {
             token = jwtDecode(token);
             const customer: Customer = {
-                username: token.sub,
+                email: token.sub,
                 roles: token.scopes
             };
             setCustomer(customer);
@@ -39,13 +39,14 @@ const AuthProvider = ({children}: { children: any }) => {
     }, []);
 
     const login = async (formData: any): Promise<void> => {
-        performLogin(formData).then(res => {
-            const jwtToken = res.headers["authorization"];
+        try {
+            const response = await performLogin(formData);
+            const jwtToken = response.headers["authorization"];
             if (jwtToken !== undefined) {
                 localStorage.setItem("access_token", jwtToken);
             }
 
-            const customerId = res.data.customerDTO.id;
+            const customerId = response.data.customerDTO.id;
             if (customerId !== undefined) {
                 localStorage.setItem("customerId", customerId);
             }
@@ -58,9 +59,9 @@ const AuthProvider = ({children}: { children: any }) => {
                 roles: decodedToken.scopes
             };
             setCustomer(customer);
-        }).catch(err => {
-            console.error("Login failed:", err);
-        });
+        } catch (error) {
+            throw new Error("Failed to login, either email or password is incorrect.");
+        }
     };
 
     const logOut = () => {
