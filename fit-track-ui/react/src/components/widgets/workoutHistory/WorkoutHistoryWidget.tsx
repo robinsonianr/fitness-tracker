@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import "./workoutHistoryWidget.scss";
-import {Customer} from "../../../typing";
+import {Customer, Workout} from "../../../typing";
 
-const WorkoutHistoryWidget = ({customer}: {customer: Customer | undefined}) => {
+const WorkoutHistoryWidget = ({customer}: { customer: Customer | undefined }) => {
 
-    const [selectedOption, setSelectedOption] = useState<number | undefined>(undefined);
+    const [selectedOption, setSelectedOption] = useState<string | undefined>(undefined);
+    const workouts: Workout[] = customer?.workouts || [];
 
     const handleSelectedChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedOption(event.target.value);
@@ -22,7 +23,7 @@ const WorkoutHistoryWidget = ({customer}: {customer: Customer | undefined}) => {
                     <option value="">
                         Select Workout
                     </option>
-                    {customer?.workouts?.map((option, index) => (
+                    {workouts.map((option, index) => (
                         <option key={option.id} value={index}>
                             Workout: {convertDate(option.workoutDate)}
                         </option>
@@ -30,10 +31,11 @@ const WorkoutHistoryWidget = ({customer}: {customer: Customer | undefined}) => {
                 </select>
                 {selectedOption ? (
                     <div className="workout-data">
-                        <p>Workout Type: {customer?.workouts![selectedOption]?.workoutType}</p>
-                        <p>Calories: {customer?.workouts![selectedOption]?.calories}</p>
-                        <p>Duration: {Math.floor(customer?.workouts[selectedOption]?.durationMinutes / 60)}hr(s) {customer?.workouts[selectedOption]?.durationMinutes % 60} minutes</p>
-                        <p>Date: {convertDate(customer?.workouts![selectedOption]?.workoutDate)}</p>
+                        <p>Workout Type: {workouts[parseInt(selectedOption)].workoutType}</p>
+                        <p>Calories: {workouts[parseInt(selectedOption)]?.calories}</p>
+                        <p>Duration: {Math.floor(workouts[parseInt(selectedOption)].durationMinutes! / 60)}hr(s)
+                            {workouts[parseInt(selectedOption)].durationMinutes! % 60} minutes</p>
+                        <p>Date: {convertDate(workouts![parseInt(selectedOption)]?.workoutDate)}</p>
                     </div>
                 ) : null}
             </div>
