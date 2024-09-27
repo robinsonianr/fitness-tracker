@@ -4,7 +4,7 @@ import {HealthInfoWidget} from "../../../typing";
 
 
 const HealthWidget: React.FC<HealthInfoWidget> = ({healthInfo}) => {
-    let gender = "";
+    let gender: string;
     if (healthInfo.gender == "MALE") {
         gender = "Male";
     } else if (healthInfo.gender == "FEMALE") {
