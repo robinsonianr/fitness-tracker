@@ -10,11 +10,11 @@ export const Login = () => {
     const {customer} = useAuth();
 
     const [formData, setFormData] = useState({
-        "username": "",
-        "password": "",
+        email: "",
+        password: "",
     });
 
-    const [error, setError] = useState<string | null>(null);
+    const [loginError, setLoginError] = useState<string | null>(null);
     const handleChange = (event: { target: { name: any; value: any; }; }) => {
         const {name, value} = event.target;
         setFormData((prevFormData) => ({...prevFormData, [name]: value}));
@@ -22,15 +22,14 @@ export const Login = () => {
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        setError(null);
+        setLoginError(null);
 
         try {
-            await login(formData)
-                .then(() => {
-                    navigate("/");
-                });
-        }catch (error) {
-            setError("Incorrect email or password");
+            await login(formData);
+            navigate("/");
+        } catch (error) {
+            console.error(error);
+            setLoginError("Incorrect email or password.");
         }
 
     };
@@ -39,17 +38,22 @@ export const Login = () => {
         if (customer) {
             navigate("/");
         }
-    });
+    }, [customer, navigate]);
+
     return (
 
         <div className="login-form">
+            <div className="login-logo">
+                <img src="/assets/weight.png" alt="Gym Icon " className="gym-icon"/>
+                Fit Track
+            </div>
             <div className="login-form-container">
                 <h2>Login</h2>
                 <form onSubmit={handleSubmit}>
                     {/* Form fields go here */}
                     <div className="form-group">
-                        <label htmlFor="username">Email/Username</label>
-                        <input type="email" id="username" name="username" value={formData.username}
+                        <label htmlFor="email">Email/Username</label>
+                        <input type="email" id="email" name="email" value={formData.email}
                             onChange={handleChange}/>
                         <label htmlFor="password">Password</label>
                         <input type="password" id="password" name="password" value={formData.password}
@@ -58,7 +62,9 @@ export const Login = () => {
                     {/* Other form fields */}
                     <button type="submit">Login</button>
                 </form>
-                <div style={{ fontSize: "10px", color: "red" }}>{error}</div>
+                {loginError && (
+                    <div className="error-message">{loginError}</div>
+                )}
                 <a href="/signup">Need an account? Register here</a>
             </div>
         </div>

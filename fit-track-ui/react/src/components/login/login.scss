@@ -3,30 +3,53 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   height: 100vh;
-  background-color: #ebebeb;
+  background-color: #444;
+
+  .login-logo {
+    align-items: center; /* Align items vertically */
+    display: flex;
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 100px;
+
+
+    .gym-icon {
+      width: 100px; /* Adjust width as needed */
+      height: 100px; /* Adjust height as needed */
+      margin-right: 10px; /* Adjust margin as needed */
+    }
+  }
 
   .login-form-container {
-    background-color: white;
-    border: 2px solid #d1d1d1;
+    background-color: #222;
+    width: 500px;
+    height: 350px;
+    border-radius: 8px;
     padding-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);;
+    color: white;
+    align-content: center;
+    align-items: center;
+    text-align: center;
 
     h2 {
       margin-bottom: 10px;
     }
 
     form {
-      width: 300px;
-      padding: 20px;
+      padding: 30px 115px 20px 115px;
       border-radius: 5px;
 
       .form-group {
-        margin-bottom: 15px;
+        margin-bottom: 20px;
+
 
         label {
           display: block;
-          margin-bottom: 5px;
+          margin: 5px 0 10px 0;
         }
 
         input {
@@ -45,14 +68,25 @@
         color: white;
         border: none;
         border-radius: 3px;
+        transition: background-color 0.3s;
         cursor: pointer;
+
+        &:hover {
+          background-color: #355a8f; /* Example hover background color */
+        }
       }
 
     }
 
+    .error-message {
+      color: rgb(179, 64, 64);
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
     a {
       text-decoration: none;
-      color: black;
+      color: white;
       font-size: 14px;
     }
 
