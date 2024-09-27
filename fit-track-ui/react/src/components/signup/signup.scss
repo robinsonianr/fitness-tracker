@@ -30,7 +30,7 @@
     border-radius: 8px;
     color: white;
     padding-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);;
+    box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
     align-items: center;
     align-content: center;
     text-align: center;
@@ -41,7 +41,7 @@
     }
 
     form {
-      padding: 30px 100px 20px 100px;
+      padding: 30px 100px 20px;
       border-radius: 10px;
 
 
@@ -101,7 +101,7 @@
     }
 
     .error-message {
-      color: rgb(179, 64, 64);
+      color: rgb(179 64 64);
       font-size: 12px;
       margin-top: 10px;
       margin-bottom: 5px;
