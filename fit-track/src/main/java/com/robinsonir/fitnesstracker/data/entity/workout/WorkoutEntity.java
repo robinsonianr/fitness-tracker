@@ -34,4 +34,10 @@ public class WorkoutEntity extends AbstractEntity {
     @Column(name = "workout_date")
     private OffsetDateTime workoutDate;
 
+    @Column(name = "exercises")
+    private Integer exercises;
+
+    @Column(name = "volume")
+    private Integer volume;
+
 }

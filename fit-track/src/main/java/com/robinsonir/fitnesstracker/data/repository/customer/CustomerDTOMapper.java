@@ -19,8 +19,10 @@ public class CustomerDTOMapper implements Function<CustomerEntity, CustomerDTO> 
                         workout.getId(),
                         workout.getCustomer().getId(),
                         workout.getWorkoutType(),
+                        workout.getExercises(),
                         workout.getCalories(),
                         workout.getDurationMinutes(),
+                        workout.getVolume(),
                         workout.getWorkoutDate()))
                 .collect(Collectors.toList());
     }
@@ -38,6 +40,7 @@ public class CustomerDTOMapper implements Function<CustomerEntity, CustomerDTO> 
                 customerEntity.getWeightGoal(),
                 customerEntity.getActivity(),
                 customerEntity.getBodyFat(),
+                customerEntity.getMemberSince(),
                 customerEntity.getAuthorities()
                         .stream()
                         .map(GrantedAuthority::getAuthority)
