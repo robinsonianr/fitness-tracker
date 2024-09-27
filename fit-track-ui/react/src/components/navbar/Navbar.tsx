@@ -39,10 +39,10 @@ const Navbar: React.FC<NavProps> = ({title, name}) => {
             return false;
         }
     };
-    useEffect( () => {
-        fetchPfp();
+    useEffect(() => {
+        fetchPfp()
+            .then(r => r);
     }, []);
-
 
 
     const handleClick = () => {
@@ -55,8 +55,8 @@ const Navbar: React.FC<NavProps> = ({title, name}) => {
             <div className="dashTitle">
                 {title}
             </div>
-            <div className="profile"  onClick={handleClick}>
-                <img src={pfp != undefined ? pfp : defaultImg} alt="pfp" />
+            <div className="profile" onClick={handleClick}>
+                <img src={pfp != undefined ? pfp : defaultImg} alt="pfp"/>
                 {name}
             </div>
         </nav>
