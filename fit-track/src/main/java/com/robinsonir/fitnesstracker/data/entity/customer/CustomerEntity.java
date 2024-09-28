@@ -12,6 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -56,6 +57,9 @@ public class CustomerEntity extends AbstractEntity implements UserDetails {
 
     @Column(name = "body_fat")
     private Integer bodyFat;
+
+    @Column(name = "member_since")
+    private OffsetDateTime memberSince;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<WorkoutEntity> customerWorkouts;

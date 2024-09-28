@@ -19,6 +19,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -107,7 +109,8 @@ public class CustomerServiceTest {
                 "johndoe@example.com",
                 "password123",
                 30,
-                Gender.MALE
+                Gender.MALE,
+                new Date().toInstant().atOffset(ZoneOffset.UTC)
         );
 
         // Mock behavior for passwordEncoder.encode to return the hashed password.
@@ -123,7 +126,8 @@ public class CustomerServiceTest {
                                 customer.getEmail().equals(registrationRequest.email()) &&
                                 customer.getPassword().equals("hashedPassword") && // Hashed password
                                 customer.getAge().equals(registrationRequest.age()) &&
-                                customer.getGender().equals(registrationRequest.gender())
+                                customer.getGender().equals(registrationRequest.gender()) &&
+                                customer.getMemberSince().equals(registrationRequest.memberSince())
                 )
         );
     }

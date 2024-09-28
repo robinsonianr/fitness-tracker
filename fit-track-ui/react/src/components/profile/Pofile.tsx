@@ -65,7 +65,8 @@ export const Profile = () => {
 
     const profile = {
         name: customer?.name,
-        email: customer?.email
+        email: customer?.email,
+        memberSince: customer?.memberSince
     };
 
     const healthInfo = {
@@ -86,7 +87,7 @@ export const Profile = () => {
                 <Navbar title={"Profile"} name={customer?.name}/>
                 <div className="content">
                     <div>
-                        <ProfileWidget profile={profile} pfp={pfp} isModalOpen={isModalOpen}/>
+                        <ProfileWidget profile={profile} pfp={pfp}/>
                     </div>
                     <div className="health-info">
                         <HealthWidget healthInfo={healthInfo}/>

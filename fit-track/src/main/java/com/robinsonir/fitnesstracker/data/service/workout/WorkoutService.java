@@ -50,9 +50,12 @@ public class WorkoutService {
 
         WorkoutEntity newWorkout = new WorkoutEntity();
         newWorkout.setWorkoutType(workoutCreationRequest.workoutType());
+        newWorkout.setExercises(workoutCreationRequest.exercises());
         newWorkout.setCalories(workoutCreationRequest.calories());
         newWorkout.setDurationMinutes(workoutCreationRequest.durationMinutes());
+        newWorkout.setVolume(workoutCreationRequest.volume());
         newWorkout.setWorkoutDate(workoutCreationRequest.workoutDate());
+
 
         Optional<CustomerEntity> customerEntity =  customerRepository.findCustomerById(workoutCreationRequest.customer().getId());
         customerEntity.ifPresent(newWorkout::setCustomer);

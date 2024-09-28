@@ -34,6 +34,9 @@ spring:
         format_sql: true
         default_schema: fit_tracker
     show-sql: true
+  flyway:
+    baseline-on-migrate: true
+    validate-on-migrate: true
   main:
     web-application-type: servlet
 logging:

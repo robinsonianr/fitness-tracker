@@ -1,9 +1,9 @@
 .modal {
   display: none;
-  position: fixed;
-  top: 0;
   left: 0;
   overflow: hidden;
+  position: fixed;
+  top: 0;
   z-index: 9999;
 
   h2 {
@@ -16,26 +16,26 @@
 }
 
 .modal-overlay {
+  background-color: rgb(0 0 0 / 50%); /* Semi-transparent black overlay */
+  height: 100%;
+  left: 0;
   position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  background-color: rgb(0 0 0 / 50%); /* Semi-transparent black overlay */
 }
 
 .workout-modal-content {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 500px;
-  height: 350px;
   align-content: center;
-  transform: translate(-50%, -50%);
   background-color: #222;
-  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+  height: 440px;
+  left: 50%;
+  padding: 20px;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
   z-index: 10000;
 
   h2 {
@@ -47,39 +47,30 @@
   }
 
   .modal-inputs {
+    color: white;
     display: flex;
     flex-direction: column;
-    color: white;
+    font-size: 14px;
     padding-top: 10px;
-    font-size: 25px;
-
-    input {
-      width: 125px;
-      height: 25px;
-    }
-
-    select {
-      width: 150px;
-      height: 25px;
-    }
 
 
     .modal-label {
-      padding: 10px;
+      font-weight: bold;
     }
   }
 
   button {
-    border: none;
-    background: #3f76c0;
-    padding: 5px 20px;
     align-self: center;
+    background: #3f76c0;
+    border: none;
     border-radius: .625rem;
-    cursor: pointer;
     color: white;
+    cursor: pointer;
+    height: 35px;
+    margin-top: 10px;
+    padding: 5px 20px;
     transition: background-color 0.3s;
     width: 125px;
-    height: 35px;
 
     &:hover {
       background-color: #355a8f; /* Example hover background color */
@@ -88,12 +79,12 @@
 }
 
 .close {
-  position: absolute;
-  top: 5px;
-  right: 15px;
+  color: #888;
   cursor: pointer;
   font-size: 25px;
-  color: #888;
+  position: absolute;
+  right: 15px;
+  top: 5px;
 }
 
 .close:hover {

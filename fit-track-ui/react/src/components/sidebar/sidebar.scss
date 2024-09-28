@@ -1,15 +1,17 @@
-.sidebar {
-  position: fixed;
+.sidebar { // Adjust width as needed
+  box-shadow: 0 0 10px rgb(255 255 255 / 13%); /* Light shadow */
+
+ // Sidebar background color
+  color: #fff;
+  background-color: #222;
   display: flex;
   flex-direction: column;
-  top: 0;
-  left: 0;
-  z-index: 2;
   height: 100%;
-  width: 300px; // Adjust width as needed
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.13); /* Light shadow */
-  background-color: #222; // Sidebar background color
-  color: #fff; // Text color
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 300px;
+  z-index: 2; // Text color
 
   .sidebar-logo {
     align-content: center;
@@ -18,28 +20,28 @@
 
     .logo {
       align-items: center; /* Align items vertically */
+      cursor: pointer;
       display: flex;
-      text-align: center;
       font-size: 1.5em;
       font-weight: bold;
-      cursor: pointer;
       height: 100px;
       margin-left: 50px;
+      text-align: center;
 
 
       .gym-icon {
-        width: 50px; /* Adjust width as needed */
         height: 50px; /* Adjust height as needed */
         margin-right: 10px; /* Adjust margin as needed */
+        width: 50px; /* Adjust width as needed */
       }
     }
   }
 
   .sidebar-content {
     flex-grow: 1; /* Grow to fill the remaining space */
-    position: relative;
     height: 100%;
     overflow-y: auto; /* Enable vertical scrolling if content exceeds height */
+    position: relative;
 
     .side-menu {
       display: flex;
@@ -48,12 +50,12 @@
 
 
       li {
-        padding: 0 0 0 40px;
-        position: relative;
+        cursor: pointer;
         display: flex;
         flex-direction: column;
         margin: 5px 0;
-        cursor: pointer;
+        padding: 0 0 0 40px;
+        position: relative;
         transition: background-color 0.3s;
 
         &:hover {
@@ -64,36 +66,35 @@
 
 
       a {
-        display: flex;
         align-items: center; /* Align items vertically */
-        font-size: 16px;
-        padding: 20px 20px;
-        border-top-left-radius: .625rem;
         border-bottom-left-radius: .625rem;
+        border-top-left-radius: .625rem;
+        display: flex;
+        font-size: 16px;
+        padding: 20px;
 
 
-        img {
-          width: 25px; // Adjust image width as needed
-          height: 25px; // Adjust image height as needed
+        img { // Adjust image height as needed
           margin-right: 10px;
+          width: 25px;
         }
       }
     }
   }
 
   .add-workout {
-    background:  #3f76c0;
-    padding: 20px 18px;
     align-self: center;
+    background:  #3f76c0;
     border-radius: .625rem;
-    margin: 50px 50px;
-    transition: background-color 0.3s;
     cursor: pointer;
+    margin: 50px;
+    padding: 20px 18px;
+    transition: background-color 0.3s;
 
     .font-w500 {
+      color: #fff;
       font-size: 16px;
       font-weight: 500;
-      color: #fff;
       text-decoration: none;
     }
 
@@ -103,14 +104,14 @@
   }
 
   .logout-button {
-    margin-top: auto; /* Push the button to the bottom */
-    width: 100%; /* Make the button full width */
-    padding: 15px; /* Add padding for better appearance */
     background-color: #3f76c0; /* Example background color */
-    color: white; /* Example text color */
     border: none; /* Remove border */
-    transition: background-color 0.3s;
+    color: white; /* Example text color */
     cursor: pointer; /* Show pointer cursor on hover */
+    margin-top: auto; /* Push the button to the bottom */
+    padding: 15px; /* Add padding for better appearance */
+    transition: background-color 0.3s;
+    width: 100%; /* Make the button full width */
 
     &:hover {
       background-color: #355a8f; /* Example hover background color */

@@ -1,3 +1,15 @@
+/* Chrome, Safari, Edge, and Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  appearance: textfield;
+}
+
 .App {
   text-align: center;
 }
@@ -17,15 +29,30 @@ body {
   background-color: #444;
 }
 
+input, select {
+  background: #222;
+  border: none; /* Remove default border */
+  border-bottom: 2px solid #3f76c0; /* Blue underline */
+  color: white;
+  outline: none; /* Remove default focus outline */
+  padding: 5px 0; /* Add some padding */
+  width: 100%; /* Adjust width */
+}
+
+/* Change the underline color when the input is focused */
+input:focus {
+  border-bottom-color: #224773; /* Change the color when focused */
+}
+
 .App-header {
+  align-items: center;
   background-color: #282c34;
-  min-height: 100vh;
+  color: white;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 .App-link {

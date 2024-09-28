@@ -4,9 +4,9 @@
 }
 
 .main-content {
+  color: white;
   flex-grow: 1; /* Allow main content to grow and fill remaining space */
   padding: 20px; /* Add padding to separate main content from sidebar */
-  color: white;
 }
 
 .content {
@@ -21,21 +21,21 @@
 }
 
 .edit-health-button {
-  position: fixed;
-  bottom: 0;
-  right: 0;
   background:  #3f76c0;
-  padding: 20px 18px;
   border-radius: .625rem;
-  margin: 25px 20px;
+  bottom: 0;
   box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
-  transition: background-color 0.3s;
   cursor: pointer;
+  margin: 25px 20px;
+  padding: 20px 18px;
+  position: fixed;
+  right: 0;
+  transition: background-color 0.3s;
 
   .font-w500 {
+    color: #fff;
     font-size: 16px;
     font-weight: 500;
-    color: #fff;
     text-decoration: none;
   }
 

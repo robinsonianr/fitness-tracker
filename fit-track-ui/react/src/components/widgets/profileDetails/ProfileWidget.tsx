@@ -7,6 +7,13 @@ const ProfileWidget: React.FC<ProfileDetailsWidget> = ({profile, pfp}) => {
     const defaultImg = "/assets/user.png";
     const fileInputRef = useRef<HTMLInputElement>(null);
     const customerId = localStorage.getItem("customerId");
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June", "July",
+        "August", "September", "October", "November", "December"
+    ];
+    const profileMember = profile.memberSince?.toString();
+    const month = new Date(profileMember).getMonth();
+    const memberDate = monthNames[month] + " " + new Date(profileMember).getFullYear();
 
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -50,7 +57,10 @@ const ProfileWidget: React.FC<ProfileDetailsWidget> = ({profile, pfp}) => {
             {/* Profile Section */}
             <div className="profile-section">
                 <h2>{profile.name}</h2>
-                <p>Email: {profile.email}</p>
+                <div className="member-details">
+                    <p><b>Email:</b> {profile.email}</p>
+                    <p><b>Member Since:</b> {memberDate}</p>
+                </div>
             </div>
         </div>
     );

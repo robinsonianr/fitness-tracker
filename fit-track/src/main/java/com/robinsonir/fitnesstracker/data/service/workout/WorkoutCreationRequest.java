@@ -6,9 +6,11 @@ import java.time.OffsetDateTime;
 
 public record WorkoutCreationRequest(
         CustomerEntity customer,
+        Integer exercises,
         String workoutType,
         Integer calories,
         Integer durationMinutes,
+        Integer volume,
         OffsetDateTime workoutDate
 ) {
 }

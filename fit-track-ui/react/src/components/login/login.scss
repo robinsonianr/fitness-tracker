@@ -1,47 +1,47 @@
 .login-form {
-  text-align: center;
+  align-items: center;
+  background-color: #444;
   display: flex;
   flex-direction: column;
-  align-items: center;
   height: 100vh;
-  background-color: #444;
+  text-align: center;
 
   .login-logo {
     align-items: center; /* Align items vertically */
+    color: white;
     display: flex;
-    text-align: center;
     font-size: 3.5rem;
     font-weight: bold;
-    color: white;
     margin-bottom: 100px;
+    text-align: center;
 
 
     .gym-icon {
-      width: 100px; /* Adjust width as needed */
       height: 100px; /* Adjust height as needed */
       margin-right: 10px; /* Adjust margin as needed */
+      width: 100px; /* Adjust width as needed */
     }
   }
 
   .login-form-container {
-    background-color: #222;
-    width: 500px;
-    height: 350px;
-    border-radius: 8px;
-    padding-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0 0 0 / 10%);
-    color: white;
     align-content: center;
     align-items: center;
+    background-color: #222;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0 0 0 / 10%);
+    color: white;
+    height: 350px;
+    padding-bottom: 20px;
     text-align: center;
+    width: 500px;
 
     h2 {
       margin-bottom: 10px;
     }
 
     form {
-      padding: 30px 115px 20px;
       border-radius: 5px;
+      padding: 30px 115px 20px;
 
       .form-group {
         margin-bottom: 20px;
@@ -49,27 +49,21 @@
 
         label {
           display: block;
+          font-weight: bold;
           margin: 5px 0 10px;
-        }
-
-        input {
-          width: 100%;
-          padding: 2px;
-          border: 1px solid #ccc;
-          border-radius: 3px;
         }
       }
 
 
       button {
-        width: 100%;
-        padding: 10px;
         background-color: #3f76c0;
-        color: white;
         border: none;
         border-radius: 3px;
-        transition: background-color 0.3s;
+        color: white;
         cursor: pointer;
+        padding: 10px;
+        transition: background-color 0.3s;
+        width: 100%;
 
         &:hover {
           background-color: #355a8f; /* Example hover background color */
@@ -85,9 +79,9 @@
     }
 
     a {
-      text-decoration: none;
       color: white;
       font-size: 14px;
+      text-decoration: none;
     }
 
   }

@@ -19,11 +19,13 @@ export const SignUp = () => {
 
 
     const [formData, setFormData] = useState({
-        "name": "",
-        "email": "",
-        "password": "",
-        "age": "",
-        "gender": ""
+        name: "",
+        email: "",
+        password: "",
+        age: "",
+        gender: "",
+        memberSince: new Date()
+
     });
 
     const [passwordError, setPasswordError] = useState("");
