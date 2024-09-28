@@ -1,0 +1,2 @@
+ALTER TABLE fit_tracker.customer
+ALTER COLUMN member_since SET DEFAULT CURRENT_TIMESTAMP
