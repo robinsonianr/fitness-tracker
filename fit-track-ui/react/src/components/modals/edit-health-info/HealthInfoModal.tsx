@@ -71,7 +71,14 @@ export const HealthInfoModal = ({isOpen, onClose, customer}: {isOpen: boolean, o
                     </div>
                     <div className="modal-column">
                         <label className="health-modal-label">Gender</label>
-                        <input type="text" name="gender" value={formData.gender} onChange={handleChange}/>
+                        <select  name="gender" value={formData.gender} onChange={handleChange}>
+                            <option value="">
+                                Select Gender
+                            </option>
+                            <option value="MALE">Male</option>
+                            <option value="FEMALE">Female</option>
+                            <option value="FORBIDDEN">Forbidden</option>
+                        </select>
                     </div>
                     <div className="modal-column">
                         <label className="health-modal-label">Weight</label>
@@ -86,8 +93,16 @@ export const HealthInfoModal = ({isOpen, onClose, customer}: {isOpen: boolean, o
                         <input type="number" name="weightGoal" value={formData.weightGoal} onChange={handleChange}/>
                     </div>
                     <div className="modal-column">
-                        <label className="health-modal-label">Activity</label>
-                        <input type="text" name="activity" value={formData.activity} onChange={handleChange}/>
+                        <label className="health-modal-label">Workout Activity</label>
+                        <select name="activity" value={formData.activity} onChange={handleChange}>
+                            <option value="">
+                                Select Activity Level
+                            </option>
+                            <option value="Advanced">Advanced</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Beginner">Beginner</option>
+                            <option value="Sedentary">Sedentary</option>
+                        </select>
                     </div>
                     <div className="modal-column">
                         <label className="health-modal-label">Body Fat Percentage</label>

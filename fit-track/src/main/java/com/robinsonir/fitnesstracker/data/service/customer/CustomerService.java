@@ -76,6 +76,7 @@ public class CustomerService {
                 passwordEncoder.encode(customerRegistrationRequest.password()),
                 customerRegistrationRequest.age(),
                 customerRegistrationRequest.gender());
+        customerEntity.setMemberSince(customerRegistrationRequest.memberSince());
 
         customerRepository.save(customerEntity);
     }

@@ -1,14 +1,14 @@
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 
 .dashboard-container {
-  position: relative;
-  display: flex;
   align-items: center; /* Vertically center items */
+  display: flex;
+  position: relative;
 
 }
 

@@ -8,15 +8,15 @@ $back-ground: #222;
 
 .profile-widget {
   //border: 1px solid $border-color;
-  padding: $widget-padding;
-  border-radius: $border-radius;
-  width: 100%;
-  box-shadow: $box-shadow;
+  align-items: center;
   background-color: $back-ground;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
   display: flex;
   flex-direction: column;
+  padding: $widget-padding;
   text-align: center;
-  align-items: center;
+  width: 100%;
   z-index: 1;
 
   .edit-pfp {
@@ -24,29 +24,30 @@ $back-ground: #222;
     width: 100px;
     z-index: 1;
 
-    .profile-img {
-      width: 70px; // Adjust image width as needed
+    .profile-img { // Adjust image width as needed
       height: 70px; // Adjust image height as needed
       border-radius: 50%;  /* Makes the image a circle */
+
       object-fit: cover; /* Ensures the image covers the circle nicely */
+      width: 70px;
       z-index: 1;
     }
 
     .edit-button {
-      position: absolute;
-      bottom: 5px; /* Adjust position relative to the bottom */
-      right: 5px;  /* Adjust position relative to the right */
-      background-color: #3f76c0;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      cursor: pointer;
-      border: none;
-      display: flex;
-      justify-content: center;
       align-items: center;
+      background-color: #3f76c0;
+      border: none;
+      border-radius: 50%;
+      bottom: 5px; /* Adjust position relative to the bottom */
+      cursor: pointer;
+      display: flex;
       font-size: 18px;
+      height: 30px;
+      justify-content: center;
       padding: 0;
+      position: absolute;
+      right: 5px;  /* Adjust position relative to the right */
+      width: 30px;
     }
 
     .edit-button:hover {
@@ -56,7 +57,6 @@ $back-ground: #222;
 
   // Profile Section
   .profile-section {
-
     .member-details {
       display: flex;
       flex: auto;
