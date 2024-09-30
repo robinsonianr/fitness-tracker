@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "./workoutHistoryWidget.scss";
+import "./workout-history-widget.scss";
 import {Customer, Workout} from "../../../typing";
 
 const WorkoutHistoryWidget = ({customer}: { customer: Customer | undefined }) => {
@@ -25,7 +25,7 @@ const WorkoutHistoryWidget = ({customer}: { customer: Customer | undefined }) =>
                     </option>
                     {workouts.map((option, index) => (
                         <option key={option.id} value={index}>
-                            Workout: {convertDate(option.workoutDate)}
+                            Workout: {convertDate(option.workoutDate.toString())}
                         </option>
                     ))}
                 </select>
@@ -36,8 +36,8 @@ const WorkoutHistoryWidget = ({customer}: { customer: Customer | undefined }) =>
                         <p><b>Calories:</b> {workouts[parseInt(selectedOption)]?.calories}</p>
                         <p><b>Duration:</b> {Math.floor(workouts[parseInt(selectedOption)].durationMinutes! / 60)}hr(s)
                             &nbsp;{workouts[parseInt(selectedOption)].durationMinutes! % 60} minutes</p>
-                        <p><b>Date:</b> {convertDate(workouts[parseInt(selectedOption)]?.workoutDate)}</p>
-                        <p><b>Volume:</b> {workouts[parseInt(selectedOption)]?.volume.toLocaleString()} lbs</p>
+                        <p><b>Date:</b> {convertDate(workouts[parseInt(selectedOption)]?.workoutDate.toString())}</p>
+                        <p><b>Volume:</b> {workouts[parseInt(selectedOption)]?.volume!.toLocaleString()} lbs</p>
                     </div>
                 ) : null}
             </div>

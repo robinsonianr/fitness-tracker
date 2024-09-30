@@ -1,5 +1,5 @@
 import React, {useRef} from "react";
-import "./profileWidget.scss";
+import "./profile-widget.scss";
 import {ProfileDetailsWidget} from "../../../typing";
 import {uploadCustomerProfileImage} from "../../../services/client.ts";
 
