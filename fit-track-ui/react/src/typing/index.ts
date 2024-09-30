@@ -9,7 +9,7 @@ export interface Customer {
     weightGoal?: number;
     activity?: string;
     bodyFat?: number;
-    memberSince?: Date;
+    memberSince: Date;
     roles?: string[];
     username?: string;
     profileImageId?: string;
@@ -23,7 +23,7 @@ export interface Workout {
     workoutType?: string;
     calories?: number;
     durationMinutes?: number;
-    workoutDate?: string;
+    workoutDate: Date;
     exercises?: number;
     volume?: number;
 }
@@ -31,7 +31,7 @@ export interface Workout {
 export type ProfileDetails = {
     name?: string
     email?: string
-    memberSince?: Date;
+    memberSince: Date;
 }
 
 export type HealthInfo = {
@@ -46,10 +46,10 @@ export type HealthInfo = {
 
 
 export type ProfileDetailsWidget = {
-    profile: ProfileDetails,
-    pfp?: string | undefined,
+    profile: ProfileDetails;
+    pfp?: string;
 }
 
 export type HealthInfoWidget = {
-    healthInfo: HealthInfo
+    healthInfo: HealthInfo;
 }

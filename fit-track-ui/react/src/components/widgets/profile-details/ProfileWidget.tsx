@@ -11,7 +11,7 @@ const ProfileWidget: React.FC<ProfileDetailsWidget> = ({profile, pfp}) => {
         "January", "February", "March", "April", "May", "June", "July",
         "August", "September", "October", "November", "December"
     ];
-    const profileMember = profile.memberSince?.toString();
+    const profileMember = profile.memberSince.toString();
     const month = new Date(profileMember).getMonth();
     const memberDate = monthNames[month] + " " + new Date(profileMember).getFullYear();
 
@@ -48,7 +48,7 @@ const ProfileWidget: React.FC<ProfileDetailsWidget> = ({profile, pfp}) => {
                 <input
                     type="file"
                     ref={fileInputRef}
-                    style={{ display: "none" }}
+                    style={{display: "none"}}
                     accept="image/*"
                     onChange={handleFileChange}
                 />
