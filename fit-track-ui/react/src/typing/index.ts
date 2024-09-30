@@ -9,7 +9,7 @@ export interface Customer {
     weightGoal?: number;
     activity?: string;
     bodyFat?: number;
-    memberSince: Date;
+    memberSince?: Date;
     roles?: string[];
     username?: string;
     profileImageId?: string;
@@ -31,7 +31,7 @@ export interface Workout {
 export type ProfileDetails = {
     name?: string
     email?: string
-    memberSince: Date;
+    memberSince?: Date
 }
 
 export type HealthInfo = {

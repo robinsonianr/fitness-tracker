@@ -11,9 +11,10 @@ const ProfileWidget: React.FC<ProfileDetailsWidget> = ({profile, pfp}) => {
         "January", "February", "March", "April", "May", "June", "July",
         "August", "September", "October", "November", "December"
     ];
-    const profileMember = profile.memberSince.toString();
-    const month = new Date(profileMember).getMonth();
-    const memberDate = monthNames[month] + " " + new Date(profileMember).getFullYear();
+
+    const profileMember = profile.memberSince?.toString();
+    const month = new Date(profileMember!).getMonth();
+    const memberDate = monthNames[month] + " " + new Date(profileMember!).getFullYear();
 
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];

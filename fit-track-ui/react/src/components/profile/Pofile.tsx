@@ -66,7 +66,7 @@ export const Profile = () => {
     const profile = {
         name: customer?.name,
         email: customer?.email,
-        memberSince: customer!.memberSince
+        memberSince: customer?.memberSince
     };
 
     const healthInfo = {
