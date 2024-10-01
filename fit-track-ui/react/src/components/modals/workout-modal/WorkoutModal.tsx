@@ -70,16 +70,16 @@ export const WorkoutModal = ({isOpen, onClose, customer}: {isOpen: boolean, onCl
                         <input type="number" name="exercises" value={formData.exercises} onChange={handleChange}/>
                     </div>
                     <div className="modal-column">
-                        <label className="modal-label">Calories</label>
+                        <label className="modal-label">Calories (kcal)</label>
                         <input type="number" name="calories" value={formData.calories} onChange={handleChange}/>
                     </div>
                     <div className="modal-column">
-                        <label className="modal-label">Workout Duration</label>
+                        <label className="modal-label">Workout Duration (min)</label>
                         <input type="number" name="durationMinutes" value={formData.durationMinutes} 
                             onChange={handleChange}/>
                     </div>
                     <div className="modal-column">
-                        <label className="modal-label">Volume</label>
+                        <label className="modal-label">Volume (lbs)</label>
                         <input type="number" name="volume" value={formData.volume} onChange={handleChange}/>
                     </div>
                     <div className="modal-column">

@@ -1,16 +1,23 @@
 import React from "react";
-import "./healthWidget.scss";
+import "./health-widget.scss";
 import {HealthInfoWidget} from "../../../typing";
 
 
 const HealthWidget: React.FC<HealthInfoWidget> = ({healthInfo}) => {
     let gender: string;
+    let height: number;
     if (healthInfo.gender == "MALE") {
         gender = "Male";
     } else if (healthInfo.gender == "FEMALE") {
         gender = "Female";
     } else {
         gender = "Forbidden";
+    }
+
+    if (healthInfo.height) {
+        height = healthInfo.height;
+    } else {
+        height = 0;
     }
 
     return (
@@ -21,7 +28,7 @@ const HealthWidget: React.FC<HealthInfoWidget> = ({healthInfo}) => {
                 <p><b>Age:</b> {healthInfo.age} years old</p>
                 <p><b>Gender:</b> {gender}</p>
                 <p><b>Weight:</b> {healthInfo.weight} lbs</p>
-                <p><b>Height:</b> {Math.floor(healthInfo.height / 12)}ft {healthInfo.height % 12} inches</p>
+                <p><b>Height:</b> {Math.floor(height / 12)}ft {height % 12} inches</p>
                 <p><b>Weight Goal:</b> {healthInfo.weightGoal} lbs</p>
                 <p><b>Activity Level:</b> {healthInfo.activity}</p>
                 <p><b>Body Fat Percentage:</b> {healthInfo.bodyFat}%</p>

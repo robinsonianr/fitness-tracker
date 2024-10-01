@@ -4,9 +4,9 @@ import {Customer} from "../../typing";
 import {getCustomer, getCustomerProfileImage} from "../../services/client";
 import Sidebar from "../sidebar/Sidebar.tsx";
 import Navbar from "../navbar/Navbar.tsx";
-import ProfileWidget from "../widgets/profileDetails/ProfileWidget.tsx";
-import HealthWidget from "../widgets/healthInfo/HealthWidget.tsx";
-import WorkoutHistoryWidget from "../widgets/workoutHistory/WorkoutHistoryWidget.tsx";
+import ProfileWidget from "../widgets/profile-details/ProfileWidget.tsx";
+import HealthWidget from "../widgets/health-info/HealthWidget.tsx";
+import WorkoutHistoryWidget from "../widgets/workout-history/WorkoutHistoryWidget.tsx";
 import HealthInfoModal from "../modals/edit-health-info/HealthInfoModal.tsx";
 import axios from "axios";
 

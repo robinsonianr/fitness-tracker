@@ -1,5 +1,5 @@
 import React, {useRef} from "react";
-import "./profileWidget.scss";
+import "./profile-widget.scss";
 import {ProfileDetailsWidget} from "../../../typing";
 import {uploadCustomerProfileImage} from "../../../services/client.ts";
 
@@ -11,9 +11,10 @@ const ProfileWidget: React.FC<ProfileDetailsWidget> = ({profile, pfp}) => {
         "January", "February", "March", "April", "May", "June", "July",
         "August", "September", "October", "November", "December"
     ];
+
     const profileMember = profile.memberSince?.toString();
-    const month = new Date(profileMember).getMonth();
-    const memberDate = monthNames[month] + " " + new Date(profileMember).getFullYear();
+    const month = new Date(profileMember!).getMonth();
+    const memberDate = monthNames[month] + " " + new Date(profileMember!).getFullYear();
 
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -48,7 +49,7 @@ const ProfileWidget: React.FC<ProfileDetailsWidget> = ({profile, pfp}) => {
                 <input
                     type="file"
                     ref={fileInputRef}
-                    style={{ display: "none" }}
+                    style={{display: "none"}}
                     accept="image/*"
                     onChange={handleFileChange}
                 />

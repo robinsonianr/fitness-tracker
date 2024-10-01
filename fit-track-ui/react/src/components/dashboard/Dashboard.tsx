@@ -4,6 +4,11 @@ import {Customer} from "../../typing";
 import {getCustomer} from "../../services/client";
 import Sidebar from "../sidebar/Sidebar.tsx";
 import Navbar from "../navbar/Navbar.tsx";
+import CalorieWidget from "../widgets/workout-calorie-visual/CalorieWidget.tsx";
+import VolumeWidget from "../widgets/workout-volume-visual/VolumeWidget.tsx";
+import DurationWidget from "../widgets/workout-duration-visual/DurationWidget.tsx";
+import AverageInfoWidget from "../widgets/number-of-workouts/AverageInfoWidget.tsx";
+import WorkoutToCalories from "../widgets/workout-to-calories/WorkoutToCalories.tsx";
 
 
 export const Dashboard = () => {
@@ -26,6 +31,19 @@ export const Dashboard = () => {
         <div className="dashboard-container">
             <Sidebar customer={customer}/>
             <Navbar title={"Dashboard"} name={customer?.name}/>
+            <div className="dashboard-content">
+                <div className="visual-content">
+                    <CalorieWidget customer={customer!}/>
+                    <VolumeWidget customer={customer!}/>
+                </div>
+                <div>
+                    <div className="minor-visual-content">
+                        <DurationWidget customer={customer!}/>
+                        <AverageInfoWidget customer={customer!}/>
+                    </div>
+                    <WorkoutToCalories customer={customer!}/>
+                </div>
+            </div>
         </div>
     );
 
