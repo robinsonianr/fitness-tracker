@@ -15,7 +15,6 @@ input[type="number"] {
 }
 
 .visual-widget {
-  /*border: 1px solid #ccc;*/
   background-color: #222;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
