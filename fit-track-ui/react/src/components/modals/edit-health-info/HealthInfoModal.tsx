@@ -81,15 +81,15 @@ export const HealthInfoModal = ({isOpen, onClose, customer}: {isOpen: boolean, o
                         </select>
                     </div>
                     <div className="modal-column">
-                        <label className="health-modal-label">Weight</label>
+                        <label className="health-modal-label">Weight (lbs)</label>
                         <input type="number" name="weight" value={formData.weight} onChange={handleChange}/>
                     </div>
                     <div className="modal-column">
-                        <label className="health-modal-label">Height</label>
+                        <label className="health-modal-label">Height (inches)</label>
                         <input type="number" name="height" value={formData.height} onChange={handleChange}/>
                     </div>
                     <div className="modal-column">
-                        <label className="health-modal-label">Weight Goal</label>
+                        <label className="health-modal-label">Weight Goal (lbs)</label>
                         <input type="number" name="weightGoal" value={formData.weightGoal} onChange={handleChange}/>
                     </div>
                     <div className="modal-column">

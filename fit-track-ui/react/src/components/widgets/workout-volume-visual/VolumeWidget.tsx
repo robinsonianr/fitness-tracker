@@ -3,11 +3,11 @@ import {Customer} from "../../../typing";
 import * as echarts from "echarts";
 import {isDateInThisWeek, sortWorkouts} from "../../../utils/utilities.ts";
 
-const CalorieWidget = ({customer}: { customer: Customer }) => {
+const VolumeWidget = ({customer}: { customer: Customer }) => {
 
     useEffect(() => {
-        const caloricData: number[] = [];
-        const caloricChart = echarts.init(document.getElementById("calorie-graph"));
+        const volumeData: number[] = [];
+        const volumeChart = echarts.init(document.getElementById("volume-graph"));
         const weekOf: string[] = [];
 
         if (customer?.workouts) {
@@ -15,17 +15,17 @@ const CalorieWidget = ({customer}: { customer: Customer }) => {
             for (let i = 0; i < workouts.length; i++) {
                 const date = new Date(workouts[i].workoutDate.toString());
                 if (isDateInThisWeek(date, weekOf)) {
-                    caloricData[date.getDay()] = (workouts[i].calories!);
+                    volumeData[date.getDay()] = (workouts[i].volume!);
                 } else {
                     break;
                 }
             }
         }
 
-        caloricChart.setOption({
+        volumeChart.setOption({
             color: "whites",
             title: {
-                text: "Caloric Expenditure",
+                text: "Volume Lifted",
                 left: "center",
                 textStyle: {
                     color: "white",
@@ -42,64 +42,44 @@ const CalorieWidget = ({customer}: { customer: Customer }) => {
                 axisLabel: {
                     color: "white"
                 },
-                boundaryGap: false,
                 data: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
 
             },
             yAxis: {
-                name: "Calories (kcal)",
+                name: "Volume (lbs)",
+                type: "value",
                 nameTextStyle: {
                     color: "white"
                 },
-
                 axisLabel: {
-
+                    formatter: function (value: number) {
+                        if (value >= 1000) {
+                            return (value / 1000) + "k"; // Divide by 1000 and append 'k'
+                        } else {
+                            return value;
+                        }
+                    },
                     color: "white"
                 }
             },
             series: [
                 {
-                    type: "line",
+                    type: "bar",
                     color: "#3f76c0",
-                    data: caloricData,
-                    connectNulls: true,
-                    areaStyle: {},
-                    markArea: {
-                        itemStyle: {
-                            color: "rgba(163, 163, 163, 0.4)"
-                        },
-                        data: [
-                            [
-                                {
-                                    xAxis: "Sun"
-                                },
-                                {
-                                    xAxis: "Mon"
-                                }
-                            ],
-                            [
-                                {
-                                    xAxis: "Fri"
-                                },
-                                {
-                                    xAxis: "Sat"
-                                }
-                            ]
-                        ]
-                    }
+                    data: volumeData,
                 }
             ]
         });
 
         return () => {
-            caloricChart.dispose();
+            volumeChart.dispose();
         };
     }, [customer]);
 
 
     return (
-        <div id="calorie-graph" className="visual-widget" style={{width: "475px", height: "300px"}}/>
+        <div id="volume-graph" className="visual-widget" style={{width: "475px", height: "300px"}}/>
     );
 };
 
-export default CalorieWidget;
+export default VolumeWidget;

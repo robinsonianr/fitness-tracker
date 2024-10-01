@@ -1,5 +1,6 @@
+import {Workout} from "../typing";
 
-export function isDateInThisWeek(date: Date, weekOf: string[]){
+export function isDateInThisWeek(date: Date, weekOf?: string[]){
     const todayObj = new Date();
     todayObj.setHours(0, 0, 0, 0);
     const dayOfWeek = todayObj.getDay(); // Sunday is 0, Monday is 1, etc.
@@ -14,8 +15,14 @@ export function isDateInThisWeek(date: Date, weekOf: string[]){
 
     // Convert the input date string to a Date object (if needed)
     const inputDate = new Date(date);
-    weekOf.push(firstDayOfWeek.toDateString(), lastDayOfWeek.toDateString());
+    weekOf?.push(firstDayOfWeek.toDateString(), lastDayOfWeek.toDateString());
 
     // Check if the input date is within the current week
     return inputDate >= firstDayOfWeek && inputDate <= lastDayOfWeek;
+}
+
+export function sortWorkouts(workouts: Workout[]): Workout[] {
+    return workouts.sort((a, b) => {
+        return new Date(b.workoutDate).getTime() - new Date(a.workoutDate).getTime();
+    });
 }

@@ -1,11 +1,13 @@
 import React, {useState} from "react";
 import "./workout-history-widget.scss";
 import {Customer, Workout} from "../../../typing";
+import {sortWorkouts} from "../../../utils/utilities.ts";
 
 const WorkoutHistoryWidget = ({customer}: { customer: Customer | undefined }) => {
 
     const [selectedOption, setSelectedOption] = useState<string | undefined>(undefined);
-    const workouts: Workout[] = customer?.workouts || [];
+    let workouts: Workout[] = customer?.workouts || [];
+    workouts = sortWorkouts(workouts);
 
     const handleSelectedChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedOption(event.target.value);

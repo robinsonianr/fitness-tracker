@@ -3,11 +3,11 @@ import {Customer} from "../../../typing";
 import * as echarts from "echarts";
 import {isDateInThisWeek, sortWorkouts} from "../../../utils/utilities.ts";
 
-const CalorieWidget = ({customer}: { customer: Customer }) => {
+const DurationWidget = ({customer}: {customer: Customer}) => {
 
     useEffect(() => {
-        const caloricData: number[] = [];
-        const caloricChart = echarts.init(document.getElementById("calorie-graph"));
+        const durationData: number[] = [];
+        const durationChart = echarts.init(document.getElementById("duration-graph"));
         const weekOf: string[] = [];
 
         if (customer?.workouts) {
@@ -15,17 +15,17 @@ const CalorieWidget = ({customer}: { customer: Customer }) => {
             for (let i = 0; i < workouts.length; i++) {
                 const date = new Date(workouts[i].workoutDate.toString());
                 if (isDateInThisWeek(date, weekOf)) {
-                    caloricData[date.getDay()] = (workouts[i].calories!);
+                    durationData[date.getDay()] = (workouts[i].durationMinutes!);
                 } else {
                     break;
                 }
             }
         }
 
-        caloricChart.setOption({
+        durationChart.setOption({
             color: "whites",
             title: {
-                text: "Caloric Expenditure",
+                text: "Workout Durations",
                 left: "center",
                 textStyle: {
                     color: "white",
@@ -42,64 +42,41 @@ const CalorieWidget = ({customer}: { customer: Customer }) => {
                 axisLabel: {
                     color: "white"
                 },
-                boundaryGap: false,
                 data: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
 
             },
             yAxis: {
-                name: "Calories (kcal)",
+                name: "Duration (min)",
+                nameGap: 15,
+                type: "value",
                 nameTextStyle: {
-                    color: "white"
+                    color: "white",
+                    padding: [0, 0, 0, 20]
                 },
-
                 axisLabel: {
-
+                    right: 10,
                     color: "white"
                 }
             },
             series: [
                 {
-                    type: "line",
+                    type: "bar",
                     color: "#3f76c0",
-                    data: caloricData,
+                    data: durationData,
                     connectNulls: true,
-                    areaStyle: {},
-                    markArea: {
-                        itemStyle: {
-                            color: "rgba(163, 163, 163, 0.4)"
-                        },
-                        data: [
-                            [
-                                {
-                                    xAxis: "Sun"
-                                },
-                                {
-                                    xAxis: "Mon"
-                                }
-                            ],
-                            [
-                                {
-                                    xAxis: "Fri"
-                                },
-                                {
-                                    xAxis: "Sat"
-                                }
-                            ]
-                        ]
-                    }
+                    areaStyle: {}
                 }
             ]
         });
 
         return () => {
-            caloricChart.dispose();
+            durationChart.dispose();
         };
     }, [customer]);
 
-
     return (
-        <div id="calorie-graph" className="visual-widget" style={{width: "475px", height: "300px"}}/>
+        <div id="duration-graph" className="visual-widget" style={{width: "340px", height: "300px"}}/>
     );
 };
 
-export default CalorieWidget;
+export default DurationWidget;
