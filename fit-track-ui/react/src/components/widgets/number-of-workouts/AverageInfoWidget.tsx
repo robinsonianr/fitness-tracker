@@ -4,7 +4,7 @@ import {isDateInThisWeek} from "../../../utils/utilities.ts";
 
 const AverageInfoWidget = ({customer}: { customer: Customer }) => {
 
-    let numOfWorkouts: number = 0;
+    let numOfWorkouts = 0;
     let avgVolume = 0;
     let avgCalorie = 0;
     let avgDuration = 0;
@@ -20,9 +20,9 @@ const AverageInfoWidget = ({customer}: { customer: Customer }) => {
             }
         }
 
-        avgCalorie = (avgCalorie / numOfWorkouts);
-        avgVolume = (avgVolume / numOfWorkouts);
-        avgDuration = (avgDuration / numOfWorkouts);
+        avgCalorie = Math.floor(avgCalorie / numOfWorkouts);
+        avgVolume = Math.floor(avgVolume / numOfWorkouts);
+        avgDuration = Math.floor(avgDuration / numOfWorkouts);
 
     }
 
