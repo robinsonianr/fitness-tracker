@@ -41,14 +41,20 @@ public class WorkoutServiceTest {
 
     @BeforeEach
     void setUp() {
-        customer = new CustomerEntity(1L, "John Doe", "john.doe@example.com", "password", 30, Gender.MALE);
+        customer = new CustomerEntity();
+        customer.setId(1L);
+        customer.setName("John Doe");
+        customer.setEmail("john.doe@example.com");
+        customer.setPassword("password");
+        customer.setAge(30);
+        customer.setGender(Gender.MALE);
     }
 
     @Test
     void getAllWorkouts() {
         // Arrange
-        WorkoutEntity workout1 = new WorkoutEntity(customer, "Running", 500, 60, OffsetDateTime.now(), null, null);
-        WorkoutEntity workout2 = new WorkoutEntity(customer, "Cycling", 300, 45, OffsetDateTime.now(), null, null);
+        WorkoutEntity workout1 = new WorkoutEntity("Running", 500, 60, OffsetDateTime.now(), null, null, customer);
+        WorkoutEntity workout2 = new WorkoutEntity("Cycling", 300, 45, OffsetDateTime.now(), null, null, customer);
 
         List<WorkoutEntity> workoutList = List.of(workout1, workout2);
         when(workoutRepository.findAllWorkouts()).thenReturn(workoutList);
@@ -73,7 +79,7 @@ public class WorkoutServiceTest {
     void getWorkoutSuccess() {
         // Arrange
         Long workoutId = 1L;
-        WorkoutEntity workout = new WorkoutEntity(customer, "Running", 500, 60, OffsetDateTime.now(), null, null);
+        WorkoutEntity workout = new WorkoutEntity("Running", 500, 60, OffsetDateTime.now(), null, null, customer);
         WorkoutDTO expectedDTO = new WorkoutDTO(workoutId, customer.getId(), "Running", 500, 60, null, null, OffsetDateTime.now());
 
         when(workoutRepository.findWorkoutById(workoutId)).thenReturn(Optional.of(workout));

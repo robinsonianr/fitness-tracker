@@ -69,14 +69,13 @@ public class CustomerServiceTest {
     void testGetCustomer() {
         // Arrange
         Long customerId = 1L;
-        CustomerEntity customerEntity = new CustomerEntity(
-                "John Doe",
-                "john.doe@example.com",
-                "password123",
-                30,
-                Gender.MALE
-        );
+        CustomerEntity customerEntity = new CustomerEntity();
         customerEntity.setId(customerId);
+        customerEntity.setName("John Doe");
+        customerEntity.setEmail("john.doe@example.com");
+        customerEntity.setPassword("password123");
+        customerEntity.setAge(30);
+        customerEntity.setGender(Gender.MALE);
 
         // Create and save a workout
         WorkoutEntity workout = new WorkoutEntity();
@@ -158,7 +157,14 @@ public class CustomerServiceTest {
     void testUpdateCustomerWithChanges() {
         // Arrange
         Long customerId = 1L;
-        CustomerEntity existingCustomer = new CustomerEntity(customerId, "John Doe", "john@example.com", "hashedPassword", 30, Gender.MALE);
+        CustomerEntity existingCustomer = new CustomerEntity();
+        existingCustomer.setId(customerId);
+        existingCustomer.setName("John Doe");
+        existingCustomer.setEmail("john.doe@example.com");
+        existingCustomer.setPassword("hashedPassword");
+        existingCustomer.setAge(30);
+        existingCustomer.setGender(Gender.MALE);
+
         CustomerUpdateRequest updateRequest = new CustomerUpdateRequest(
                 "Jane Doe",             // Updated name
                 "jane@example.com",     // Updated email
@@ -230,9 +236,15 @@ public class CustomerServiceTest {
         byte[] expectedImageData = "Hello World".getBytes();
         // Create and save a workout
 
-
-        CustomerEntity testCustomerEntity = new CustomerEntity(customerId, "John Doe", "johndoe@example.com", "hashedPassword", 30, Gender.MALE);
+        CustomerEntity testCustomerEntity = new CustomerEntity();
+        testCustomerEntity.setId(customerId);
+        testCustomerEntity.setName("John Doe");
+        testCustomerEntity.setEmail("john.doe@example.com");
+        testCustomerEntity.setPassword("hashedPassword");
+        testCustomerEntity.setAge(30);
+        testCustomerEntity.setGender(Gender.MALE);
         testCustomerEntity.setProfileImageId(profileImageId);
+
         WorkoutEntity workout = new WorkoutEntity();
         workout.setCustomer(testCustomerEntity);
         workout.setWorkoutType("Rowing");
@@ -268,7 +280,14 @@ public class CustomerServiceTest {
     void getProfilePictureCustomerHasNoProfileImage() {
         // Arrange: Create a test customer with no profile image.
         Long customerId = 1L;
-        CustomerEntity testCustomerEntity = new CustomerEntity(customerId, "John Doe", "johndoe@example.com", "hashedPassword", 30, Gender.MALE);
+        CustomerEntity testCustomerEntity = new CustomerEntity();
+        testCustomerEntity.setId(customerId);
+        testCustomerEntity.setName("John Doe");
+        testCustomerEntity.setEmail("john.doe@example.com");
+        testCustomerEntity.setPassword("hashedPassword");
+        testCustomerEntity.setAge(30);
+        testCustomerEntity.setGender(Gender.MALE);
+
         WorkoutEntity workout = new WorkoutEntity();
         workout.setCustomer(testCustomerEntity);
         workout.setWorkoutType("Rowing");

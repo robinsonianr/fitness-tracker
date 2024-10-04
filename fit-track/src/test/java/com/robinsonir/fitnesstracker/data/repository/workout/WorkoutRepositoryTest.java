@@ -34,7 +34,13 @@ public class WorkoutRepositoryTest {
     @Test
     void testSaveWorkout() {
         // Create and save a customer
-        CustomerEntity customer = new CustomerEntity("John Doe", "john.doe@example.com", "password123", 30, Gender.MALE);
+        CustomerEntity customer = new CustomerEntity();
+        customer.setName("John Doe");
+        customer.setEmail("john.doe@example.com");
+        customer.setPassword("password123");
+        customer.setAge(30);
+        customer.setGender(Gender.MALE);
+
         customerRepository.save(customer);
 
         // Create a workout entity
@@ -58,7 +64,13 @@ public class WorkoutRepositoryTest {
     @Test
     void testFindWorkoutById() {
         // Create and save a customer
-        CustomerEntity customer = new CustomerEntity("Jane Doe", "jane.doe@example.com", "securePass", 28, Gender.FEMALE);
+        CustomerEntity customer = new CustomerEntity();
+        customer.setName("Jane Doe");
+        customer.setEmail("jane.doe@example.com");
+        customer.setPassword("securePass");
+        customer.setAge(28);
+        customer.setGender(Gender.FEMALE);
+
         customerRepository.save(customer);
 
         // Create and save a workout
@@ -81,10 +93,21 @@ public class WorkoutRepositoryTest {
     @Test
     void testFindAllWorkouts() {
         // Create and save customers
-        CustomerEntity customer1 = new CustomerEntity("Bob Smith", "bob.smith@example.com", "bobPass", 35, Gender.MALE);
+        CustomerEntity customer1 = new CustomerEntity();
+        customer1.setName("Bob Smith");
+        customer1.setEmail("bob.smith@example.com");
+        customer1.setPassword("bobPass");
+        customer1.setAge(35);
+        customer1.setGender(Gender.MALE);
+
         customerRepository.save(customer1);
 
-        CustomerEntity customer2 = new CustomerEntity("Alice Johnson", "alice.johnson@example.com", "alicePass", 29, Gender.FEMALE);
+        CustomerEntity customer2 = new CustomerEntity();
+        customer2.setName("Alice Johnson");
+        customer2.setEmail("alice.johnson@example.com");
+        customer2.setPassword("alicePass");
+        customer2.setAge(29);
+        customer2.setGender(Gender.FEMALE);
         customerRepository.save(customer2);
 
         // Create and save workouts
@@ -115,7 +138,12 @@ public class WorkoutRepositoryTest {
     @Test
     void testExistsWorkoutEntityByCustomer() {
         // Create and save a customer
-        CustomerEntity customer = new CustomerEntity("Chris Evans", "chris.evans@example.com", "captain123", 40, Gender.MALE);
+        CustomerEntity customer = new CustomerEntity();
+        customer.setName("Chris Evans");
+        customer.setEmail("chris.evans@example.com");
+        customer.setPassword("captain123");
+        customer.setAge(40);
+        customer.setGender(Gender.MALE);
         customerRepository.save(customer);
 
         // Create and save a workout
@@ -132,7 +160,12 @@ public class WorkoutRepositoryTest {
         assertTrue(exists);
 
         // Test for a non-existent customer (without any workouts)
-        CustomerEntity newCustomer = new CustomerEntity("Mark Ruffalo", "mark.ruffalo@example.com", "hulk123", 53, Gender.MALE);
+        CustomerEntity newCustomer = new CustomerEntity();
+        newCustomer.setName("Mark Ruffalo");
+        newCustomer.setEmail("mark.ruffalo@example.com");
+        newCustomer.setPassword("hulk123");
+        newCustomer.setAge(53);
+        newCustomer.setGender(Gender.MALE);
         customerRepository.save(newCustomer);
 
         boolean notExists = workoutRepository.existsWorkoutEntityByCustomer(newCustomer);
