@@ -15,15 +15,14 @@ import java.util.List;
 public class CustomerRowMapper implements RowMapper<CustomerEntity> {
     @Override
     public CustomerEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
-        CustomerEntity customer = new CustomerEntity(
-                rs.getLong("id"),
-                rs.getString("name"),
-                rs.getString("email"),
-                rs.getString("password"),
-                rs.getInt("age"),
-                Gender.valueOf(rs.getString("gender")),
-                rs.getString("profile_image_id"));
-
+        CustomerEntity customer = new CustomerEntity();
+        customer.setId(rs.getLong("id"));
+        customer.setName(rs.getString("name"));
+        customer.setEmail(rs.getString("email"));
+        customer.setPassword(rs.getString("password"));
+        customer.setAge(rs.getInt("age"));
+        customer.setGender(Gender.valueOf(rs.getString("gender")));
+        customer.setProfileImageId(rs.getString("profile_image_id"));
 
         List<WorkoutEntity> workouts;
 

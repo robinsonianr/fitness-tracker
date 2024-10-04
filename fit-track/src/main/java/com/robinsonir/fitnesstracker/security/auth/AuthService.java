@@ -1,8 +1,8 @@
 package com.robinsonir.fitnesstracker.security.auth;
 
+import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
 import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDTO;
 import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDTOMapper;
-import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
 import com.robinsonir.fitnesstracker.security.jwt.JwtTokenUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

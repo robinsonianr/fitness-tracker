@@ -64,69 +64,6 @@ public class CustomerEntity extends AbstractEntity implements UserDetails {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<WorkoutEntity> customerWorkouts;
 
-    public CustomerEntity(Long id,
-                          String name,
-                          String email,
-                          String password,
-                          Integer age,
-                          Gender gender,
-                          String profileImageId) {
-        setId(id);
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.age = age;
-        this.gender = gender;
-        this.profileImageId = profileImageId;
-    }
-
-    public CustomerEntity(Long id, String name, String email, String password, Integer age, Gender gender) {
-        setId(id);
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.age = age;
-        this.gender = gender;
-
-    }
-
-    public CustomerEntity(String name,
-                          String email,
-                          String password,
-                          Integer age,
-                          Gender gender,
-                          Integer weight,
-                          Integer height,
-                          Integer weightGoal,
-                          String activity,
-                          Integer bodyFat) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.age = age;
-        this.gender = gender;
-        this.weight = weight;
-        this.height = height;
-        this.weightGoal = weightGoal;
-        this.activity = activity;
-        this.bodyFat = bodyFat;
-
-    }
-
-    public CustomerEntity(
-            String name,
-            String email,
-            String password,
-            Integer age,
-            Gender gender) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.age = age;
-        this.gender = gender;
-
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));

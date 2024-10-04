@@ -18,12 +18,6 @@ public class JwtTokenUtil {
 
     private static final String SECRET_KEY = "fitness_tracker_8702_tracker_fitness_2078";
 
-
-    // public String generateToken(String subject) {
-    //    return generateToken(subject, Map.of());
-    // }
-
-
     public String generateToken(String subject, String... roles) {
         return generateToken(subject, Map.of("scopes", roles));
     }
@@ -43,7 +37,7 @@ public class JwtTokenUtil {
                 .setSubject(subject)
                 .setIssuer("Robinsonir")
                 .setIssuedAt(Date.from(Instant.now()))
-                .setExpiration(Date.from(Instant.now().plus(15, ChronoUnit.DAYS)))
+                .setExpiration(Date.from(Instant.now().plus(1, ChronoUnit.DAYS)))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

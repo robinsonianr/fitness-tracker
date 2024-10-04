@@ -21,6 +21,7 @@ const Navbar: React.FC<NavProps> = ({title, name}) => {
             const id = localStorage.getItem("customerId")!;
             const res = getCustomerProfileImage(id);
             const isImage = await checkImageUrl(res);
+
             if (isImage) {
                 setPfp(res);
             }

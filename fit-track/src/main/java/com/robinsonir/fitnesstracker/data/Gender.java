@@ -1,7 +1,19 @@
 package com.robinsonir.fitnesstracker.data;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public enum Gender {
-    MALE,
-    FEMALE,
-    FORBIDDEN
+    MALE("Male"),
+    FEMALE("Female"),
+    FORBIDDEN("Forbidden");
+
+    @JsonValue
+    private final String value;
+
+    @Override
+    public String toString() {
+        return value;
+    }
 }

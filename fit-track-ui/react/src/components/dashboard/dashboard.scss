@@ -9,6 +9,7 @@
   align-items: center; /* Vertically center items */
   display: flex;
   position: relative;
+  width: 100%;
 
   .dashboard-content{
     flex-grow: 1; /* Allow main content to grow and fill remaining space */

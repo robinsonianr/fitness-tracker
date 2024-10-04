@@ -1,6 +1,6 @@
 package com.robinsonir.fitnesstracker.s3;
 
-import com.robinsonir.fitnesstracker.decrypt.EnvFileDecryptor;
+import com.robinsonir.fitnesstracker.decrypt.EnvFileDecrypter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +13,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 @Configuration
 public class S3Config {
 
-    private final EnvFileDecryptor fileDecryptor = new EnvFileDecryptor();
+    private final EnvFileDecrypter fileDecrypter = new EnvFileDecrypter();
 
     @Value("${aws_access_key_id}")
     private String backupKeyId;
@@ -26,9 +26,9 @@ public class S3Config {
 
     @Bean
     public S3Client s3Client() throws Exception {
-        fileDecryptor.decryptFile();
-        String accessKeyId = fileDecryptor.variables.get("AWS_ACCESS_KEY_ID") == null ? backupKeyId : fileDecryptor.variables.get("AWS_ACCESS_KEY_ID");
-        String accessKeySecret = fileDecryptor.variables.get("AWS_SECRET_ACCESS_KEY") == null ? backupSecretKey : fileDecryptor.variables.get("AWS_SECRET_ACCESS_KEY");
+        fileDecrypter.decryptFile();
+        String accessKeyId = fileDecrypter.variables.get("AWS_ACCESS_KEY_ID") == null ? backupKeyId : fileDecrypter.variables.get("AWS_ACCESS_KEY_ID");
+        String accessKeySecret = fileDecrypter.variables.get("AWS_SECRET_ACCESS_KEY") == null ? backupSecretKey : fileDecrypter.variables.get("AWS_SECRET_ACCESS_KEY");
 
         AwsCredentialsProvider awsCredentialsProvider = StaticCredentialsProvider.create(
                 awsCredentials(accessKeyId, accessKeySecret)
