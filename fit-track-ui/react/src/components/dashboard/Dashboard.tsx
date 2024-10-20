@@ -99,7 +99,7 @@ export const Dashboard = () => {
                         </option>
                         {weeks.map((option, index) => (
                             <option key={index} value={option.toString()}>
-                                Week Of: {option.toDateString()}
+                                Week: {option.toDateString()}
                             </option>
                         ))}
                     </select>
