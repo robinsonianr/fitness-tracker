@@ -1,32 +1,57 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Customer} from "../../../typing";
 import * as echarts from "echarts";
-import {isDateInThisWeek, sortWorkouts} from "../../../utils/utilities.ts";
+import {getWeekOf, isDateInSelectedWeek, sortWorkoutsAsc} from "../../../utils/utilities.ts";
 
-const DurationWidget = ({customer}: {customer: Customer}) => {
-    const durationData: number[] = [];
-    const weekOf: string[] = [];
-
-    if (customer?.workouts) {
-        const workouts = sortWorkouts(customer.workouts);
-        for (let i = 0; i < workouts.length; i++) {
-            const date = new Date(workouts[i].workoutDate.toString());
-            if (isDateInThisWeek(date)) {
-                durationData[date.getDay()] = (workouts[i].durationMinutes!);
-            } else {
-                break;
-            }
-        }
-        // Gets the current week to display in chart
-        const date =  new Date();
-        isDateInThisWeek(date, weekOf);
-    }
+const DurationWidget = ({customer, weekDate}: { customer: Customer, weekDate: string }) => {
+    const chartInstance = useRef<any>(null);
+    const chartRef = useRef<HTMLDivElement>(null);
+    const [durationData, setDurationData] = useState<number[]>([]);
+    const [weekOf, setWeekOf] = useState<string[]>([]);
+    const hasAddedHeader = useRef(false);
 
     useEffect(() => {
-        if (durationData.length !== 0) {
-            const durationChart = echarts.init(document.getElementById("duration-graph"));
+        setDurationData([]);
+        const newDurationData: number[] = [];
+        if (customer?.workouts) {
+            const workouts = sortWorkoutsAsc(customer.workouts);
+            for (let i = 0; i < workouts.length; i++) {
+                const date = new Date(workouts[i].workoutDate.toString());
+                if (isDateInSelectedWeek(date, new Date(weekDate))) {
+                    newDurationData[date.getDay()] = (workouts[i].durationMinutes!);
+                }
+            }
 
-            durationChart.setOption({
+            // Gets the current week to display in chart
+            const date = new Date(weekDate);
+            const week: string[] = [];
+            getWeekOf(date, week);
+            setWeekOf(week);
+        }
+        setDurationData(newDurationData);
+    }, [customer, weekDate]);
+
+    useEffect(() => {
+        if (durationData.length === 0 && !hasAddedHeader.current) {
+            const noDataDom = document.getElementById("duration-graph");
+            const noDataText = document.createElement("h2");
+            noDataText.textContent = "No Duration Data Available";
+            if (noDataDom) {
+                noDataDom.appendChild(noDataText);
+                hasAddedHeader.current = true;
+            }
+        }
+    }, [weekOf]);
+
+    useEffect(() => {
+        if (durationData.length !== 0 && chartRef.current) {
+
+            if (!chartInstance.current) {
+                chartInstance.current = echarts.init(chartRef.current);
+                hasAddedHeader.current = false;
+            }
+
+            chartInstance.current.setOption({
                 color: "whites",
                 title: {
                     text: "Workout Durations",
@@ -74,20 +99,19 @@ const DurationWidget = ({customer}: {customer: Customer}) => {
             });
 
             return () => {
-                durationChart.dispose();
+                if (chartInstance.current) {
+                    chartInstance.current.dispose();
+                    chartInstance.current = null;
+                }
+
             };
         }
-    }, [customer]);
+    }, [durationData]);
 
     return (
         <div>
-            {durationData.length === 0 ? (
-                <div className="visual-widget" style={{width: "340px", height: "300px"}}>
-                    <h2>No Duration Data Available</h2>
-                </div>
-            ) : (
-                <div id="duration-graph" className="visual-widget" style={{width: "340px", height: "300px"}}/>
-            )}
+            <div ref={chartRef} id="duration-graph" className="visual-widget" 
+                style={{width: "340px", height: "300px"}}/>
         </div>
     );
 };

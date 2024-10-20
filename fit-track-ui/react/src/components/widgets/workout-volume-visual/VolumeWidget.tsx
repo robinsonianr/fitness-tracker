@@ -1,32 +1,55 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Customer} from "../../../typing";
 import * as echarts from "echarts";
-import {isDateInThisWeek, sortWorkouts} from "../../../utils/utilities.ts";
+import {getWeekOf, isDateInSelectedWeek, sortWorkoutsAsc} from "../../../utils/utilities.ts";
 
-const VolumeWidget = ({customer}: { customer: Customer }) => {
-    const volumeData: number[] = [];
-    const weekOf: string[] = [];
-
-    if (customer?.workouts) {
-        const workouts = sortWorkouts(customer.workouts);
-        for (let i = 0; i < workouts.length; i++) {
-            const date = new Date(workouts[i].workoutDate.toString());
-            if (isDateInThisWeek(date)) {
-                volumeData[date.getDay()] = (workouts[i].volume!);
-            } else {
-                break;
-            }
-        }
-        // Gets the current week to display in chart
-        const date =  new Date();
-        isDateInThisWeek(date, weekOf);
-    }
+const VolumeWidget = ({customer, weekDate}: { customer: Customer, weekDate: string }) => {
+    const chartInstance = useRef<any>(null);
+    const chartRef = useRef<HTMLDivElement>(null);
+    const [volumeData, setVolumeData] = useState<number[]>([]);
+    const [weekOf, setWeekOf] = useState<string[]>([]);
+    const hasAddedHeader = useRef(false);
 
     useEffect(() => {
-        if (volumeData.length !== 0) {
-            const volumeChart = echarts.init(document.getElementById("volume-graph"));
+        setVolumeData([]);
+        const newVolumeData: number[] = [];
+        if (customer?.workouts) {
+            const workouts = sortWorkoutsAsc(customer.workouts);
+            for (let i = 0; i < workouts.length; i++) {
+                const date = new Date(workouts[i].workoutDate.toString());
+                if (isDateInSelectedWeek(date, new Date(weekDate))) {
+                    newVolumeData[date.getDay()] = (workouts[i].volume!);
+                }
+            }
 
-            volumeChart.setOption({
+            const date = new Date(weekDate);
+            const week: string[] = [];
+            getWeekOf(date, week);
+            setWeekOf(week);
+        }
+        setVolumeData(newVolumeData);
+    }, [customer, weekDate]);
+
+    useEffect(() => {
+        if (volumeData.length === 0 && !hasAddedHeader.current) {
+            const noDataDom = document.getElementById("volume-graph");
+            const noDataText = document.createElement("h2");
+            noDataText.textContent = "No Volume Data Available";
+            if (noDataDom) {
+                noDataDom.appendChild(noDataText);
+                hasAddedHeader.current = true;
+            }
+        }
+    }, [weekOf]);
+
+    useEffect(() => {
+        if (volumeData.length !== 0 && chartRef.current) {
+            if (!chartInstance.current) {
+                chartInstance.current = echarts.init(chartRef.current);
+                hasAddedHeader.current = false;
+            }
+
+            chartInstance.current.setOption({
                 color: "whites",
                 title: {
                     text: "Volume Lifted",
@@ -74,23 +97,21 @@ const VolumeWidget = ({customer}: { customer: Customer }) => {
                     }
                 ]
             });
-
-            return () => {
-                volumeChart.dispose();
-            };
         }
-    }, [customer]);
+
+        return () => {
+            if (chartInstance.current) {
+                chartInstance.current.dispose();
+                chartInstance.current = null;
+            }
+
+        };
+    }, [volumeData]);
 
 
     return (
         <div>
-            {volumeData.length === 0 ? (
-                <div className="visual-widget" style={{width: "475px", height: "300px"}}>
-                    <h2>No Volume Data Available</h2>
-                </div>
-            ) : (
-                <div id="volume-graph" className="visual-widget" style={{width: "475px", height: "300px"}}/>
-            )}
+            <div ref={chartRef} id="volume-graph" className="visual-widget" style={{width: "475px", height: "300px"}}/>
         </div>
     );
 };

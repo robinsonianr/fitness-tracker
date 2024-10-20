@@ -3,17 +3,16 @@ import {Workout} from "../typing";
 export function isDateInThisWeek(date: Date){
     const todayObj = new Date();
     todayObj.setHours(0, 0, 0, 0);
-    const dayOfWeek = todayObj.getDay(); // Sunday is 0, Monday is 1, etc.
+    const dayOfWeek = todayObj.getDay();
 
-    // Calculate the first day of the week (Monday as the first day)
+    // Calculate the first day of the week (Sunday as the first)
     const firstDayOfWeek = new Date(todayObj);
-    firstDayOfWeek.setDate(todayObj.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek));
+    firstDayOfWeek.setDate(todayObj.getDate() - dayOfWeek);
 
-    // Calculate the last day of the week (Sunday)
+    // Calculate the last day of the week (Saturday)
     const lastDayOfWeek = new Date(firstDayOfWeek);
     lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
 
-    // Convert the input date string to a Date object (if needed)
     const inputDate = new Date(date);
 
     // Check if the input date is within the current week
@@ -35,7 +34,9 @@ export function getWeekOf(date: Date, weekOf: string[]) {
 export function isDateInSelectedWeek(date: Date, selectedWeek: Date){
     date.setHours(0, 0, 0, 0);
     const firstDayOfWeek = new Date(selectedWeek);
+    firstDayOfWeek.setHours(0, 0, 0, 0);
     const lastDayOfWeek = new Date(selectedWeek);
+    lastDayOfWeek.setHours(0, 0, 0, 0);
     lastDayOfWeek.setDate(selectedWeek.getDate() + 6);
 
     // Check if the input date is within the current week
