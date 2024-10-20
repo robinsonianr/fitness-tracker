@@ -53,7 +53,7 @@ export const WorkoutModal = ({isOpen, onClose, customer}: {isOpen: boolean, onCl
                 <form className="modal-inputs" onSubmit={handleSubmit}>
                     <div className="modal-column">
                         <label className="modal-label">Workout Type</label>
-                        <select id="workoutType" name="workoutType" onChange={handleChange}>
+                        <select className="workout-type" name="workoutType" onChange={handleChange}>
                             <option value="">
                                 Select Workout Type
                             </option>

@@ -1,30 +1,39 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Customer} from "../../../typing";
-import {isDateInThisWeek} from "../../../utils/utilities.ts";
+import {isDateInSelectedWeek} from "../../../utils/utilities.ts";
 
-const AverageInfoWidget = ({customer}: { customer: Customer }) => {
+const AverageInfoWidget = ({customer, weekDate}: { customer: Customer, weekDate: string }) => {
+    const [avgVolume, setAvgVolume] = useState<number>(0);
+    const [avgCalorie, setAvgCalorie] = useState<number>(0);
+    const [avgDuration, setAvgDuration] = useState<number>(0);
+    const [numOfWorkouts, setNumOfWorkouts] = useState<number>(0);
 
-    let numOfWorkouts = 0;
-    let avgVolume = 0;
-    let avgCalorie = 0;
-    let avgDuration = 0;
-    if (customer?.workouts) {
-        const workouts = customer?.workouts;
-        for (let i = 0; i < workouts?.length; i++) {
-            const date = workouts[i].workoutDate;
-            if (isDateInThisWeek(date)) {
-                numOfWorkouts++;
-                avgCalorie += workouts[i].calories!;
-                avgVolume += workouts[i].volume!;
-                avgDuration += workouts[i].durationMinutes!;
+
+    useEffect(() => {
+        let newAvgVolume = 0;
+        let newAvgCalorie = 0;
+        let newAvgDuration = 0;
+        let numWorkout = 0;
+
+        if (customer?.workouts) {
+            const workouts = customer?.workouts;
+            for (let i = 0; i < workouts?.length; i++) {
+                const date = new Date(workouts[i].workoutDate.toString());
+                if (isDateInSelectedWeek(date, new Date(weekDate))) {
+                    newAvgCalorie += workouts[i].calories!;
+                    newAvgVolume += workouts[i].volume!;
+                    newAvgDuration += workouts[i].durationMinutes!;
+                    numWorkout++;
+                }
             }
+
+            setNumOfWorkouts(numWorkout);
+            setAvgCalorie(Math.floor(newAvgCalorie / numWorkout));
+            setAvgVolume(Math.floor(newAvgVolume / numWorkout));
+            setAvgDuration(Math.floor(newAvgDuration / numWorkout));
+
         }
-
-        avgCalorie = Math.floor(avgCalorie / numOfWorkouts);
-        avgVolume = Math.floor(avgVolume / numOfWorkouts);
-        avgDuration = Math.floor(avgDuration / numOfWorkouts);
-
-    }
+    }, [customer, weekDate]);
 
 
     return (
