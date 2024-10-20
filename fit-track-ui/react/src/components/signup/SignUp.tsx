@@ -92,14 +92,14 @@ export const SignUp = () => {
                     <div className="form-group inline">
                         <div className="form-subgroup">
                             <label htmlFor="age">Age</label>
-                            <select id="age" name="age" value={formData.age} onChange={handleChange}>
+                            <select className="signup-select" id="age" name="age" value={formData.age} onChange={handleChange}>
                                 <option value="">Select age</option>
                                 {generateAgeOptions()}
                             </select>
                         </div>
                         <div className="form-subgroup">
                             <label htmlFor="gender">Gender</label>
-                            <select id="gender" name="gender" value={formData.gender} onChange={handleChange}>
+                            <select className="signup-select" id="gender" name="gender" value={formData.gender} onChange={handleChange}>
                                 <option value="">Select gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
