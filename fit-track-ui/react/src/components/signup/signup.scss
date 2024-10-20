@@ -65,6 +65,10 @@
         .form-subgroup {
           flex: 1;
 
+          .signup-select {
+            font-size: 14px;
+          }
+
           label {
             display: block;
             margin-bottom: 5px;
