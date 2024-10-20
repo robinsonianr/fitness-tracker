@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class EnvFileDecryptor {
+public class EnvFileDecrypter {
     public Map<String, String> variables;
 
     // Helper method to convert hexadecimal string to byte array

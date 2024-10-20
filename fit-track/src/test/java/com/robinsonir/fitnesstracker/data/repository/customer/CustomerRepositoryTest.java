@@ -2,7 +2,6 @@ package com.robinsonir.fitnesstracker.data.repository.customer;
 
 import com.robinsonir.fitnesstracker.data.Gender;
 import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
-//import com.robinsonir.fitnesstracker.data.service.customer.CustomerUpdateRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +30,12 @@ public class CustomerRepositoryTest {
     @Test
     void testAddCustomer() {
         // Create a customer entity
-        CustomerEntity customer = new CustomerEntity(
-                "John Doe",
-                "john.doe@example.com",
-                "password123",
-                30,
-                Gender.MALE
-        );
+        CustomerEntity customer = new CustomerEntity();
+        customer.setName("John Doe");
+        customer.setEmail("john.doe@example.com");
+        customer.setPassword("password123");
+        customer.setAge(30);
+        customer.setGender(Gender.MALE);
 
         // Save the customer
         CustomerEntity savedCustomer = customerRepository.save(customer);
@@ -52,13 +50,13 @@ public class CustomerRepositoryTest {
     @Test
     void testFindCustomerById() {
         // Create and save a customer
-        CustomerEntity customer = new CustomerEntity(
-                "Jane Doe",
-                "jane.doe@example.com",
-                "securePass",
-                28,
-                Gender.FEMALE
-        );
+        CustomerEntity customer = new CustomerEntity();
+        customer.setName("Jane Doe");
+        customer.setEmail("jane.doe@example.com");
+        customer.setPassword("securePass");
+        customer.setAge(28);
+        customer.setGender(Gender.FEMALE);
+
         customerRepository.save(customer);
 
         // Fetch the customer by ID
@@ -72,13 +70,13 @@ public class CustomerRepositoryTest {
     @Test
     void testFindCustomerByEmail() {
         // Create and save a customer
-        CustomerEntity customer = new CustomerEntity(
-                "Jane Doe",
-                "jane.doe@example.com",
-                "securePass",
-                28,
-                Gender.FEMALE
-        );
+        CustomerEntity customer = new CustomerEntity();
+        customer.setName("Jane Doe");
+        customer.setEmail("jane.doe@example.com");
+        customer.setPassword("securePass");
+        customer.setAge(28);
+        customer.setGender(Gender.FEMALE);
+
         customerRepository.save(customer);
 
         // Fetch the customer by ID
@@ -92,13 +90,13 @@ public class CustomerRepositoryTest {
     @Test
     void testExistsByEmail() {
         // Create and save a customer
-        CustomerEntity customer = new CustomerEntity(
-                "Alice Johnson",
-                "alice.johnson@example.com",
-                "alicePass",
-                29,
-                Gender.FEMALE
-        );
+        CustomerEntity customer = new CustomerEntity();
+        customer.setName("Alice Johnson");
+        customer.setEmail("alice.johnson@example.com");
+        customer.setPassword("alicePass");
+        customer.setAge(29);
+        customer.setGender(Gender.FEMALE);
+
         customerRepository.save(customer);
 
         // Check if the customer exists by email
@@ -172,13 +170,13 @@ public class CustomerRepositoryTest {
     @Test
     void testUpdateProfileImageId() {
         // Create and save a customer
-        CustomerEntity customer = new CustomerEntity(
-                "Daniel Craig",
-                "daniel.craig@example.com",
-                "bond007",
-                50,
-                Gender.MALE
-        );
+        CustomerEntity customer = new CustomerEntity();
+        customer.setName("Daniel Craig");
+        customer.setEmail("daniel.craig@example.com");
+        customer.setPassword("bond007");
+        customer.setAge(50);
+        customer.setGender(Gender.MALE);
+
         customerRepository.save(customer);
 
         // Update the profile image ID

@@ -57,7 +57,7 @@ public class WorkoutService {
         newWorkout.setWorkoutDate(workoutCreationRequest.workoutDate());
 
 
-        Optional<CustomerEntity> customerEntity =  customerRepository.findCustomerById(workoutCreationRequest.customer().getId());
+        Optional<CustomerEntity> customerEntity = customerRepository.findCustomerById(workoutCreationRequest.customer().getId());
         customerEntity.ifPresent(newWorkout::setCustomer);
         workoutRepository.save(newWorkout);
     }

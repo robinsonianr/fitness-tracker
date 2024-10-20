@@ -75,9 +75,9 @@ export const HealthInfoModal = ({isOpen, onClose, customer}: {isOpen: boolean, o
                             <option value="">
                                 Select Gender
                             </option>
-                            <option value="MALE">Male</option>
-                            <option value="FEMALE">Female</option>
-                            <option value="FORBIDDEN">Forbidden</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Forbidden">Forbidden</option>
                         </select>
                     </div>
                     <div className="modal-column">

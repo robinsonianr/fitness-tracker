@@ -70,12 +70,12 @@ public class CustomerService {
             );
         }
 
-        CustomerEntity customerEntity = new CustomerEntity(
-                customerRegistrationRequest.name(),
-                customerRegistrationRequest.email(),
-                passwordEncoder.encode(customerRegistrationRequest.password()),
-                customerRegistrationRequest.age(),
-                customerRegistrationRequest.gender());
+        CustomerEntity customerEntity = new CustomerEntity();
+        customerEntity.setName(customerRegistrationRequest.name());
+        customerEntity.setEmail(customerRegistrationRequest.email());
+        customerEntity.setPassword(passwordEncoder.encode(customerRegistrationRequest.password()));
+        customerEntity.setAge(customerRegistrationRequest.age());
+        customerEntity.setGender(customerRegistrationRequest.gender());
         customerEntity.setMemberSince(customerRegistrationRequest.memberSince());
 
         customerRepository.save(customerEntity);

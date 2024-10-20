@@ -18,10 +18,6 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 public class WorkoutEntity extends AbstractEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id", nullable = false)
-    private CustomerEntity customer;
-
     @Column(name = "workout_type")
     private String workoutType;
 
@@ -39,5 +35,9 @@ public class WorkoutEntity extends AbstractEntity {
 
     @Column(name = "volume")
     private Integer volume;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id", nullable = false)
+    private CustomerEntity customer;
 
 }

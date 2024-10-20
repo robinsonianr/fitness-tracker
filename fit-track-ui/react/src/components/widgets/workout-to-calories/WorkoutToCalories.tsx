@@ -14,12 +14,15 @@ const WorkoutToCalories = ({customer}: {customer: Customer}) => {
             const workouts = sortWorkouts(customer.workouts);
             for (let i = 0; i < workouts.length; i++) {
                 const date = new Date(workouts[i].workoutDate.toString());
-                if (isDateInThisWeek(date, weekOf)) {
+                if (isDateInThisWeek(date)) {
                     data.push([workouts[i].volume!, workouts[i].calories!]);
                 } else {
                     break;
                 }
             }
+            // Gets the current week to display in chart
+            const date =  new Date();
+            isDateInThisWeek(date, weekOf);
         }
 
         volToDurChart.setOption({
