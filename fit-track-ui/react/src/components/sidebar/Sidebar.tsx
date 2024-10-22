@@ -20,11 +20,17 @@ export const Sidebar = ({customer}: {customer: Customer | undefined}) => {
     };
 
     const id = localStorage.getItem("customerId");
+
     const goDash = () => {
         navigate("/dashboard");
     };
+
     const goProfile = () => {
         navigate(`/${id}/profile`);
+    };
+
+    const goLogs = () => {
+        navigate("/logs");
     };
 
     return(
@@ -41,20 +47,25 @@ export const Sidebar = ({customer}: {customer: Customer | undefined}) => {
                     <li className="">
                         <a onClick={goDash}>
                             <img src="/assets/dashboard.png" alt="dash"/>
-                            <span >Dashboard</span>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li className="">
+                        <a onClick={goLogs}>
+                            <img src="/assets/calendar.png" alt="logs"/>
+                            <span>Logs</span>
                         </a>
                     </li>
                     <li className="">
                         <a onClick={goProfile}>
                             <img src="/assets/profile.png" alt="user"/>
-                            <span >Profile</span>
+                            <span>Profile</span>
                         </a>
                     </li>
                 </ul>
-                {/* Other sidebar content */}
             </div>
-            <div className="add-workout" onClick={openModal} >
-                <a className="font-w500" >Add New Workout</a>
+            <div className="add-workout" onClick={openModal}>
+                <a className="font-w500">Add New Workout</a>
             </div>
             <div className="logout-button-container">
                 <button className="logout-button" onClick={logOut}>Logout</button>
