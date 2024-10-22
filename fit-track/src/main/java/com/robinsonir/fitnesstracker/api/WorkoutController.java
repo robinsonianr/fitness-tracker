@@ -28,6 +28,11 @@ public class WorkoutController {
         return workoutService.getWorkout(workoutId);
     }
 
+    @GetMapping("log/{workoutId}")
+    public List<WorkoutDTO> getAllWorkoutsById(@PathVariable("workoutId") Long workoutId) {
+        return workoutService.getAllWorkoutsById(workoutId);
+    }
+
     @PostMapping
     public ResponseEntity<?> createWorkout(@RequestBody WorkoutCreationRequest request) {
         workoutService.addWorkout(request);

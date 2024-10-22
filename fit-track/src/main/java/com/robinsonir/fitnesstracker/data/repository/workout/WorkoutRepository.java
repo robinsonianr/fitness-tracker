@@ -14,6 +14,9 @@ public interface WorkoutRepository extends JpaRepository<WorkoutEntity, Long> {
     @Query("select w from WorkoutEntity w")
     List<WorkoutEntity> findAllWorkouts();
 
+    @Query("select w from WorkoutEntity w where w.customer.id = ?1")
+    List<WorkoutEntity> findAllWorkoutsByCustomerId(Long customerId);
+
     @Query("select w from WorkoutEntity w where w.id = ?1")
     Optional<WorkoutEntity> findWorkoutById(Long id);
 

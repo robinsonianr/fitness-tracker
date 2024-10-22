@@ -46,6 +46,12 @@ public class WorkoutService {
                 ));
     }
 
+    public List<WorkoutDTO> getAllWorkoutsById(Long id) {
+        return workoutRepository.findAllWorkoutsByCustomerId(id)
+                .stream()
+                .map(workoutDTOMapper)
+                .collect(Collectors.toList());
+    }
     public void addWorkout(WorkoutCreationRequest workoutCreationRequest) {
 
         WorkoutEntity newWorkout = new WorkoutEntity();
