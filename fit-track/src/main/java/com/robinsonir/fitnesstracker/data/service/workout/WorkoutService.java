@@ -46,7 +46,7 @@ public class WorkoutService {
                 ));
     }
 
-    public List<WorkoutDTO> getAllWorkoutsById(Long id) {
+    public List<WorkoutDTO> getAllWorkoutsByCustomerId(Long id) {
         return workoutRepository.findAllWorkoutsByCustomerId(id)
                 .stream()
                 .map(workoutDTOMapper)

@@ -28,9 +28,9 @@ public class WorkoutController {
         return workoutService.getWorkout(workoutId);
     }
 
-    @GetMapping("log/{workoutId}")
-    public List<WorkoutDTO> getAllWorkoutsById(@PathVariable("workoutId") Long workoutId) {
-        return workoutService.getAllWorkoutsById(workoutId);
+    @GetMapping("log/{customerId}")
+    public List<WorkoutDTO> getAllWorkoutsById(@PathVariable("customerId") Long customerId) {
+        return workoutService.getAllWorkoutsByCustomerId(customerId);
     }
 
     @PostMapping
