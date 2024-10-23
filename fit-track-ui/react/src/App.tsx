@@ -6,6 +6,7 @@ import SignUp from "./components/signup/SignUp";
 import Login from "./components/login/Login";
 import ProtectedRoute from "./components/shared/ProtectedRoute";
 import Profile from "./components/profile/Pofile";
+import Logs from "./components/logs/Logs.tsx";
 
 
 export const router = createBrowserRouter([
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
     {
         path: "/:id/profile",
         element: <ProtectedRoute><Profile /></ProtectedRoute>
+    },
+    {
+        path: "/logs",
+        element: <ProtectedRoute><Logs /></ProtectedRoute>
     }
 ]);
 
