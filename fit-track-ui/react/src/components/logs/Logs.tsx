@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Sidebar from "../sidebar/Sidebar.tsx";
 import Navbar from "../navbar/Navbar.tsx";
-import { getCustomer } from "../../services/client.ts";
+import {getAllWorkoutsByCustomerId, getCustomer} from "../../services/client.ts";
 import "./logs.scss";
 import {Customer, Workout} from "../../typing";
 import WorkoutLogModal from "../modals/workout-log-modal/WorkoutLogModal.tsx";
 
 const Logs = () => {
     const [customer, setCustomer] = useState<Customer>({});
+    const [workoutData, setWorkoutData] = useState<Workout[]>([]);
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedWorkout, setSelectedWorkout] = useState<Workout>();
 
@@ -17,7 +18,9 @@ const Logs = () => {
             try {
                 const id = localStorage.getItem("customerId")!;
                 const response = await getCustomer(id);
+                const testRes = await getAllWorkoutsByCustomerId(id);
                 setCustomer(response.data);
+                setWorkoutData(testRes.data);
             } catch (error) {
                 console.error("Could not retrieve customer: ", error);
             }
@@ -63,12 +66,11 @@ const Logs = () => {
         const workouts: any[] = [];
 
         // Get workouts for the current month
-        const wt = customer?.workouts || [];
-        if (wt.length > 0) {
-            for (let i = 0; i < wt.length; i++) {
-                const date = new Date(wt[i].workoutDate);
+        if (workoutData.length > 0) {
+            for (let i = 0; i < workoutData.length; i++) {
+                const date = new Date(workoutData[i].workoutDate);
                 if (date.getMonth() === currentMonth.getMonth() && date.getFullYear() == currentMonth.getFullYear()) {
-                    workouts.push(wt[i]);
+                    workouts.push(workoutData[i]);
                 }
             }
         }
@@ -104,7 +106,7 @@ const Logs = () => {
                     style={workoutForDay ? {color: "lightgreen", cursor: "pointer"} : {}}
                 >
                     {day}
-                    {minutes ? <><br />{minutes} min</> : ""}
+                    {minutes ? <><br/>{minutes} min</> : ""}
                 </div>
             );
         }
@@ -122,14 +124,14 @@ const Logs = () => {
 
     return (
         <div className="logs-container">
-            <Sidebar customer={customer} />
-            <Navbar title={"Logs"} name={customer.name} />
-            <WorkoutLogModal isOpen={isModalOpen} onClose={closeModal} workout={selectedWorkout!} />
+            <Sidebar customer={customer}/>
+            <Navbar title={"Logs"} name={customer.name}/>
+            <WorkoutLogModal isOpen={isModalOpen} onClose={closeModal} workout={selectedWorkout!}/>
             <div className="logs-content">
                 <div className="calendar-header">
                     <button onClick={handlePreviousMonth}>{"<"}</button>
                     <h2>
-                        {currentMonth.toLocaleString("default", { month: "long" })}{" "}
+                        {currentMonth.toLocaleString("default", {month: "long"})}{" "}
                         {currentMonth.getFullYear()}
                     </h2>
                     <button onClick={handleNextMonth}>{">"}</button>

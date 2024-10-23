@@ -43,6 +43,14 @@ export const getCustomer = async (id: any) => {
     }
 };
 
+export const getAllWorkoutsByCustomerId = async (id: any) => {
+    try {
+        return await axiosInstance.get(`/api/v1/workouts/log/${id}`);
+    } catch (e) {
+        throw e;
+    }
+};
+
 export const login = async (formData: any) => {
     try {
         return await axiosInstance.post("/api/v1/auth/login", formData);
