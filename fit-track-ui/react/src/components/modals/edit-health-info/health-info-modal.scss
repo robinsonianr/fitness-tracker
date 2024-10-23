@@ -34,7 +34,7 @@
   border-radius: 8px;
   box-shadow: 0 0 10px rgb(0 0 0 / 30%);
   color: white;
-  height: 540px;
+  height: 600px;
   left: 50%;
   padding: 20px;
   position: fixed;
@@ -49,6 +49,10 @@
 
   .modal-column {
     padding-top: 10px;
+
+    .health-select {
+      font-size: 14px;
+    }
   }
 
   .modal-inputs {

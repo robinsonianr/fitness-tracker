@@ -1,0 +1,67 @@
+.workout-log-modal {
+  display: none;
+  left: 0;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+
+  h2 {
+    color: white;
+  }
+}
+
+.workout-log-modal.open {
+  display: block;
+}
+
+.modal-overlay {
+  background-color: rgb(0 0 0 / 50%); /* Semi-transparent black overlay */
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.workout-log-modal-content {
+  align-content: center;
+  background-color: #222;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+  height: 350px;
+  left: 50%;
+  padding: 20px;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  z-index: 10000;
+
+  h2 {
+    font-size: 35px;
+  }
+
+  .workout-log-data {
+    color: white;
+
+    p {
+      font-size: 1.25rem;
+      margin: 0.75rem 0;
+    }
+  }
+
+
+  .close {
+    color: #888;
+    cursor: pointer;
+    font-size: 25px;
+    position: absolute;
+    right: 15px;
+    top: 5px;
+  }
+
+  .close:hover {
+    color: #000;
+  }
+}

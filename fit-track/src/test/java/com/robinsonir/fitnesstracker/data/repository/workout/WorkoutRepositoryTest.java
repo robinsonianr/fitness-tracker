@@ -171,4 +171,46 @@ public class WorkoutRepositoryTest {
         boolean notExists = workoutRepository.existsWorkoutEntityByCustomer(newCustomer);
         assertFalse(notExists);
     }
+
+    @Test
+    void testFindAllWorkoutsByCustomerId() {
+        // Create a customer entity
+        CustomerEntity customer = new CustomerEntity();
+        customer.setName("John Doe");
+        customer.setEmail("johndoe@example.com");
+        customer.setPassword("password");
+        customer.setAge(30);
+        customer.setGender(Gender.MALE);
+
+        // Create some workouts for the customer
+        WorkoutEntity workout1 = new WorkoutEntity();
+        workout1.setWorkoutType("Running");
+        workout1.setCalories(500);
+        workout1.setDurationMinutes(60);
+        workout1.setWorkoutDate(OffsetDateTime.now());
+        workout1.setExercises(5);
+        workout1.setVolume(1000);
+        workout1.setCustomer(customer);
+
+        WorkoutEntity workout2 = new WorkoutEntity();
+        workout2.setWorkoutType("Cycling");
+        workout2.setCalories(600);
+        workout2.setDurationMinutes(45);
+        workout2.setWorkoutDate(OffsetDateTime.now());
+        workout2.setExercises(4);
+        workout2.setVolume(800);
+        workout2.setCustomer(customer);
+
+        // Save the customer and workouts
+        workoutRepository.save(workout1);
+        workoutRepository.save(workout2);
+
+        // When
+        List<WorkoutEntity> workouts = workoutRepository.findAllWorkoutsByCustomerId(customer.getId());
+
+        // Then
+        assertThat(workouts).isNotEmpty();
+        assertThat(workouts.size()).isEqualTo(2);
+        assertThat(workouts.get(0).getCustomer().getId()).isEqualTo(customer.getId());
+    }
 }

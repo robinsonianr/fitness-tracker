@@ -71,7 +71,7 @@ export const HealthInfoModal = ({isOpen, onClose, customer}: {isOpen: boolean, o
                     </div>
                     <div className="modal-column">
                         <label className="health-modal-label">Gender</label>
-                        <select  name="gender" value={formData.gender} onChange={handleChange}>
+                        <select className="health-select" name="gender" value={formData.gender} onChange={handleChange}>
                             <option value="">
                                 Select Gender
                             </option>
@@ -94,7 +94,7 @@ export const HealthInfoModal = ({isOpen, onClose, customer}: {isOpen: boolean, o
                     </div>
                     <div className="modal-column">
                         <label className="health-modal-label">Workout Activity</label>
-                        <select name="activity" value={formData.activity} onChange={handleChange}>
+                        <select className="health-select" name="activity" value={formData.activity} onChange={handleChange}>
                             <option value="">
                                 Select Activity Level
                             </option>
