@@ -1,18 +1,36 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Customer} from "../../../typing";
+import {Workout} from "../../../typing";
 import * as echarts from "echarts";
 import {getWeekOf, isDateInSelectedWeek, sortWorkoutsAsc} from "../../../utils/utilities.ts";
+import {getAllWorkoutsByCustomerId} from "../../../services/client.ts";
 
-const WorkoutToCalories = ({customer, weekDate}: { customer: Customer, weekDate: string }) => {
+const WorkoutToCalories = ({weekDate}: { weekDate: string }) => {
     const chartInstance = useRef<any>(null);
-    const chartRef = useRef<HTMLDivElement>(null);
-    const [data, setData] = useState<number[][]>([]);
     const [weekOf, setWeekOf] = useState<string[]>([]);
+    const [workoutData, setWorkoutData] = useState<Workout[]>([]);
+    const chartRef = useRef<HTMLDivElement>(null);
     const hasAddedHeader = useRef(false);
+    const [data, setData] = useState<number[][]>([]);
+
+    useEffect(() => {
+        const fetchWorkoutData = async () => {
+            try {
+                const id = localStorage.getItem("customerId");
+                const testRes = await getAllWorkoutsByCustomerId(id);
+
+                setWorkoutData(testRes.data);
+            } catch (error) {
+                console.error("Could not retrieve workouts: ", error);
+            }
+        };
+
+        fetchWorkoutData();
+    }, []);
+
     useEffect(() => {
         const newData: number[][] = [];
-        if (customer?.workouts) {
-            const workouts = sortWorkoutsAsc(customer.workouts);
+        if (workoutData) {
+            const workouts = sortWorkoutsAsc(workoutData);
             for (let i = 0; i < workouts.length; i++) {
                 const date = new Date(workouts[i].workoutDate.toString());
                 if (isDateInSelectedWeek(date, new Date(weekDate))) {
@@ -27,7 +45,7 @@ const WorkoutToCalories = ({customer, weekDate}: { customer: Customer, weekDate:
         }
 
         setData(newData);
-    }, [customer, weekDate]);
+    }, [workoutData, weekDate]);
 
 
     useEffect(() => {

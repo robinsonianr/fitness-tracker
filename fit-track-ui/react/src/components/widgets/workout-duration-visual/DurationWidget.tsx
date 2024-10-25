@@ -1,20 +1,37 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Customer} from "../../../typing";
+import {Workout} from "../../../typing";
 import * as echarts from "echarts";
 import {getWeekOf, isDateInSelectedWeek, sortWorkoutsAsc} from "../../../utils/utilities.ts";
+import {getAllWorkoutsByCustomerId} from "../../../services/client.ts";
 
-const DurationWidget = ({customer, weekDate}: { customer: Customer, weekDate: string }) => {
-    const chartInstance = useRef<any>(null);
+const DurationWidget = ({weekDate}: { weekDate: string }) => {
     const chartRef = useRef<HTMLDivElement>(null);
     const [durationData, setDurationData] = useState<number[]>([]);
     const [weekOf, setWeekOf] = useState<string[]>([]);
+    const [workoutData, setWorkoutData] = useState<Workout[]>([]);
     const hasAddedHeader = useRef(false);
+    const chartInstance = useRef<any>(null);
+
+    useEffect(() => {
+        const fetchWorkoutData = async () => {
+            try {
+                const id = localStorage.getItem("customerId");
+                const testRes = await getAllWorkoutsByCustomerId(id);
+
+                setWorkoutData(testRes.data);
+            } catch (error) {
+                console.error("Could not retrieve workouts: ", error);
+            }
+        };
+
+        fetchWorkoutData();
+    }, []);
 
     useEffect(() => {
         setDurationData([]);
         const newDurationData: number[] = [];
-        if (customer?.workouts) {
-            const workouts = sortWorkoutsAsc(customer.workouts);
+        if (workoutData) {
+            const workouts = sortWorkoutsAsc(workoutData);
             for (let i = 0; i < workouts.length; i++) {
                 const date = new Date(workouts[i].workoutDate.toString());
                 if (isDateInSelectedWeek(date, new Date(weekDate))) {
@@ -29,7 +46,7 @@ const DurationWidget = ({customer, weekDate}: { customer: Customer, weekDate: st
             setWeekOf(week);
         }
         setDurationData(newDurationData);
-    }, [customer, weekDate]);
+    }, [workoutData, weekDate]);
 
     useEffect(() => {
         if (durationData.length === 0 && !hasAddedHeader.current) {

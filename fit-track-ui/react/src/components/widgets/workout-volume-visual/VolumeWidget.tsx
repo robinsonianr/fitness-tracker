@@ -1,20 +1,36 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Customer} from "../../../typing";
+import {Workout} from "../../../typing";
 import * as echarts from "echarts";
 import {getWeekOf, isDateInSelectedWeek, sortWorkoutsAsc} from "../../../utils/utilities.ts";
+import {getAllWorkoutsByCustomerId} from "../../../services/client.ts";
 
-const VolumeWidget = ({customer, weekDate}: { customer: Customer, weekDate: string }) => {
+const VolumeWidget = ({weekDate}: { weekDate: string }) => {
     const chartInstance = useRef<any>(null);
     const chartRef = useRef<HTMLDivElement>(null);
     const [volumeData, setVolumeData] = useState<number[]>([]);
     const [weekOf, setWeekOf] = useState<string[]>([]);
     const hasAddedHeader = useRef(false);
+    const [workoutData, setWorkoutData] = useState<Workout[]>([]);
 
+    useEffect(() => {
+        const fetchWorkoutData = async () => {
+            try {
+                const id = localStorage.getItem("customerId");
+                const testRes = await getAllWorkoutsByCustomerId(id);
+
+                setWorkoutData(testRes.data);
+            } catch (error) {
+                console.error("Could not retrieve workouts: ", error);
+            }
+        };
+
+        fetchWorkoutData();
+    }, []);
     useEffect(() => {
         setVolumeData([]);
         const newVolumeData: number[] = [];
-        if (customer?.workouts) {
-            const workouts = sortWorkoutsAsc(customer.workouts);
+        if (workoutData) {
+            const workouts = sortWorkoutsAsc(workoutData);
             for (let i = 0; i < workouts.length; i++) {
                 const date = new Date(workouts[i].workoutDate.toString());
                 if (isDateInSelectedWeek(date, new Date(weekDate))) {
@@ -28,7 +44,7 @@ const VolumeWidget = ({customer, weekDate}: { customer: Customer, weekDate: stri
             setWeekOf(week);
         }
         setVolumeData(newVolumeData);
-    }, [customer, weekDate]);
+    }, [workoutData, weekDate]);
 
     useEffect(() => {
         if (volumeData.length === 0 && !hasAddedHeader.current) {

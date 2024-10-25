@@ -1,12 +1,30 @@
 import React, {useEffect, useState} from "react";
-import {Customer} from "../../../typing";
+import {Workout} from "../../../typing";
 import {isDateInSelectedWeek} from "../../../utils/utilities.ts";
+import {getAllWorkoutsByCustomerId} from "../../../services/client.ts";
 
-const AverageInfoWidget = ({customer, weekDate}: { customer: Customer, weekDate: string }) => {
+const AverageInfoWidget = ({weekDate}: { weekDate: string }) => {
+    const [workoutData, setWorkoutData] = useState<Workout[]>([]);
     const [avgVolume, setAvgVolume] = useState<number>(0);
     const [avgCalorie, setAvgCalorie] = useState<number>(0);
     const [avgDuration, setAvgDuration] = useState<number>(0);
     const [numOfWorkouts, setNumOfWorkouts] = useState<number>(0);
+
+    useEffect(() => {
+        const fetchWorkoutData = async () => {
+            try {
+                const id = localStorage.getItem("customerId")!;
+                const testRes = await getAllWorkoutsByCustomerId(id);
+
+                setWorkoutData(testRes.data);
+            } catch (error) {
+                console.error("Could not retrieve workouts: ", error);
+            }
+        };
+
+        fetchWorkoutData();
+    }, []);
+
 
 
     useEffect(() => {
@@ -15,9 +33,9 @@ const AverageInfoWidget = ({customer, weekDate}: { customer: Customer, weekDate:
         let newAvgDuration = 0;
         let numWorkout = 0;
 
-        if (customer?.workouts) {
-            const workouts = customer?.workouts;
-            for (let i = 0; i < workouts?.length; i++) {
+        if (workoutData) {
+            const workouts = workoutData;
+            for (let i = 0; i < workouts.length; i++) {
                 const date = new Date(workouts[i].workoutDate.toString());
                 if (isDateInSelectedWeek(date, new Date(weekDate))) {
                     newAvgCalorie += workouts[i].calories!;
@@ -33,7 +51,7 @@ const AverageInfoWidget = ({customer, weekDate}: { customer: Customer, weekDate:
             setAvgDuration(Math.floor(newAvgDuration / numWorkout));
 
         }
-    }, [customer, weekDate]);
+    }, [workoutData, weekDate]);
 
 
     return (
