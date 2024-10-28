@@ -1,21 +1,37 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Customer} from "../../../typing";
+import {Workout} from "../../../typing";
 import * as echarts from "echarts";
 import {getWeekOf, isDateInSelectedWeek, sortWorkoutsAsc} from "../../../utils/utilities.ts";
+import {getAllWorkoutsByCustomerId} from "../../../services/client.ts";
 
-const CalorieWidget = ({customer, weekDate}: { customer: Customer, weekDate: string }) => {
+const CalorieWidget = ({weekDate}: { weekDate: string }) => {
     const chartInstance = useRef<any>(null);
     const chartRef = useRef<HTMLDivElement>(null);
     const [caloricData, setCaloricData] = useState<number[]>([]);
     const [weekOf, setWeekOf] = useState<string[]>([]);
     const hasAddedHeader = useRef(false);
+    const [workoutData, setWorkoutData] = useState<Workout[]>([]);
 
+    useEffect(() => {
+        const fetchWorkoutData = async () => {
+            try {
+                const id = localStorage.getItem("customerId")!;
+                const testRes = await getAllWorkoutsByCustomerId(id);
+
+                setWorkoutData(testRes.data);
+            } catch (error) {
+                console.error("Could not retrieve workouts: ", error);
+            }
+        };
+
+        fetchWorkoutData();
+    }, []);
 
     useEffect(() => {
         setCaloricData([]);
         const newCaloricData: number[] = [];
-        if (customer?.workouts) {
-            const workouts = sortWorkoutsAsc(customer.workouts);
+        if (workoutData) {
+            const workouts = sortWorkoutsAsc(workoutData);
             for (let i = 0; i < workouts.length; i++) {
                 const date = new Date(workouts[i].workoutDate.toString());
                 if (isDateInSelectedWeek(date, new Date(weekDate))) {
@@ -30,7 +46,7 @@ const CalorieWidget = ({customer, weekDate}: { customer: Customer, weekDate: str
             setWeekOf(week);
         }
         setCaloricData(newCaloricData);
-    }, [customer, weekDate]);  // Only run when customer or weekDate changes
+    }, [workoutData, weekDate]);  // Only run when customer or weekDate changes
 
     useEffect(() => {
         if (caloricData.length === 0 && !hasAddedHeader.current) {
@@ -98,7 +114,10 @@ const CalorieWidget = ({customer, weekDate}: { customer: Customer, weekDate: str
                             data: [
                                 [
                                     {
-                                        xAxis: "Sun"
+                                        xAxis: "Sun",
+                                        tooltip: {
+                                            formatter: "Weekend"
+                                        }
                                     },
                                     {
                                         xAxis: "Mon"
@@ -109,7 +128,10 @@ const CalorieWidget = ({customer, weekDate}: { customer: Customer, weekDate: str
                                         xAxis: "Fri"
                                     },
                                     {
-                                        xAxis: "Sat"
+                                        xAxis: "Sat",
+                                        tooltip: {
+                                            formatter: "Weekend"
+                                        }
                                     }
                                 ]
                             ]
@@ -131,7 +153,7 @@ const CalorieWidget = ({customer, weekDate}: { customer: Customer, weekDate: str
     return (
         <div>
             <div>
-                <div ref={chartRef} id="calorie-graph" className="visual-widget" 
+                <div ref={chartRef} id="calorie-graph" className="visual-widget"
                     style={{width: "475px", height: "300px"}}/>
             </div>
         </div>

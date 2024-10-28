@@ -35,7 +35,7 @@ const WorkoutHistoryWidget = ({customer}: { customer: Customer | undefined }) =>
                     <div className="workout-data">
                         <p><b>Workout Type:</b> {workouts[parseInt(selectedOption)].workoutType}</p>
                         <p><b>Exercises:</b> {workouts[parseInt(selectedOption)]?.exercises}</p>
-                        <p><b>Calories:</b> {workouts[parseInt(selectedOption)]?.calories}</p>
+                        <p><b>Calories:</b> {workouts[parseInt(selectedOption)]?.calories} kcal</p>
                         <p><b>Duration:</b> {Math.floor(workouts[parseInt(selectedOption)].durationMinutes! / 60)}hr(s)
                             &nbsp;{workouts[parseInt(selectedOption)].durationMinutes! % 60} minutes</p>
                         <p><b>Date:</b> {convertDate(workouts[parseInt(selectedOption)]?.workoutDate.toString())}</p>

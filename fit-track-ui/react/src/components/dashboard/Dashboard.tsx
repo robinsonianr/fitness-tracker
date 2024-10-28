@@ -74,7 +74,7 @@ export const Dashboard = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const id = localStorage.getItem("customerId")!;
+                const id = localStorage.getItem("customerId");
                 const response = await getCustomer(id);
 
                 setCustomer(response.data);
@@ -99,22 +99,22 @@ export const Dashboard = () => {
                         </option>
                         {weeks.map((option, index) => (
                             <option key={index} value={option.toString()}>
-                                Week: {option.toDateString()}
+                                {option.toDateString()}
                             </option>
                         ))}
                     </select>
                 </div>
                 <div className="visual-container">
                     <div className="visual-content">
-                        <CalorieWidget customer={customer!} weekDate={selectedWeek.toString()}/>
-                        <VolumeWidget customer={customer!} weekDate={selectedWeek.toString()}/>
+                        <CalorieWidget weekDate={selectedWeek.toString()}/>
+                        <VolumeWidget weekDate={selectedWeek.toString()}/>
                     </div>
                     <div>
                         <div className="minor-visual-content">
-                            <DurationWidget customer={customer!} weekDate={selectedWeek.toString()}/>
-                            <AverageInfoWidget customer={customer!} weekDate={selectedWeek.toString()}/>
+                            <DurationWidget weekDate={selectedWeek.toString()}/>
+                            <AverageInfoWidget weekDate={selectedWeek.toString()}/>
                         </div>
-                        <WorkoutToCalories customer={customer!} weekDate={selectedWeek.toString()}/>
+                        <WorkoutToCalories weekDate={selectedWeek.toString()}/>
                     </div>
                 </div>
             </div>
