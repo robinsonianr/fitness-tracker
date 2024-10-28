@@ -11,12 +11,13 @@ const Logs = () => {
     const [workoutData, setWorkoutData] = useState<Workout[]>([]);
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedWorkout, setSelectedWorkout] = useState<Workout>();
+    const [hoverDay, setHoverDay] = useState<number | null>(null);
 
     // Fetch customer data when component mounts
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const id = localStorage.getItem("customerId")!;
+                const id = localStorage.getItem("customerId");
                 const response = await getCustomer(id);
                 const testRes = await getAllWorkoutsByCustomerId(id);
                 setCustomer(response.data);
@@ -97,13 +98,31 @@ const Logs = () => {
                 return workoutDate.getDate() === day;
             });
 
+            const dayStyle: React.CSSProperties = {
+                color: isToday
+                    ? "white"
+                    : workoutForDay
+                        ? "lightgreen"
+                        : "#888",
+                cursor: workoutForDay ? "pointer" : "default",
+                backgroundColor: isToday
+                    ? hoverDay === day
+                        ? "inherit"
+                        : "#3f76c0"
+                    : hoverDay === day
+                        ? "#333"
+                        : "inherit",
+                transition: hoverDay === day ? `background-color ${0.3}s` : "inherit"
+            };
 
             daysArray.push(
                 <div
                     key={day}
-                    className={`day ${isToday ? "today" : ""}`}
+                    className={"day"}
                     onClick={() => workoutForDay && openWorkout(workoutForDay)}
-                    style={workoutForDay ? {color: "lightgreen", cursor: "pointer"} : {}}
+                    onMouseEnter={() => workoutForDay && setHoverDay(day)}
+                    onMouseLeave={() => workoutForDay && setHoverDay(null)}
+                    style={dayStyle}
                 >
                     {day}
                     {minutes ? <><br/>{minutes} min</> : ""}
