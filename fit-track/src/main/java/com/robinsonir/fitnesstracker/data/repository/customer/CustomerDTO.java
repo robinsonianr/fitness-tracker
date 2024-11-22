@@ -22,6 +22,5 @@ public record CustomerDTO(
         List<WorkoutDTO> workouts,
         String username,
         String profileImageId
-
 ) {
 }
