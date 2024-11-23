@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": "18.16.0"
+  },
   "scripts": {
     "start": "vite --host",
     "build": "vite build",
