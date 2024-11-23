@@ -53,6 +53,10 @@ Here's how you can use this project:
 Dev Site:
 -   http://fitness-tracker-env.eba-3f5efq3k.us-east-1.elasticbeanstalk.com
 
+Test Account Credentials:
+-   Email: test123@gmail.com
+-   Password: Test123
+
 
 ## Contributing
 
