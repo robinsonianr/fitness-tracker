@@ -76,7 +76,7 @@ export const Dashboard = () => {
             try {
                 const id = localStorage.getItem("customerId");
                 const response = await getCustomer(id);
-
+                console.log(response.data);
                 setCustomer(response.data);
             } catch (error) {
                 console.error("Could not retrieve customer: ", error);
