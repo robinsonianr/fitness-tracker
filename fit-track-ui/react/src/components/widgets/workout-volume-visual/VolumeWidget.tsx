@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {Workout} from "../../../typing";
 import * as echarts from "echarts";
 import {getWeekOf, isDateInSelectedWeek, sortWorkoutsAsc} from "../../../utils/utilities.ts";

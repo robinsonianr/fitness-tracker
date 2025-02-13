@@ -1,5 +1,5 @@
 import {Customer} from "../../../typing";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {updateCustomer} from "../../../services/client.ts";
 import "./health-info-modal.scss";
 import ReactDOM from "react-dom";
