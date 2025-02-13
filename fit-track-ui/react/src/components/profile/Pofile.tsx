@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import "./profile.scss";
 import {Customer} from "../../typing";
 import {getCustomer, getCustomerProfileImage} from "../../services/client";

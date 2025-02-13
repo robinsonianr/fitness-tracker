@@ -1,4 +1,3 @@
-import React from "react";
 import {createContext, useContext, useEffect, useState} from "react";
 import {login as performLogin} from "../../services/client";
 import jwtDecode from "jwt-decode";

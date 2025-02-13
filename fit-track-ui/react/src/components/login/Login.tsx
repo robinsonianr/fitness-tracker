@@ -1,4 +1,3 @@
-import React from "react";
 import  {useEffect, useState} from "react";
 import "./login.scss";
 import {useNavigate} from "react-router-dom";

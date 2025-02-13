@@ -1,4 +1,3 @@
-import React from "react";
 import "./App.css";
 import {createBrowserRouter, Navigate} from "react-router-dom";
 import Dashboard from "./components/dashboard/Dashboard";
