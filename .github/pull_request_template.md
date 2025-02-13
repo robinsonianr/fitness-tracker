@@ -19,8 +19,8 @@
 - *(Optional) Anything else that you may want to add.*
 
 # Checklist
+
 - [ ] All tests are passing
 - [ ] Documentation updated (if needed)
 - [ ] No TODOs left
 - [ ] Code is formatted properly
-
