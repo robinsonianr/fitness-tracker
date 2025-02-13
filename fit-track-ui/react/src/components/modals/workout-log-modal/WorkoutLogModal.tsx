@@ -1,4 +1,3 @@
-import React from "react";
 import "./workout-log-modal.scss";
 import {Workout} from "../../../typing";
 import ReactDOM from "react-dom";

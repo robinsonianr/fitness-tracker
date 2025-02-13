@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Workout} from "../../../typing";
 import {isDateInSelectedWeek} from "../../../utils/utilities.ts";
 import {getAllWorkoutsByCustomerId} from "../../../services/client.ts";

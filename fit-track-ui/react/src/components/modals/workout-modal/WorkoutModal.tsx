@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import "./workout-modal.scss";
 import {addWorkout} from "../../../services/client.ts";
 import {Customer} from "../../../typing";
