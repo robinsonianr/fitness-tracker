@@ -1,13 +1,16 @@
-package com.robinsonir.fitnesstracker.data.service.customer;
+package com.robinsonir.fittrack.data.service.customer;
 
-import com.robinsonir.fitnesstracker.data.Gender;
-import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
-import com.robinsonir.fitnesstracker.data.entity.workout.WorkoutEntity;
-import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDTO;
-import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDTOMapper;
-import com.robinsonir.fitnesstracker.data.repository.customer.CustomerRepository;
-import com.robinsonir.fitnesstracker.exception.ResourceNotFoundException;
-import com.robinsonir.fitnesstracker.s3.S3Service;
+import com.robinsonir.fittrack.data.Gender;
+import com.robinsonir.fittrack.data.entity.customer.CustomerEntity;
+import com.robinsonir.fittrack.data.entity.workout.WorkoutEntity;
+import com.robinsonir.fittrack.data.repository.customer.Customer;
+import com.robinsonir.fittrack.data.repository.customer.CustomerRepository;
+import com.robinsonir.fittrack.exception.ResourceNotFoundException;
+import com.robinsonir.fittrack.mappers.CustomerMapper;
+import com.robinsonir.fittrack.mappers.CustomerMapperImpl;
+import com.robinsonir.fittrack.mappers.WorkoutMapper;
+import com.robinsonir.fittrack.mappers.WorkoutMapperImpl;
+import com.robinsonir.fittrack.s3.S3Service;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,8 +35,9 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CustomerServiceTest {
+    WorkoutMapper workoutMapper = new WorkoutMapperImpl();
 
-    private final CustomerDTOMapper customerDTOMapper = new CustomerDTOMapper();
+    private final CustomerMapper customerMapper = new CustomerMapperImpl(workoutMapper);
 
     @Mock
     private CustomerRepository customerRepository;
@@ -52,7 +56,7 @@ public class CustomerServiceTest {
 
     @BeforeEach
     void setUp() {
-        customerTest = new CustomerService(customerDTOMapper, passwordEncoder, s3Service, customerRepository, customerDataService);
+        customerTest = new CustomerService(customerMapper, passwordEncoder, s3Service, customerRepository, customerDataService);
         customerTest.setS3Bucket("fitness-tracker-customers");
     }
 
@@ -90,14 +94,14 @@ public class CustomerServiceTest {
         when(customerRepository.findCustomerById(customerId)).thenReturn(Optional.of(customerEntity));
 
         // Act
-        CustomerDTO customerDTO = customerTest.getCustomer(customerId);
+        Customer customer = customerTest.getCustomer(customerId);
 
         // Assert
-        assertEquals(customerId, customerDTO.id());
-        assertEquals("John Doe", customerDTO.name());
-        assertEquals("john.doe@example.com", customerDTO.email());
-        assertEquals(30, customerDTO.age());
-        assertEquals(Gender.MALE, customerDTO.gender());
+        assertEquals(customerId, customer.id());
+        assertEquals("John Doe", customer.name());
+        assertEquals("john.doe@example.com", customer.email());
+        assertEquals(30, customer.age());
+        assertEquals(Gender.MALE, customer.gender());
     }
 
     @Test

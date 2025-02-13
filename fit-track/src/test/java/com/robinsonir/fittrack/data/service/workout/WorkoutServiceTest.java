@@ -1,13 +1,13 @@
-package com.robinsonir.fitnesstracker.data.service.workout;
+package com.robinsonir.fittrack.data.service.workout;
 
-import com.robinsonir.fitnesstracker.data.Gender;
-import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
-import com.robinsonir.fitnesstracker.data.entity.workout.WorkoutEntity;
-import com.robinsonir.fitnesstracker.data.repository.customer.CustomerRepository;
-import com.robinsonir.fitnesstracker.data.repository.workout.WorkoutDTO;
-import com.robinsonir.fitnesstracker.data.repository.workout.WorkoutDTOMapper;
-import com.robinsonir.fitnesstracker.data.repository.workout.WorkoutRepository;
-import com.robinsonir.fitnesstracker.exception.ResourceNotFoundException;
+import com.robinsonir.fittrack.data.Gender;
+import com.robinsonir.fittrack.data.entity.customer.CustomerEntity;
+import com.robinsonir.fittrack.data.entity.workout.WorkoutEntity;
+import com.robinsonir.fittrack.data.repository.customer.CustomerRepository;
+import com.robinsonir.fittrack.data.repository.workout.Workout;
+import com.robinsonir.fittrack.data.repository.workout.WorkoutRepository;
+import com.robinsonir.fittrack.exception.ResourceNotFoundException;
+import com.robinsonir.fittrack.mappers.WorkoutMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +33,7 @@ public class WorkoutServiceTest {
     private CustomerRepository customerRepository;
 
     @Mock
-    private WorkoutDTOMapper workoutDTOMapper;
+    private WorkoutMapper workoutMapper;
 
     @InjectMocks
     private WorkoutService workoutService;
@@ -53,45 +54,51 @@ public class WorkoutServiceTest {
     @Test
     void getAllWorkouts() {
         // Arrange
-        WorkoutEntity workout1 = new WorkoutEntity("Running", 500, 60, OffsetDateTime.now(), null, null, customer);
-        WorkoutEntity workout2 = new WorkoutEntity("Cycling", 300, 45, OffsetDateTime.now(), null, null, customer);
+        WorkoutEntity workoutEntity1 = new WorkoutEntity("Running", 500, 60, OffsetDateTime.now(), 1, 100, customer);
+        workoutEntity1.setId(1L);
+        WorkoutEntity workoutEntity2 = new WorkoutEntity("Cycling", 300, 45, OffsetDateTime.now(), 1, 100, customer);
+        workoutEntity2.setId(2L);
 
-        List<WorkoutEntity> workoutList = List.of(workout1, workout2);
+        List<WorkoutEntity> workoutList = new ArrayList<>();
+        workoutList.add(workoutEntity1);
+        workoutList.add(workoutEntity2);
         when(workoutRepository.findAllWorkouts()).thenReturn(workoutList);
 
-        WorkoutDTO workoutDTO1 = new WorkoutDTO(1L, customer.getId(), "Running", 500, 60,null, null, OffsetDateTime.now());
-        WorkoutDTO workoutDTO2 = new WorkoutDTO(2L, customer.getId(), "Cycling", 300, 45, null, null, OffsetDateTime.now());
+        Workout workoutDTO1 = new Workout(1L, customer.getId(), "Running", 500, 60, null, null, OffsetDateTime.now());
+        Workout workoutDTO2 = new Workout(2L, customer.getId(), "Cycling", 300, 45, null, null, OffsetDateTime.now());
+        List<Workout> workouts = new ArrayList<>();
+        workouts.add(workoutDTO1);
+        workouts.add(workoutDTO2);
 
-        when(workoutDTOMapper.apply(workout1)).thenReturn(workoutDTO1);
-        when(workoutDTOMapper.apply(workout2)).thenReturn(workoutDTO2);
+        when(workoutMapper.convertWorkoutEntityListToWorkoutList(workoutList)).thenReturn(workouts);
 
         // Act
-        List<WorkoutDTO> result = workoutService.getAllWorkouts();
+        List<Workout> result = workoutService.getAllWorkouts();
 
         // Assert
         assertEquals(2, result.size());
         assertEquals(List.of(workoutDTO1, workoutDTO2), result);
         verify(workoutRepository, times(1)).findAllWorkouts();
-        verify(workoutDTOMapper, times(2)).apply(any(WorkoutEntity.class));
+        verify(workoutMapper, times(1)).convertWorkoutEntityListToWorkoutList(workoutList);
     }
 
     @Test
     void getWorkoutSuccess() {
         // Arrange
         Long workoutId = 1L;
-        WorkoutEntity workout = new WorkoutEntity("Running", 500, 60, OffsetDateTime.now(), null, null, customer);
-        WorkoutDTO expectedDTO = new WorkoutDTO(workoutId, customer.getId(), "Running", 500, 60, null, null, OffsetDateTime.now());
+        WorkoutEntity workoutEntity = new WorkoutEntity("Running", 500, 60, OffsetDateTime.now(), null, null, customer);
+        Workout expectedWorkout = new Workout(workoutId, customer.getId(), "Running", 500, 60, null, null, OffsetDateTime.now());
 
-        when(workoutRepository.findWorkoutById(workoutId)).thenReturn(Optional.of(workout));
-        when(workoutDTOMapper.apply(workout)).thenReturn(expectedDTO);
+        when(workoutRepository.findWorkoutById(workoutId)).thenReturn(Optional.of(workoutEntity));
+        when(workoutMapper.convertWorkoutEntityToWorkout(workoutEntity)).thenReturn(expectedWorkout);
 
         // Act
-        WorkoutDTO result = workoutService.getWorkout(workoutId);
+        Workout result = workoutService.getWorkout(workoutId);
 
         // Assert
-        assertEquals(expectedDTO, result);
+        assertEquals(expectedWorkout, result);
         verify(workoutRepository, times(1)).findWorkoutById(workoutId);
-        verify(workoutDTOMapper, times(1)).apply(workout);
+        verify(workoutMapper, times(1)).convertWorkoutEntityToWorkout(workoutEntity);
     }
 
     @Test
@@ -106,7 +113,7 @@ public class WorkoutServiceTest {
 
         assertEquals("workout with id [1] not found", exception.getMessage());
         verify(workoutRepository, times(1)).findWorkoutById(workoutId);
-        verify(workoutDTOMapper, times(0)).apply(any(WorkoutEntity.class));
+        verify(workoutMapper, times(0)).convertWorkoutEntityToWorkout(any(WorkoutEntity.class));
     }
 
     @Test

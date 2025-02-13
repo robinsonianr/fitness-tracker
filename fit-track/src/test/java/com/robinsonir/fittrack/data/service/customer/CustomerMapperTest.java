@@ -1,8 +1,8 @@
-package com.robinsonir.fitnesstracker.data.service.customer;
+package com.robinsonir.fittrack.data.service.customer;
 
-import com.robinsonir.fitnesstracker.data.Gender;
-import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
-import com.robinsonir.fitnesstracker.data.repository.customer.CustomerRowMapper;
+import com.robinsonir.fittrack.data.Gender;
+import com.robinsonir.fittrack.data.entity.customer.CustomerEntity;
+import com.robinsonir.fittrack.data.repository.customer.CustomerRowMapper;
 import org.junit.jupiter.api.Test;
 
 import java.sql.ResultSet;
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class CustomerDTOMapperTest {
+class CustomerMapperTest {
 
     @Test
     void testMapRow() throws SQLException {

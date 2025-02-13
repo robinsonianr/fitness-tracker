@@ -1,57 +1,56 @@
-package com.robinsonir.fitnesstracker.data.service.workout;
+package com.robinsonir.fittrack.data.service.workout;
 
-import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
-import com.robinsonir.fitnesstracker.data.entity.workout.WorkoutEntity;
-import com.robinsonir.fitnesstracker.data.repository.customer.CustomerRepository;
-import com.robinsonir.fitnesstracker.data.repository.workout.WorkoutDTO;
-import com.robinsonir.fitnesstracker.data.repository.workout.WorkoutDTOMapper;
-import com.robinsonir.fitnesstracker.data.repository.workout.WorkoutRepository;
-import com.robinsonir.fitnesstracker.exception.ResourceNotFoundException;
+import com.robinsonir.fittrack.data.entity.customer.CustomerEntity;
+import com.robinsonir.fittrack.data.entity.workout.WorkoutEntity;
+import com.robinsonir.fittrack.data.repository.customer.CustomerRepository;
+import com.robinsonir.fittrack.data.repository.workout.Workout;
+import com.robinsonir.fittrack.data.repository.workout.WorkoutRepository;
+import com.robinsonir.fittrack.exception.ResourceNotFoundException;
+import com.robinsonir.fittrack.mappers.WorkoutMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class WorkoutService {
 
 
-    private final WorkoutDTOMapper workoutDTOMapper;
+    private final WorkoutMapper workoutMapper;
 
     private final WorkoutRepository workoutRepository;
     private final CustomerRepository customerRepository;
 
-    public WorkoutService(WorkoutDTOMapper workoutDTOMapper,
+    @Autowired
+    public WorkoutService(WorkoutMapper workoutMapper,
                           WorkoutRepository workoutRepository,
                           CustomerRepository customerRepository) {
-        this.workoutDTOMapper = workoutDTOMapper;
+        this.workoutMapper = workoutMapper;
         this.workoutRepository = workoutRepository;
         this.customerRepository = customerRepository;
     }
 
 
-    public List<WorkoutDTO> getAllWorkouts() {
-        return workoutRepository.findAllWorkouts()
-                .stream()
-                .map(workoutDTOMapper)
-                .collect(Collectors.toList());
+    public List<Workout> getAllWorkouts() {
+        List<WorkoutEntity> workoutEntities = new ArrayList<>(workoutRepository.findAllWorkouts());
+        return workoutMapper.convertWorkoutEntityListToWorkoutList(workoutEntities);
     }
 
-    public WorkoutDTO getWorkout(Long id) {
-        return workoutRepository.findWorkoutById(id)
-                .map(workoutDTOMapper)
+    public Workout getWorkout(Long id) {
+        WorkoutEntity workoutEntity = workoutRepository.findWorkoutById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "workout with id [%s] not found".formatted(id)
                 ));
+        return workoutMapper.convertWorkoutEntityToWorkout(workoutEntity);
     }
 
-    public List<WorkoutDTO> getAllWorkoutsByCustomerId(Long id) {
-        return workoutRepository.findAllWorkoutsByCustomerId(id)
-                .stream()
-                .map(workoutDTOMapper)
-                .collect(Collectors.toList());
+    public List<Workout> getAllWorkoutsByCustomerId(Long id) {
+        List<WorkoutEntity> workoutEntities = new ArrayList<>(workoutRepository.findAllWorkoutsByCustomerId(id));
+        return workoutMapper.convertWorkoutEntityListToWorkoutList(workoutEntities);
     }
+
     public void addWorkout(WorkoutCreationRequest workoutCreationRequest) {
 
         WorkoutEntity newWorkout = new WorkoutEntity();

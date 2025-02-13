@@ -1,12 +1,12 @@
-package com.robinsonir.fitnesstracker.data.service.customer;
+package com.robinsonir.fittrack.data.service.customer;
 
-import com.robinsonir.fitnesstracker.data.entity.customer.CustomerEntity;
-import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDTO;
-import com.robinsonir.fitnesstracker.data.repository.customer.CustomerDTOMapper;
-import com.robinsonir.fitnesstracker.data.repository.customer.CustomerRepository;
-import com.robinsonir.fitnesstracker.exception.DuplicateResourceException;
-import com.robinsonir.fitnesstracker.exception.ResourceNotFoundException;
-import com.robinsonir.fitnesstracker.s3.S3Service;
+import com.robinsonir.fittrack.data.entity.customer.CustomerEntity;
+import com.robinsonir.fittrack.data.repository.customer.Customer;
+import com.robinsonir.fittrack.data.repository.customer.CustomerRepository;
+import com.robinsonir.fittrack.exception.DuplicateResourceException;
+import com.robinsonir.fittrack.exception.ResourceNotFoundException;
+import com.robinsonir.fittrack.mappers.CustomerMapper;
+import com.robinsonir.fittrack.s3.S3Service;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,12 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class CustomerService {
 
-    private final CustomerDTOMapper customerDTOMapper;
+    private final CustomerMapper customerMapper;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -34,32 +33,29 @@ public class CustomerService {
     @Value("${s3.bucket.name}")
     private String s3Bucket;
 
-    public CustomerService(CustomerDTOMapper customerDTOMapper,
+    public CustomerService(CustomerMapper customerMapper,
                            PasswordEncoder passwordEncoder,
                            S3Service s3Service,
                            CustomerRepository customerRepository,
                            CustomerDataService customerDataService) {
-        this.customerDTOMapper = customerDTOMapper;
+        this.customerMapper = customerMapper;
         this.passwordEncoder = passwordEncoder;
         this.s3Service = s3Service;
         this.customerRepository = customerRepository;
         this.customerDataService = customerDataService;
     }
 
-    public List<CustomerDTO> getAllCustomers() {
-        return customerRepository.findAllCustomers()
-                .stream()
-                .map(customerDTOMapper)
-                .collect(Collectors.toList());
+    public List<Customer> getAllCustomers() {
+        return customerMapper.customerEntityListToCustomerList(customerRepository.findAllCustomers());
     }
 
 
-    public CustomerDTO getCustomer(Long id) {
-        return customerRepository.findCustomerById(id)
-                .map(customerDTOMapper)
+    public Customer getCustomer(Long id) {
+        CustomerEntity customerEntity = customerRepository.findCustomerById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "customer with id [%s] not found".formatted(id)
                 ));
+        return customerMapper.customerEntityToCustomer(customerEntity);
     }
 
     public void addCustomer(CustomerRegistrationRequest customerRegistrationRequest) {
@@ -109,11 +105,12 @@ public class CustomerService {
 
 
     public byte[] getProfilePicture(Long customerId) {
-        var customer = customerRepository.findCustomerById(customerId)
-                .map(customerDTOMapper)
+        CustomerEntity customerEntity = customerRepository.findCustomerById(customerId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "customer with id [%s] not found".formatted(customerId)
                 ));
+
+        var customer = customerMapper.customerEntityToCustomer(customerEntity);
 
         if (StringUtils.isBlank(customer.profileImageId())) {
             throw new ResourceNotFoundException(
