@@ -51,8 +51,10 @@ dependencies {
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
     implementation("org.apache.commons:commons-lang3:3.13.0")
     implementation("org.projectlombok:lombok:1.18.30")
-    annotationProcessor("org.projectlombok:lombok:1.18.30") // Add Lombok annotation processor dependency
     implementation("org.mapstruct:mapstruct:1.6.3")
+    implementation("org.hibernate.orm:hibernate-envers:6.1.7.Final")
+    // Annotation Processors
+    annotationProcessor("org.projectlombok:lombok:1.18.30") // Add Lombok annotation processor dependency
     annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
     // Database/Migration postgresql
     runtimeOnly("org.postgresql:postgresql")
