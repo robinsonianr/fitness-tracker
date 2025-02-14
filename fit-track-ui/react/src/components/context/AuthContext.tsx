@@ -45,7 +45,7 @@ const AuthProvider = ({children}: { children: any }) => {
                 localStorage.setItem("access_token", jwtToken);
             }
 
-            const customerId = response.data.customer.id;
+            const customerId = response.data.customerId;
             if (customerId !== undefined) {
                 localStorage.setItem("customerId", customerId);
             }

@@ -30,6 +30,6 @@ public class AuthService {
         CustomerEntity principal = (CustomerEntity) authentication.getPrincipal();
         Customer customer = customerMapper.customerEntityToCustomer(principal);
         var token = jwtUtil.generateToken(customer.username(), customer.roles());
-        return new AuthResponse(token, customer);
+        return new AuthResponse(token, customer.id());
     }
 }
