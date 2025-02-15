@@ -1,7 +1,7 @@
 package com.robinsonir.fittrack.data.entity.customer;
 
 import com.robinsonir.fittrack.data.Gender;
-import com.robinsonir.fittrack.data.entity.AbstractAuditEntity;
+import com.robinsonir.fittrack.data.entity.AbstractModifiedDateEntity;
 import com.robinsonir.fittrack.data.entity.workout.WorkoutEntity;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -21,7 +21,7 @@ import java.util.List;
 @Entity
 @Audited(withModifiedFlag = true)
 @Table(schema = "fit_tracker", name = "customer")
-public class CustomerEntity extends AbstractAuditEntity implements UserDetails {
+public class CustomerEntity extends AbstractModifiedDateEntity implements UserDetails {
 
     @NotAudited
     @Column(name = "name", nullable = false)

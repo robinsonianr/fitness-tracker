@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.OffsetDateTime;
@@ -23,10 +22,6 @@ public abstract class AbstractAuditEntity extends AbstractEntity {
     @CreatedDate
     @Column(name = "created_date")
     private OffsetDateTime createdDate;
-
-    @LastModifiedDate
-    @Column(name = "last_modified_date")
-    private OffsetDateTime lastModifiedDate;
 
     @CreatedBy
     @Column(name = "created_by")
