@@ -18,7 +18,6 @@ import java.time.OffsetDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractAuditEntity extends AbstractEntity {
 
-    // TODO: implement auditing fields necessary for modification data
     @CreatedDate
     @Column(name = "created_date")
     private OffsetDateTime createdDate;

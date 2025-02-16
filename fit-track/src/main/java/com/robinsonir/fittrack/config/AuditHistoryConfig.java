@@ -14,8 +14,6 @@ public class AuditHistoryConfig {
         this.entityManagerFactory = entityManagerFactory;
     }
 
-
-
     @Bean
     AuditReader auditReader() {
         return AuditReaderFactory.get(entityManagerFactory.createEntityManager());

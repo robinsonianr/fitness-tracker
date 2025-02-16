@@ -14,7 +14,7 @@ public class FitTrackRevisionListener implements RevisionListener {
         if (principal instanceof UserDetails userDetails) {
            currentUser = userDetails.getUsername();
         } else {
-            currentUser = "anonymous";
+            currentUser = principal.toString();
         }
 
         FitTrackRevisionEntity fitTrackRevisionEntity = (FitTrackRevisionEntity) revisionEntity;

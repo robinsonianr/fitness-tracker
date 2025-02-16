@@ -1,0 +1,33 @@
+meta {
+  name: Update Customer
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:8080/api/v1/customers/update/{{id}}
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{authToken}}
+}
+
+body:json {
+  {
+    "name": "Ian Robinson",
+    "email": "ianrrob2@aol.com",
+    "age": 24,
+    "gender": "MALE",
+    "weight": 190,
+    "height": 71,
+    "weightGoal": 175,
+    "activity": "Active",
+    "bodyFat": 28
+  }
+}
+
+vars:pre-request {
+  id: 1
+}

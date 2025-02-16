@@ -32,11 +32,9 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
-      org:
-        hibernate:
-          envers:
-            default_schema: fit_tracker
+        default_schema: fit_tracker
     show-sql: true
+    generate-ddl: false
   flyway:
     baseline-on-migrate: true
     validate-on-migrate: true
@@ -56,8 +54,27 @@ spring:
         enabled: off
 logging:
   level:
-    org.springframework: debug
-    com.robinsonir.fitnesstracker: debug
+#    org.springframework: DEBUG
+    com.robinsonir.fittrack: DEBUG
+    org.hibernate.envers.boot: WARN
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+    org.springframework.web: DEBUG   # Logs incoming web requests
+    org.springframework.web.client.RestTemplate: DEBUG   # Logs outbound API calls
+    org.springframework.web.servlet: DEBUG   # Logs servlet details
+    org.springframework.cloud.openfeign: WARN  # Change to DEBUG if debugging Feign
+    feign.Logger: WARN   # Change to DEBUG if debugging Feign
+    org.springframework.security: WARN   # Change to DEBUG if debugging auth
+    org.springframework.security.web: WARN
+    org.springframework.cache: WARN
+    org.springframework.client.discovery: WARN
+    org.springframework.cloud.consul: WARN
+    org.springframework.cloud.sleuth: WARN
+    org.springframework.core.convert: WARN
+    org.springframework.format: WARN
+    org.springframework.retry: WARN
+    org.springframework.web.client: WARN
+    org.springframework.ws: WARN
+    sun.net.www.protocol: WARN
   pattern:
     console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"  # Pattern for console logs
 

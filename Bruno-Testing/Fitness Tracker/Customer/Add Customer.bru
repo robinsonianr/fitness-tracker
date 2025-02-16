@@ -1,0 +1,21 @@
+meta {
+  name: Add Customer
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/api/v1/customers
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "name":"Isaiah Reed",
+      "email":"lilisaiah01@gmail.com",
+      "password":"Test1234",
+      "age":"21",
+      "gender":"MALE"
+  }
+}

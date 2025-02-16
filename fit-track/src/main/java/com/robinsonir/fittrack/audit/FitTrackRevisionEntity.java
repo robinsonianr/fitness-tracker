@@ -16,7 +16,6 @@ import java.util.Objects;
 @RevisionEntity(FitTrackRevisionListener.class)
 public class FitTrackRevisionEntity {
 
-    // TODO: add fields rev, revtstmp, and username
     @Id
     @SequenceGenerator(name = "sequence_gen", sequenceName = "fit_tracker.hibernate_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_gen")

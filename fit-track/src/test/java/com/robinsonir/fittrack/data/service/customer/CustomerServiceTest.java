@@ -51,7 +51,6 @@ public class CustomerServiceTest {
     @Mock
     private S3Service s3Service;
 
-
     private CustomerService customerTest;
 
     @BeforeEach
