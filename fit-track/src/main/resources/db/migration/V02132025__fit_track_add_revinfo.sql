@@ -3,4 +3,4 @@ CREATE TABLE fit_tracker.revinfo (
     revtstmp BIGINT,
     username VARCHAR(50),
     PRIMARY KEY (rev)
-)
+);
