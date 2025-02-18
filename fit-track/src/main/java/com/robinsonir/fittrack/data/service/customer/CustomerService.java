@@ -7,14 +7,21 @@ import com.robinsonir.fittrack.exception.DuplicateResourceException;
 import com.robinsonir.fittrack.exception.ResourceNotFoundException;
 import com.robinsonir.fittrack.mappers.CustomerMapper;
 import com.robinsonir.fittrack.s3.S3Service;
+import jakarta.transaction.Transactional;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,7 +29,6 @@ import java.util.UUID;
 public class CustomerService {
 
     private final CustomerMapper customerMapper;
-
     private final PasswordEncoder passwordEncoder;
 
     private final S3Service s3Service;
@@ -66,6 +72,12 @@ public class CustomerService {
             );
         }
 
+        // Allows revinfo to obtain username after customer is persisted
+        UserDetails userDetails = new User(customerRegistrationRequest.email(), customerRegistrationRequest.password(), Collections.emptyList());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails.getUsername(),
+                customerRegistrationRequest.password());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
         CustomerEntity customerEntity = new CustomerEntity();
         customerEntity.setName(customerRegistrationRequest.name());
         customerEntity.setEmail(customerRegistrationRequest.email());
@@ -86,6 +98,7 @@ public class CustomerService {
         }
     }
 
+    @Transactional
     public void uploadCustomerProfilePicture(Long customerId, MultipartFile file) {
         checkIfCustomerExistsOrThrow(customerId);
         String profileImageId = UUID.randomUUID().toString();
@@ -123,6 +136,7 @@ public class CustomerService {
         );
     }
 
+    @Transactional
     public void updateCustomer(Long id, CustomerUpdateRequest updateRequest) {
         CustomerEntity customerEntity = customerRepository.findCustomerById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
@@ -133,7 +147,7 @@ public class CustomerService {
                 !updateRequest.email().equals(customerEntity.getEmail())) {
             if (customerRepository.existsByEmail(updateRequest.email())) {
                 throw new DuplicateResourceException(
-                        "email already taken"
+                        "email already used."
                 );
             }
             customerEntity.setEmail(updateRequest.email());

@@ -1,0 +1,23 @@
+meta {
+  name: Upload PFP
+  type: http
+  seq: 5
+}
+
+put {
+  url: http://localhost:8080/api/v1/customers/{{id}}/profile-image
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{authToken}}
+}
+
+body:multipart-form {
+  file: @file(C:\Users\ianrr\Postman\files\pfp_test.jpg)
+}
+
+vars:pre-request {
+  id: 2
+}

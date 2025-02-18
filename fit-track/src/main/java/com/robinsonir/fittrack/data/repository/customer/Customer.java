@@ -21,6 +21,7 @@ public record Customer(
         List<String> roles,
         List<Workout> workouts,
         String username,
-        String profileImageId
+        String profileImageId,
+        OffsetDateTime lastModifiedDate
 ) {
 }

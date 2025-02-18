@@ -1,0 +1,19 @@
+meta {
+  name: Get Workout
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8080/api/v1/workouts/{{id}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{authToken}}
+}
+
+vars:pre-request {
+  id: 9
+}

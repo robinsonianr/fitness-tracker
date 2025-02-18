@@ -1,0 +1,25 @@
+meta {
+  name: Add Workout
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/api/v1/workouts
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{authToken}}
+}
+
+body:json {
+  {
+    "workoutType": "Strength Training",
+    "calories": 639,
+    "durationMinutes": 78,
+    "workoutDate": "2024-09-22T03:41:53.723Z",
+    "customer": {"id": 1}
+  }
+}

@@ -1,0 +1,22 @@
+meta {
+  name: Login
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/api/v1/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "ianrrob2@aol.com",
+    "password": "AAsup4602"
+  }
+}
+
+script:post-response {
+  bru.setEnvVar("authToken", res.getBody().jwtToken)
+}
