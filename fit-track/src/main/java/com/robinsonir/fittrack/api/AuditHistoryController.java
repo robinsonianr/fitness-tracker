@@ -22,6 +22,6 @@ public class AuditHistoryController {
 
     @GetMapping("{entityId}")
     public ResponseEntity<Map<Integer, OffsetDateTime>> getCustomerWeightAuditHistory(@PathVariable("entityId") Long entityId) {
-        return ResponseEntity.ok(auditHistoryService.getCustomerWeightAuditHistory(entityId));
+        return ResponseEntity.ok(auditHistoryService.getCustomerWeightHistory(entityId));
     }
 }

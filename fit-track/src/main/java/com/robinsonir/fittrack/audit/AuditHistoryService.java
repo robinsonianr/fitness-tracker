@@ -20,17 +20,17 @@ public class AuditHistoryService {
         this.auditReader = auditReader;
     }
 
-    public Map<Integer, OffsetDateTime> getCustomerWeightAuditHistory(Long entityId) {
+    public Map<Integer, OffsetDateTime> getCustomerWeightHistory(Long entityId) {
         Map<Integer, OffsetDateTime> weightAudit = new HashMap<>();
         AuditQuery auditQuery = auditReader.createQuery()
-                .forRevisionsOfEntity(CustomerEntity.class, true, true)
-                .add(AuditEntity.id().eq(entityId));
+                .forRevisionsOfEntity(CustomerEntity.class, true,true)
+                .add(AuditEntity.id().eq(entityId))
+                .add(AuditEntity.property("weight").hasChanged());
+
         List items = auditQuery.getResultList();
         for (Object item : items) {
             CustomerEntity customer = (CustomerEntity) item;
-            if (customer.getWeight() != null && customer.getLastModifiedDate() != null) {
-                weightAudit.put(customer.getWeight(), customer.getLastModifiedDate());
-            }
+            weightAudit.put(customer.getWeight(), customer.getLastModifiedDate());
         }
 
         return weightAudit;
