@@ -5,7 +5,7 @@ meta {
 }
 
 put {
-  url: http://localhost:8080/api/v1/customers/{{id}}/profile-image
+  url: {{baseUrl}}:8080/api/v1/customers/{{id}}/profile-image
   body: multipartForm
   auth: bearer
 }
