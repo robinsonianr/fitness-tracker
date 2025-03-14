@@ -15,27 +15,27 @@ To install this project, follow these steps:
 
 Java 17 (Liberica or Zulu) compatible & uses Gradle 7.6.1
 
-1.  Clone the repository.
+1. Clone the repository.
    
     ```sh
     git clone https://github.com/robinsonianr/fitness-tracker.git
     ```
    
-3.  Navigate to the project directory.
+2. Navigate to the project directory.
    
     -   cd `fit-track-ui/react`
 
-5.  Install dependencies.
+3. Install dependencies.
    
     ```sh
     npm install
     ```
    
-7. Database setup
+4. Database setup
    
-   -   Install Docker Desktop or setup Docker in terminal
+   - Install Docker Desktop or setup Docker in terminal
      
-   -   Run `docker pull postgres` or search for 'postgres' on Docker Desktop and pull the image.
+   - Run `docker pull postgres` or search for 'postgres' on Docker Desktop and pull the image.
        
    ```sh
    docker network create db
@@ -53,23 +53,23 @@ Java 17 (Liberica or Zulu) compatible & uses Gradle 7.6.1
 
 Here's how you can use this project:
 1. Build and run the application.
-   -   Build and run the application (use your preferred IDE).
+   - Build and run the application (recommend Intellij but can use your preferred IDE).
 2. Run `npm run start` in `fit-track-ui/react`
-   -   Open a web browser and navigate to [http://localhost:5173](http://localhost:5173).
+   - Open a web browser and navigate to [http://localhost:5173](http://localhost:5173).
 
 Dev Site:
--   http://fitness-tracker-env.eba-3f5efq3k.us-east-1.elasticbeanstalk.com
+- http://fitness-tracker-env.eba-3f5efq3k.us-east-1.elasticbeanstalk.com
 
 Test Account Credentials:
--   Email: test123@gmail.com
--   Password: Test123
+- Email: test123@gmail.com
+- Password: Test123
 
 
 ## Contributing
 
 We welcome contributions from the community. To contribute to this project, please follow these guidelines:
 
-1.  Fork or clone the repository  to your local machine.
-2.  Create a new branch for your feature or bug fix.
-3.  Make your changes and test them thoroughly.
-4.  Submit a pull request and fill out the PR template with details of changes.
+1. Fork or clone the repository  to your local machine.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and test them thoroughly.
+4. Submit a pull request and fill out the PR template with details of changes.
