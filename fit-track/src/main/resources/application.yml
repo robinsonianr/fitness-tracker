@@ -24,7 +24,7 @@ spring:
   datasource:
     username: postgres
     password: root1234
-    url: jdbc:postgresql://localhost:5432/robinsonir
+    url: jdbc:postgresql://localhost:5432/fit-tracker
   jpa:
     hibernate:
       ddl-auto: update

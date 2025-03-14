@@ -12,9 +12,19 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./fit-track-ui/react
+        working-directory: {{ github.workspace }}
     steps:
       - uses: actions/checkout@v4
+      - name: Check for changes in fit-track/ directory
+        id: check-changes
+        run: |
+          if git diff --quiet HEAD^ HEAD -- fit-track/; then
+            echo "No changes detected in fit-track/"
+            echo "skip_wait=true" >> $GITHUB_ENV
+          else
+            echo "Changes detected in fit-track/"
+            echo "skip_wait=false" >> $GITHUB_ENV
+          fi
       - name: Build Number
         id: build-number
         run: echo "::set-output name=BUILD_NUMBER::$(date '+%-d.%-m.%Y.%-H.%-M.%-S')"
@@ -40,9 +50,10 @@ jobs:
       - name: Publish docker image to docker hub
         run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-react:latest
       - name: Wait 80 for Elastic Beanstalk status
+        if: env.skip_wait == 'false'
         run: |
-          echo "Waiting 80 seconds"
-          sleep 80  # Wait for 75 seconds
+          echo "Waiting 120 seconds for Elastic Beanstalk status"
+          sleep 120  # Wait for 120 seconds
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
         with:
