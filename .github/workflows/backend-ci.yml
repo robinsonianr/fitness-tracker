@@ -11,7 +11,7 @@ permissions:
 
 env:
   POSTGRESQL_VERSION: 15
-  POSTGRESQL_DB: robinsonir
+  POSTGRESQL_DB: fit-tracker
   POSTGRESQL_USER: postgres
   POSTGRESQL_PASSWORD: root1234
   JAVA_VERSION: 17
