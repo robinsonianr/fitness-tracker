@@ -15,6 +15,8 @@ To install this project, follow these steps:
 
 Java 17 (Liberica or Zulu) compatible & uses Gradle 7.6.1
 
+Recommended IDE Intellij
+
 1. Clone the repository.
    
     ```sh
@@ -33,20 +35,22 @@ Java 17 (Liberica or Zulu) compatible & uses Gradle 7.6.1
    
 4. Database setup
    
-   - Install Docker Desktop or setup Docker in terminal
+   - Install Docker Desktop or set up Docker in the terminal.
      
    - Run `docker pull postgres` or search for 'postgres' on Docker Desktop and pull the image.
        
    ```sh
    docker network create db
-   docker run --name (my-postgres-container) -p 5432:5432 --network=db -v dbdata:/var/lib/postgres/data -e POSTGRES_PASSWORD=root -e POSTGRES_DB=(postgres-db-name) -d postgres
+   docker run --name (my-postgres-container) -p 5432:5432 --network=db -v dbdata:/var/lib/postgres/data -e POSTGRES_PASSWORD=root1234 -e POSTGRES_DB=fit-tracker -d postgres
    ```
 
-   - Replace (my-postgres-container) and (postgres-db-name) with whatever name you like
+   - Replace (my-postgres-container) with whatever name you like.
       
-   - Run `docker ps` to see if the container is running; if not, run `docker start (container-name)`
+   - Run `docker ps` to see if the container is running; if not, run `docker start (container-name)`.
   
-   - In fit-track/src/main/resources/application.yml, update/replace the password and end of the URL of `spring.datasource` with password when creating container and (postgres-db-name).
+   - In Intellij, add datasource to database tool and enter the URL `jdbc:postgresql://localhost:5432/fit-tracker`.
+  
+   - After naming the db and successfully connecting to db, add schema to the db `fit_tracker`.
 
 
 ## Usage
