@@ -27,14 +27,6 @@ axiosInstance.interceptors.request.use(
     }
 );
 
-export const getCustomers = async () => {
-    try {
-        return await axiosInstance.get("/api/v1/customers");
-    } catch (e) {
-        throw e;
-    }
-};
-
 export const getCustomer = async (id: any) => {
     try {
         return await axiosInstance.get(`/api/v1/customers/${id}`);
@@ -81,9 +73,10 @@ export const addWorkout = async (formData: any) => {
         throw e;
     }
 };
-export const deleteCustomer = async (id: any) => {
+
+export const getCustomerWeightHistory= async (entityId: any) => {
     try {
-        return await axiosInstance.delete(`/api/v1/customers/${id}`);
+        return await axiosInstance.get(`/api/v1/audit/${entityId}`);
     } catch (e) {
         throw e;
     }

@@ -15,7 +15,7 @@ plugins {
 }
 
 group = "com.robinsonir"
-version = "1.1.1"
+version = "1.2.1"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17

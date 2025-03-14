@@ -75,6 +75,3 @@ logging:
     org.springframework.web.client: WARN
     org.springframework.ws: WARN
     sun.net.www.protocol: WARN
-  pattern:
-    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"  # Pattern for console logs
-

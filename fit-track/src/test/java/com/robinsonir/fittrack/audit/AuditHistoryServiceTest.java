@@ -58,7 +58,7 @@ class AuditHistoryServiceTest {
         when(auditQuery.add(any(AuditCriterion.class))).thenReturn(auditQuery);
         when(auditQuery.getResultList()).thenReturn(mockResults);
 
-        Map<Integer, OffsetDateTime> result = auditHistoryService.getCustomerWeightAuditHistory(entityId);
+        Map<Integer, OffsetDateTime> result = auditHistoryService.getCustomerWeightHistory(entityId);
 
         Map<Integer, OffsetDateTime> expected = new HashMap<>();
         expected.put(70, OffsetDateTime.parse("2024-01-01T10:00:00Z"));

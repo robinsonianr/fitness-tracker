@@ -10,6 +10,7 @@ import DurationWidget from "../widgets/workout-duration-visual/DurationWidget.ts
 import AverageInfoWidget from "../widgets/number-of-workouts/AverageInfoWidget.tsx";
 import WorkoutToCalories from "../widgets/workout-to-calories/WorkoutToCalories.tsx";
 import {isDateInThisWeek, sortWorkoutsAsc} from "../../utils/utilities.ts";
+import WeightHistory from "../widgets/weight-history-visual/WeightHistory.tsx";
 
 
 export const Dashboard = () => {
@@ -107,6 +108,7 @@ export const Dashboard = () => {
                     <div className="visual-content">
                         <CalorieWidget weekDate={selectedWeek.toString()}/>
                         <VolumeWidget weekDate={selectedWeek.toString()}/>
+                        <WeightHistory/>
                     </div>
                     <div>
                         <div className="minor-visual-content">
