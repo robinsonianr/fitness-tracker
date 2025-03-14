@@ -9,7 +9,7 @@ on:
       - fit-track/**
 
 env:
-  POSTGRESQL_DB: robinsonir
+  POSTGRESQL_DB: fit-tracker
   POSTGRESQL_USER: postgres
   POSTGRESQL_PASSWORD: root1234
 
