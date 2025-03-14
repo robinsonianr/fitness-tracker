@@ -13,7 +13,7 @@
 
 To install this project, follow these steps:
 
-Java 17 (Liberica or Azulu) compatible & uses Gradle 7.6.1
+Java 17 (Liberica or Zulu) compatible & uses Gradle 7.6.1
 
 1.  Clone the repository.
    
