@@ -38,7 +38,7 @@ jobs:
           docker build . \
           --file Dockerfile \
           --tag ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-react:${{steps.build-number.outputs.BUILD_NUMBER}} \
-          --build-arg api_base_url=http://http://robinsonir-api-env.eba-aebgw6jr.us-east-1.elasticbeanstalk.com/8080
+          --build-arg api_base_url=http://robinsonir-api-env.eba-aebgw6jr.us-east-1.elasticbeanstalk.com/8080
       - name: Publish docker image to docker hub
         run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-react:${{steps.build-number.outputs.BUILD_NUMBER}}
       - name: Build Docker image with latest tag
