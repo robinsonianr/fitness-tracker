@@ -37,7 +37,7 @@ Recommended IDE Intellij
    
 4. Database setup
    
-   - Install Docker Desktop and enable Docker terminal in the settings and restart Docker Desktop.
+   - Install Docker Desktop and enable Docker terminal in the settings then restart Docker Desktop.
      
    - Run `docker pull postgres` or search for 'postgres' on Docker Desktop and pull the image.
        
