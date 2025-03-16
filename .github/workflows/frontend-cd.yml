@@ -14,7 +14,10 @@ jobs:
       run:
         working-directory: ${{ github.workspace }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
       - name: Check for changes in fit-track/ directory
         id: check-changes
         run: |
