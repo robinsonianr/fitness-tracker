@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
+    application
     id("org.springframework.boot") version "3.0.4"
     id("io.spring.dependency-management") version "1.1.0"
     id("org.flywaydb.flyway") version "10.18.2"
@@ -20,6 +21,10 @@ version = "1.2.1"
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
+}
+
+application {
+    mainClass.set("com.robinsonir.fittrack.FitnessTrackerApplication")
 }
 
 repositories {

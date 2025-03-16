@@ -1,19 +1,22 @@
 package com.robinsonir.fittrack.decrypt;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class EnvFileDecrypter {
+public class EnvFileDecryption {
     public Map<String, String> variables;
+    Logger LOGGER = LoggerFactory.getLogger(EnvFileDecryption.class);
 
     // Helper method to convert hexadecimal string to byte array
     private static byte[] hexStringToByteArray(String s) {
@@ -39,35 +42,38 @@ public class EnvFileDecrypter {
     }
 
     public void decryptFile() throws Exception {
-        // Path to the encrypted file
-        String encryptedFilePath = "fit-track/.env.enc";
-        // Path to save the decrypted file
+
         // Key and IV used for encryption (in hexadecimal format)
         String keyHex = "9c041637890f2cf3a5698c2f6d08ec1bf68ba5bcdb41a35b1ba71ea6fed37787"; // 32 bytes (256 bits)
         String ivHex = "e5be904b37dd5056b825ca54f347e8a8";   // 16 bytes (128 bits)
 
-        // Convert key and IV from hexadecimal strings to byte arrays
-        byte[] keyBytes = hexStringToByteArray(keyHex);
-        byte[] ivBytes = hexStringToByteArray(ivHex);
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(".env.enc")) {
 
-        // Create SecretKey and IvParameterSpec objects
-        SecretKey secretKey = new SecretKeySpec(keyBytes, "AES");
-        IvParameterSpec ivSpec = new IvParameterSpec(ivBytes);
+            // Path to save the decrypted file
+            // Convert key and IV from hexadecimal strings to byte arrays
+            byte[] keyBytes = hexStringToByteArray(keyHex);
+            byte[] ivBytes = hexStringToByteArray(ivHex);
 
-        // Initialize Cipher for decryption
-        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-        cipher.init(Cipher.DECRYPT_MODE, secretKey, ivSpec);
+            // Create SecretKey and IvParameterSpec objects
+            SecretKey secretKey = new SecretKeySpec(keyBytes, "AES");
+            IvParameterSpec ivSpec = new IvParameterSpec(ivBytes);
 
-        // Read encrypted file
-        byte[] encryptedBytes = Files.readAllBytes(Paths.get(encryptedFilePath));
+            // Initialize Cipher for decryption
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher.init(Cipher.DECRYPT_MODE, secretKey, ivSpec);
 
-        // Decrypt the file
-        byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
-        String decryptedData = new String(decryptedBytes);
+            // Read encrypted file
+            assert inputStream != null;
+            byte[] encryptedBytes = inputStream.readAllBytes();
 
-        variables = parseEnvFile(decryptedData);
+            // Decrypt the file
+            byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
+            String decryptedData = new String(decryptedBytes);
 
-
+            variables = parseEnvFile(decryptedData);
+        } catch (FileNotFoundException e) {
+            LOGGER.warn("File not found", e);
+        }
     }
 }
 
