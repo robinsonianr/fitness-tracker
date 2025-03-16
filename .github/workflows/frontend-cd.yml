@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: fitness-tracker/
+        working-directory: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v4
       - name: Check for changes in fit-track/ directory
