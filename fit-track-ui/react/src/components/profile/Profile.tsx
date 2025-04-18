@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import "./profile.scss";
-import {Customer} from "../../typing";
-import {getCustomer, getCustomerProfileImage} from "../../services/client";
+import {Customer} from "../../typing/index.ts";
+import {getCustomer, getCustomerProfileImage} from "../../services/client.ts";
 import Sidebar from "../sidebar/Sidebar.tsx";
 import Navbar from "../navbar/Navbar.tsx";
 import ProfileWidget from "../widgets/profile-details/ProfileWidget.tsx";

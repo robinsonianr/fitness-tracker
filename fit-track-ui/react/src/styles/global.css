@@ -51,9 +51,15 @@ select {
 
 body {
   background-color: #444;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
 }
 
-input, select {
+input,
+select {
   background: #222;
   border: none; /* Remove default border */
   border-bottom: 2px solid #3f76c0; /* Blue underline */
@@ -66,6 +72,11 @@ input, select {
 /* Change the underline color when the input is focused */
 input:focus {
   border-bottom-color: #224773; /* Change the color when focused */
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 
 .App-header {

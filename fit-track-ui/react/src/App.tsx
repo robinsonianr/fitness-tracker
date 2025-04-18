@@ -1,10 +1,10 @@
-import "./App.css";
+import "./styles/global.pcss";
 import {createBrowserRouter, Navigate} from "react-router-dom";
 import Dashboard from "./components/dashboard/Dashboard";
 import SignUp from "./components/signup/SignUp";
 import Login from "./components/login/Login";
 import ProtectedRoute from "./components/shared/ProtectedRoute";
-import Profile from "./components/profile/Pofile";
+import Profile from "./components/profile/Profile.tsx";
 import Logs from "./components/logs/Logs.tsx";
 
 
