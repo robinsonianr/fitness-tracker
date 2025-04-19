@@ -1,7 +1,6 @@
 # ADR-001: Adoption of PostCSS for CSS Processing
 
 ## Context
-- Ensuring cross browser compatibility
 - Utilizing modern CSS features while maintaining backwards compatability
 - A good tool to optimize CSS for production
 
@@ -11,7 +10,6 @@
 - Integrates well with Vite
 - Rich ecosystem of plugins
 
-## Consequences
 ### Positive: 
 - Better performance through optimizations
 - Ability to use modern CSS features safely
