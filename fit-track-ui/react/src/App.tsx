@@ -1,4 +1,4 @@
-import "./styles/global.pcss";
+import "./styles/global.css";
 import {createBrowserRouter, Navigate} from "react-router-dom";
 import Dashboard from "./components/dashboard/Dashboard";
 import SignUp from "./components/signup/SignUp";

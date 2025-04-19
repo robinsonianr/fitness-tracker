@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./styles/global.pcss";
+import "./styles/global.css";
 import {RouterProvider} from "react-router-dom";
 
 import {router} from "./App";
