@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./dashboard.scss";
-import {Customer} from "../../typing";
-import {getCustomer} from "../../services/client";
+import { Customer } from "../../typing";
+import { getCustomer } from "../../services/client";
 import Sidebar from "../sidebar/Sidebar.tsx";
 import Navbar from "../navbar/Navbar.tsx";
 import CalorieWidget from "../widgets/workout-calorie-visual/CalorieWidget.tsx";
@@ -9,7 +9,7 @@ import VolumeWidget from "../widgets/workout-volume-visual/VolumeWidget.tsx";
 import DurationWidget from "../widgets/workout-duration-visual/DurationWidget.tsx";
 import AverageInfoWidget from "../widgets/number-of-workouts/AverageInfoWidget.tsx";
 import WorkoutToCalories from "../widgets/workout-to-calories/WorkoutToCalories.tsx";
-import {isDateInThisWeek, sortWorkoutsAsc} from "../../utils/utilities.ts";
+import { isDateInThisWeek, sortWorkoutsAsc } from "../../utils/utilities.ts";
 import WeightHistory from "../widgets/weight-history-visual/WeightHistory.tsx";
 
 
@@ -88,12 +88,12 @@ export const Dashboard = () => {
 
     return (
         <div className="dashboard-container">
-            <Sidebar customer={customer}/>
-            <Navbar title={"Dashboard"} name={customer?.name}/>
+            <Sidebar customer={customer} />
+            <Navbar title={"Dashboard"} name={customer?.name} />
 
             <div className="dashboard-content">
                 <div className="week-widget">
-                    <select value={selectedWeek.toString()} onChange={handleOnchange} style={{width: 280}}>
+                    <select value={selectedWeek.toString()} onChange={handleOnchange} style={{ width: 280 }}>
                         <option value={thisWeek.toString()}>
                             Current: {thisWeek.toDateString()}
                         </option>
@@ -106,16 +106,16 @@ export const Dashboard = () => {
                 </div>
                 <div className="visual-container">
                     <div className="visual-content">
-                        <CalorieWidget weekDate={selectedWeek.toString()}/>
-                        <VolumeWidget weekDate={selectedWeek.toString()}/>
-                        <WeightHistory/>
+                        <CalorieWidget weekDate={selectedWeek.toString()} />
+                        <VolumeWidget weekDate={selectedWeek.toString()} />
+                        <WeightHistory />
                     </div>
                     <div>
                         <div className="minor-visual-content">
-                            <DurationWidget weekDate={selectedWeek.toString()}/>
-                            <AverageInfoWidget weekDate={selectedWeek.toString()}/>
+                            <DurationWidget weekDate={selectedWeek.toString()} />
+                            <AverageInfoWidget weekDate={selectedWeek.toString()} />
                         </div>
-                        <WorkoutToCalories weekDate={selectedWeek.toString()}/>
+                        <WorkoutToCalories weekDate={selectedWeek.toString()} />
                     </div>
                 </div>
             </div>

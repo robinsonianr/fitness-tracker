@@ -53,7 +53,7 @@ const Navbar: React.FC<NavProps> = ({title, name}) => {
 
     return (
         <nav className="navbar">
-            <div className="dashTitle">
+            <div className="dash-title">
                 {title}
             </div>
             <div className="profile" onClick={handleClick}>
