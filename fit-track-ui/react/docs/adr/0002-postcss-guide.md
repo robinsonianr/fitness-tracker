@@ -93,6 +93,7 @@ export default {
 - `postcss-import`: Enables @import to inline other CSS files
 - `postcss-mixins`: Adds support for CSS mixins
 - `cssnano`: Minifies and optimize CSS
+
 - `postcss-custom-properties`: Better CSS variables support 
 - `postcss-custom-media`: Custom media queries
 - `postcss-utilities`: Adds helpful utility functions
@@ -100,5 +101,7 @@ export default {
 - `postcss-browser-reporter`: Shows CSS warnings in the browser 
 
 # For more in-depth of plugins
+
 - Look at the `Plugins` section ONLY
+
 - Notion link: https://vigorous-carriage-bb4.notion.site/PostCSS-4a975fa096bf42e5ae09311a64e791a8?pvs=4
