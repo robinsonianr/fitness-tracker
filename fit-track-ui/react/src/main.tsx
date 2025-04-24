@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./styles/global.css";
+import "./global.css";
 import {RouterProvider} from "react-router-dom";
 
 import {router} from "./App";
-import AuthProvider from "./components/context/AuthContext";
+import AuthProvider from "./context/AuthContext";
 
 
 const root = ReactDOM.createRoot(
