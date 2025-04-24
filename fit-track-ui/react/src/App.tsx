@@ -1,11 +1,11 @@
-import "./styles/global.css";
+import "./global.css";
 import {createBrowserRouter, Navigate} from "react-router-dom";
-import Dashboard from "./components/dashboard/Dashboard";
-import SignUp from "./components/signup/SignUp";
-import Login from "./components/login/Login";
-import ProtectedRoute from "./components/shared/ProtectedRoute";
-import Profile from "./components/profile/Profile.tsx";
-import Logs from "./components/logs/Logs.tsx";
+import Dashboard from "./pages/dashboard/Dashboard";
+import SignUp from "./components/Features/Signup/SignUp.tsx";
+import Login from "./components/Features/Login/Login.tsx";
+import ProtectedRoute from "./shared/ProtectedRoute.tsx";
+import Profile from "./pages/Profile/Profile.tsx";
+import Logs from "./components/Features/Logs/Logs.tsx";
 
 
 export const router = createBrowserRouter([
