@@ -4,7 +4,7 @@ import Navbar from "../../Layout/Navbar/Navbar.tsx";
 import {getAllWorkoutsByCustomerId, getCustomer} from "../../../services/client.ts";
 import "./logs.scss";
 import {Customer, Workout} from "../../../types/index.ts";
-import WorkoutLogModal from "../../Common/Modals/workout-log-modal/WorkoutLogModal.tsx";
+import WorkoutLogModal from "../../common/modal/workout-log-modal/WorkoutLogModal.tsx";
 
 const Logs = () => {
     const [customer, setCustomer] = useState<Customer>({});

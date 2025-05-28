@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import "./dashboard.scss";
 import { Customer } from "../../types/index.ts";
 import { getCustomer } from "../../services/client";
-import Sidebar from "../../components/Layout/Sidebar/Sidebar.tsx";
-import Navbar from "../../components/Layout/Navbar/Navbar.tsx";
-import CalorieWidget from "../../components/Common/Widgets/workout-calorie-visual/CalorieWidget.tsx";
-import VolumeWidget from "../../components/Common/Widgets/workout-volume-visual/VolumeWidget.tsx";
-import DurationWidget from "../../components/Common/Widgets/workout-duration-visual/DurationWidget.tsx";
-import AverageInfoWidget from "../../components/Common/Widgets/number-of-workouts/AverageInfoWidget.tsx";
-import WorkoutToCalories from "../../components/Common/Widgets/workout-to-calories/WorkoutToCalories.tsx";
+import Sidebar from "../../components/layout/sidebar/Sidebar.tsx";
+import Navbar from "../../components/layout/navbar/Navbar.tsx";
+import CalorieWidget from "../../components/common/widgets/workout-calorie-visual/CalorieWidget.tsx";
+import VolumeWidget from "../../components/common/widgets/workout-volume-visual/VolumeWidget.tsx";
+import DurationWidget from "../../components/common/widgets/workout-duration-visual/DurationWidget.tsx";
+import AverageInfoWidget from "../../components/common/widgets/number-of-workouts/AverageInfoWidget.tsx";
+import WorkoutToCalories from "../../components/common/widgets/workout-to-calories/WorkoutToCalories.tsx";
 import { isDateInThisWeek, sortWorkoutsAsc } from "../../utils/utilities.ts";
-import WeightHistory from "../../components/Common/Widgets/weight-history-visual/WeightHistory.tsx";
+import WeightHistory from "../../components/common/widgets/weight-history-visual/WeightHistory.tsx";
 
 
 export const Dashboard = () => {

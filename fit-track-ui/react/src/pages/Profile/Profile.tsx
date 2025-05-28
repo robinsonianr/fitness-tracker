@@ -4,10 +4,10 @@ import {Customer} from "../../types/index.ts";
 import {getCustomer, getCustomerProfileImage} from "../../services/client.ts";
 import Sidebar from "../../components/Layout/Sidebar/Sidebar.tsx";
 import Navbar from "../../components/Layout/Navbar/Navbar.tsx";
-import ProfileWidget from "../../components/Common/Widgets/profile-details/ProfileWidget.tsx";
-import HealthWidget from "../../components/Common/Widgets/health-info/HealthWidget.tsx";
-import WorkoutHistoryWidget from "../../components/Common/Widgets/workout-history/WorkoutHistoryWidget.tsx";
-import HealthInfoModal from "../../components/Common/Modals/edit-health-info/HealthInfoModal.tsx";
+import ProfileWidget from "../../components/common/widgets/profile-details/ProfileWidget.tsx";
+import HealthWidget from "../../components/common/widgets/health-info/HealthWidget.tsx";
+import WorkoutHistoryWidget from "../../components/common/widgets/workout-history/WorkoutHistoryWidget.tsx";
+import HealthInfoModal from "../../components/common/modal/edit-health-info/HealthInfoModal.tsx";
 import axios from "axios";
 
 export const Profile = () => {

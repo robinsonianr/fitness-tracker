@@ -2,7 +2,7 @@ import {useState} from "react";
 import "./sidebar.scss";
 import {useAuth} from "../../../context/AuthContext.tsx";
 import {useNavigate} from "react-router-dom";
-import WorkoutModal from "../../Common/Modals/workout-modal/WorkoutModal.tsx";
+import WorkoutModal from "../../common/modal/workout-modal/WorkoutModal.tsx";
 import {Customer} from "../../../types/index.ts";
 
 export const Sidebar = ({customer}: {customer: Customer | undefined}) => {
