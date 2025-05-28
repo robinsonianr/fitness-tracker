@@ -1,4 +1,4 @@
-import {Workout} from "../typing";
+import {Workout} from "../types";
 
 export function isDateInThisWeek(date: Date){
     const todayObj = new Date();
