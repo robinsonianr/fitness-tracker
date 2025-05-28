@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import Sidebar from "../../Layout/Sidebar/Sidebar.tsx";
-import Navbar from "../../Layout/Navbar/Navbar.tsx";
+import Sidebar from "../../layout/sidebar/Sidebar.tsx";
+import Navbar from "../../layout/navbar/Navbar.tsx";
 import {getAllWorkoutsByCustomerId, getCustomer} from "../../../services/client.ts";
 import "./logs.scss";
 import {Customer, Workout} from "../../../types/index.ts";
