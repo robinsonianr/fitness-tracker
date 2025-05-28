@@ -1,9 +1,9 @@
 import "./workout-log-modal.scss";
-import {Workout} from "../../../../types/index.ts";
+import {Workout} from "../../../../types";
 import ReactDOM from "react-dom";
 
 
-export const WorkoutLogModal = ({isOpen, onClose, workout}: {isOpen: boolean, onClose: any, workout: Workout}) => {
+export const WorkoutLogModal = ({isOpen, onClose, workout}: { isOpen: boolean, onClose: any, workout: Workout }) => {
     let date;
     if (workout) {
         date = new Date(workout.workoutDate);

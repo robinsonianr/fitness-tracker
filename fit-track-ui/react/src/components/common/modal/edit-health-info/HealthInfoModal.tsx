@@ -1,6 +1,6 @@
-import {Customer} from "../../../../types/index.ts";
+import {Customer} from "../../../../types";
 import {useEffect, useState} from "react";
-import {updateCustomer} from "../../../../services/client.ts";
+import {updateCustomer} from "../../../../services/client";
 import "./health-info-modal.scss";
 import ReactDOM from "react-dom";
 
