@@ -45,6 +45,10 @@ jobs:
       - name: Create fit_tracker schema
         run: |
           echo "CREATE SCHEMA IF NOT EXISTS fit_tracker;" | PGPASSWORD=${{ env.POSTGRESQL_PASSWORD }} psql -h localhost -U ${{ env.POSTGRESQL_USER }} ${{ env.POSTGRESQL_DB }}
+
+      - name: Install Root Dependencies
+        run: npm ci
+
       - name: Install React dependencies
         run: cd ./fit-track-ui/react && npm ci
 
