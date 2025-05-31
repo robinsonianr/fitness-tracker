@@ -31,7 +31,7 @@ const ProfileWidget: React.FC<ProfileDetailsWidget> = ({profile, pfp}) => {
         try {
             await uploadCustomerProfileImage(customerId, formData);
         } catch (error) {
-            console.error("File upload failed");
+            console.error("File upload failed", error);
         }
     };
 

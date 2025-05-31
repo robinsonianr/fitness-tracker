@@ -1,4 +1,4 @@
-name: CI - Build Backend
+name: CI - Application Build
 
 on:
   pull_request:
@@ -36,12 +36,20 @@ jobs:
         with:
           java-version: ${{ env.JAVA_VERSION }}
           distribution: 'liberica'
+
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
           gradle-version: 7.6.1
+
       - name: Create fit_tracker schema
         run: |
           echo "CREATE SCHEMA IF NOT EXISTS fit_tracker;" | PGPASSWORD=${{ env.POSTGRESQL_PASSWORD }} psql -h localhost -U ${{ env.POSTGRESQL_USER }} ${{ env.POSTGRESQL_DB }}
+      - name: Install React dependencies
+        run: cd ./fit-track-ui/react && npm ci
+
+      - name: Run ESLint
+        run: cd ./fit-track-ui/react && npm run lint
+
       - name: Build with Gradle
         run: gradle build
