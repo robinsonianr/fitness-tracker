@@ -59,7 +59,7 @@ const AuthProvider = ({children}: { children: any }) => {
             };
             setCustomer(customer);
         } catch (error) {
-            throw new Error("Failed to login, either email or password is incorrect.", { cause: error });
+            throw new Error("Failed to login, either email or password is incorrect.");
         }
     };
 
