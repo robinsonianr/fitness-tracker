@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import url("tailwindcss");
 
 /* Chrome, Safari, Edge, and Opera */
 input[type="number"]::-webkit-outer-spin-button,
