@@ -89,7 +89,7 @@ export const Dashboard = () => {
     return (
         <div className="dashboard-container">
             <Sidebar customer={customer} />
-            {/* <Navbar title={"Dashboard"} name={customer?.name} />
+            <Navbar title={"Dashboard"} name={customer?.name} />
 
             <div className="dashboard-content">
                 <div className="week-widget">
@@ -123,7 +123,7 @@ export const Dashboard = () => {
                         <WorkoutToCalories weekDate={selectedWeek.toString()} />
                     </div>
                 </div>
-            </div> */}
+            </div> 
         </div>
     );
 
