@@ -37,7 +37,7 @@ export const Sidebar = ({customer}: {customer: Customer | undefined}) => {
         <div className="sidebar">
             <WorkoutModal isOpen={isModalOpen} onClose={closeModal} customer={customer} />
             <div className="sidebar-logo">
-                <div  className="logo" onClick={goDash}>
+                <div className="logo" onClick={goDash}>
                     <img src="/assets/weight.png" alt="Gym Icon " className="gym-icon"/>
                      Fit Track
                 </div>

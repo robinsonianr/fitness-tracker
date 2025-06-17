@@ -123,7 +123,7 @@ export const Dashboard = () => {
                         <WorkoutToCalories weekDate={selectedWeek.toString()} />
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
     );
 
