@@ -1,105 +1,43 @@
-/* Chrome, Safari, Edge, and Opera */
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  appearance: none;
-  margin: 0;
-}
+@import "tailwindcss";
 
-/* Firefox */
-input[type="number"] {
-  appearance: textfield;
-}
-
-.App {
-  text-align: center;
-}
-
-.visual-widget {
-  background-color: #222;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
-  margin-top: 1rem;
-  padding: 1rem;
-  width: 100%;
-  align-content: center;
-  align-items: center;
-  text-align: center;
-  color: white;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@layer base {
+  /* Number input styling */
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    @apply appearance-none m-0;
   }
-}
 
-select {
-  background: #222 none;
-  border: none;
-  border-bottom: 2px solid #3f76c0;
-  color: white;
-  font-size: 1.25rem;
-  margin: 0.75rem 0;
-  outline: none;
-  padding: 5px 0;
-}
+  input[type="number"] {
+    @apply appearance-none;
+  }
 
-body {
-  background-color: #444;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+  /* Select styling */
+  select {
+    @apply bg-[#222] border-none border-b-2 text-white text-xl my-3 outline-none py-1;
+  }
+
+  /* Body styling */
+  body {
+    @apply bg-[#444] font-sans antialiased m-0;
+
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  margin: 0;
-}
-
-input,
-select {
-  background: #222;
-  border: none; /* Remove default border */
-  border-bottom: 2px solid #3f76c0; /* Blue underline */
-  color: white;
-  outline: none; /* Remove default focus outline */
-  padding: 5px 0; /* Add some padding */
-  width: 100%; /* Adjust width */
-}
-
-/* Change the underline color when the input is focused */
-input:focus {
-  border-bottom-color: #224773; /* Change the color when focused */
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-.App-header {
-  align-items: center;
-  background-color: #282c34;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  justify-content: center;
-  min-height: 100vh;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
   }
 
-  to {
-    transform: rotate(360deg);
+  /* Input and select base styling */
+  input,
+  select {
+    @apply bg-[#222] border-none border-b-2 text-white outline-none py-1 w-full;
+  }
+
+  /* Input focus state */
+  input:focus {
+    @apply border-b-[#224773];
+  }
+}
+
+@layer components {
+  .visual-widget {
+    @apply bg-[#222] rounded-lg shadow-md mt-4 p-4 w-full flex items-center justify-center text-white;
   }
 }
