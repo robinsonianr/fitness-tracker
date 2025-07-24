@@ -1,0 +1,223 @@
+@import "tailwindcss";
+
+@layer components {
+    .dashboard-container {
+        @apply p-6 bg-gray-50 dark:bg-gray-900 min-h-full;
+    }
+    
+    .tabs-container {
+        @apply mb-6;
+    }
+    
+    .tabs-wrapper {
+        @apply flex space-x-1 bg-white dark:bg-gray-800 rounded-lg p-1 border border-gray-200 dark:border-gray-700;
+    }
+    
+    .tab-button-active {
+        @apply flex-1 px-4 py-2 text-sm font-medium text-purple-600 dark:text-purple-400 bg-purple-100 dark:bg-purple-900/30 rounded-md;
+    }
+    
+    .tab-button-inactive {
+        @apply flex-1 px-4 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300;
+    }
+    
+    .summary-widgets {
+        @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6;
+    }
+    
+    .widget-card {
+        @apply bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700;
+    }
+    
+    .widget-content {
+        @apply flex items-center justify-between;
+    }
+    
+    .widget-info {
+        @apply text-sm font-medium text-gray-600 dark:text-gray-400;
+    }
+    
+    .widget-value {
+        @apply text-2xl font-bold text-gray-900 dark:text-white;
+    }
+    
+    .widget-target {
+        @apply text-sm text-gray-500 dark:text-gray-400;
+    }
+    
+    .widget-icon-container {
+        @apply w-10 h-10 rounded-lg flex items-center justify-center;
+    }
+    
+    .widget-icon-purple {
+        @apply bg-purple-100 dark:bg-purple-900/30;
+    }
+    
+    .widget-icon-orange {
+        @apply bg-orange-100 dark:bg-orange-900/30;
+    }
+    
+    .widget-icon-blue {
+        @apply bg-blue-100 dark:bg-blue-900/30;
+    }
+    
+    .widget-icon-green {
+        @apply bg-green-100 dark:bg-green-900/30;
+    }
+    
+    .widget-icon {
+        @apply w-6 h-6;
+    }
+    
+    .icon-purple {
+        @apply text-purple-600 dark:text-purple-400;
+    }
+    
+    .icon-orange {
+        @apply text-orange-600 dark:text-orange-400;
+    }
+    
+    .icon-blue {
+        @apply text-blue-600 dark:text-blue-400;
+    }
+    
+    .icon-green {
+        @apply text-green-600 dark:text-green-400;
+    }
+    
+    .activity-sections {
+        @apply grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6;
+    }
+    
+    .activity-card {
+        @apply bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700;
+    }
+    
+    .activity-title {
+        @apply text-lg font-semibold text-gray-900 dark:text-white mb-2;
+    }
+    
+    .activity-description {
+        @apply text-sm text-gray-600 dark:text-gray-400 mb-4;
+    }
+    
+    .empty-state-container {
+        @apply flex flex-col items-center justify-center py-8;
+    }
+    
+    .empty-state-icon {
+        @apply w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4;
+    }
+    
+    .empty-state-icon-svg {
+        @apply w-8 h-8 text-gray-400 dark:text-gray-500;
+    }
+    
+    .empty-state-text {
+        @apply text-gray-500 dark:text-gray-400 text-center mb-4;
+    }
+    
+    .empty-state-subtext {
+        @apply text-gray-400 dark:text-gray-500 text-center text-sm mb-4;
+    }
+    
+    .primary-button {
+        @apply px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors;
+    }
+    
+    .secondary-button {
+        @apply px-4 py-2 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors;
+    }
+    
+    .goals-section {
+        @apply grid grid-cols-1 lg:grid-cols-2 gap-6;
+    }
+    
+    .goals-card {
+        @apply bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700;
+    }
+    
+    .goals-header {
+        @apply flex items-center justify-between mb-4;
+    }
+    
+    .goals-title {
+        @apply text-lg font-semibold text-gray-900 dark:text-white;
+    }
+    
+    .view-all-button {
+        @apply text-sm text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300;
+    }
+    
+    .goals-grid {
+        @apply flex space-x-4;
+    }
+    
+    .goal-item {
+        @apply flex flex-col items-center;
+    }
+    
+    .goal-circle {
+        @apply w-16 h-16 rounded-full border-4 flex items-center justify-center mb-2;
+    }
+    
+    .goal-circle-pink {
+        @apply border-pink-200 dark:border-pink-800;
+    }
+    
+    .goal-circle-purple {
+        @apply border-purple-200 dark:border-purple-800;
+    }
+    
+    .goal-circle-green {
+        @apply border-green-200 dark:border-green-800;
+    }
+    
+    .goal-percentage {
+        @apply text-sm font-semibold;
+    }
+    
+    .goal-percentage-pink {
+        @apply text-pink-600 dark:text-pink-400;
+    }
+    
+    .goal-percentage-purple {
+        @apply text-purple-600 dark:text-purple-400;
+    }
+    
+    .goal-percentage-green {
+        @apply text-green-600 dark:text-green-400;
+    }
+    
+    .goal-label {
+        @apply text-xs text-gray-500 dark:text-gray-400;
+    }
+    
+    .recent-workouts-card {
+        @apply bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700;
+    }
+    
+    .recent-workouts-header {
+        @apply flex items-center justify-between mb-4;
+    }
+    
+    .recent-workouts-title {
+        @apply text-lg font-semibold text-gray-900 dark:text-white;
+    }
+    
+    .recent-workouts-description {
+        @apply text-sm text-gray-600 dark:text-gray-400 mb-4;
+    }
+    
+    .recent-workouts-empty {
+        @apply flex flex-col items-center justify-center py-8;
+    }
+    
+    .recent-workouts-empty-icon {
+        @apply w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4;
+    }
+    
+    .recent-workouts-empty-text {
+        @apply text-gray-500 dark:text-gray-400 text-center;
+    }
+} 

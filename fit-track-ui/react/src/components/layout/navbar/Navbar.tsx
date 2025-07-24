@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
-import "./navbar.scss";
-import {useNavigate} from "react-router-dom";
-import {getCustomerProfileImage} from "../../../services/client.ts";
+import { useEffect, useState } from "react";
+import "./navbar.css";
+import { useNavigate } from "react-router-dom";
+import { getCustomerProfileImage } from "../../../services/client.ts";
 import axios from "axios";
 
 interface NavProps {
@@ -9,7 +9,7 @@ interface NavProps {
     name: string | undefined;
 }
 
-const Navbar: React.FC<NavProps> = ({title, name}) => {
+const Navbar: React.FC<NavProps> = ({ title, name }) => {
     const navigate = useNavigate();
     const id = localStorage.getItem("customerId")!;
     const defaultImg = "/assets/user.png";
@@ -40,11 +40,11 @@ const Navbar: React.FC<NavProps> = ({title, name}) => {
             return false;
         }
     };
+
     useEffect(() => {
         fetchPfp()
             .then(r => r);
     }, []);
-
 
     const handleClick = () => {
         // Redirect to the desired route
