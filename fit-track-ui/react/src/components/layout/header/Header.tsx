@@ -13,7 +13,7 @@ interface HeaderProps {
     sidebarOpen?: boolean;
 }
 
-const Header: React.FC<HeaderProps> = ({ collapsed, setCollapsed, customer, sidebarOpen = false }) => {
+const Header: React.FC<HeaderProps> = ({ collapsed, setCollapsed, customer, /* sidebarOpen = false */ }) => {
     const navigate = useNavigate();
     const defaultImg = "/assets/user.png";
     const [pfp, setPfp] = useState<string | undefined>(undefined);

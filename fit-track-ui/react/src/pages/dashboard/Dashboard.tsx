@@ -15,12 +15,12 @@ export const Dashboard = () => {
     const today = new Date();
     const thisWeek = new Date(today);
     thisWeek.setDate(today.getDate() - today.getDay());
-    const [selectedWeek, setSelectedWeek] = useState<Date>(thisWeek);
+    // const [selectedWeek, setSelectedWeek] = useState<Date>(thisWeek);
     const [weeks, setWeeks] = useState<Date[]>([]);
 
-    const handleOnchange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedWeek(new Date(event.target.value));
-    };
+    // const handleOnchange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    //     setSelectedWeek(new Date(event.target.value));
+    // };
 
     useEffect(() => {
         if (customer?.workouts) {
@@ -57,7 +57,7 @@ export const Dashboard = () => {
                         newWeeks.push(firstDayOfWeek);
                     }
                 } else {
-                    setSelectedWeek(thisWeek);
+                    // setSelectedWeek(thisWeek); // This line was commented out in the original file
                 }
             });
 

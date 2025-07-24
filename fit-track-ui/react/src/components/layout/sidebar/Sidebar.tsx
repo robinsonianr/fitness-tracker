@@ -12,7 +12,7 @@ interface SidebarProps {
     onClose?: () => void;
 }
 
-export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(({ customer, collapsed = false, onClose }, ref) => {
+export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(({ customer, /* collapsed = false */, onClose }, ref) => {
     const { logOut } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
