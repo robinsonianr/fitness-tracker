@@ -2,18 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCustomerProfileImage } from "../../../services/client.ts";
 import axios from "axios";
-import { Customer } from "../../../types/index.ts";
 import { ThemeToggle } from "../../ui/theme-toggle";
 import "./header.css";
 
 interface HeaderProps {
     collapsed: boolean;
     setCollapsed: (collapsed: boolean) => void;
-    customer: Customer | undefined;
-    sidebarOpen?: boolean;
+    name?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ collapsed, setCollapsed, customer, /* sidebarOpen = false */ }) => {
+const Header: React.FC<HeaderProps> = ({ collapsed, setCollapsed, name }) => {
     const navigate = useNavigate();
     const defaultImg = "/assets/user.png";
     const [pfp, setPfp] = useState<string | undefined>(undefined);
@@ -87,7 +85,7 @@ const Header: React.FC<HeaderProps> = ({ collapsed, setCollapsed, customer, /* s
                         alt="profile"
                         className="profile-image"
                     />
-                    <span className="profile-name">{customer?.name || "User"}</span>
+                    <span className="profile-name">{name || "User"}</span>
                 </div>
             </div>
         </header>
