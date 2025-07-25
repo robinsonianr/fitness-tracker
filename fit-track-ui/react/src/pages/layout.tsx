@@ -67,8 +67,7 @@ const Layout = () => {
                 <Header 
                     collapsed={false}
                     setCollapsed={() => setSidebarOpen(!sidebarOpen)}
-                    customer={customer}
-                    sidebarOpen={sidebarOpen}
+                    name={customer?.name}
                 />
                 <div className="content-area">
                     <Outlet context={{ customer }} />
