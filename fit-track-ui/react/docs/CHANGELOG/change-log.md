@@ -5,9 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.1.1] - 2025-07-24
 
-### Added
+### Added 1.1
 
 - Dark/light theme toggle functionality
 - Component-based CSS architecture using `@layer components`
@@ -25,9 +25,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Stylelint deprecation warnings
 - Theme toggle functionality
 
-## [0.1.0] - 2024-06-20
+## [0.1.0] - 2025-06-20
 
-### Added
+### Added 1.0
 
 - Initial project setup with React + TypeScript + Vite
 - Basic layout components (Header, Sidebar, Dashboard)
@@ -43,12 +43,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - React Router v6 for navigation
 - ESLint and Stylelint for code quality
 
-## [0.0.1] - 2024-06-19
+## [0.0.1] - 2025-06-19
 
-### Added
+### Added 0.0
 
 - Project initialization
 - Git repository setup
-
 
 - Basic README documentation 

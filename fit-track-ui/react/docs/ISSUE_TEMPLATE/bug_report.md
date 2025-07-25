@@ -25,12 +25,10 @@ If applicable, add screenshots to help explain your problem.
 
 **Environment:**
 
-
 - OS: [e.g. macOS, Windows]
 - Browser: [e.g. Chrome, Safari]
 - Version: [e.g. 22]
 
-**Additional context**
-
+## Additional context
 
 Add any other context about the problem here.
