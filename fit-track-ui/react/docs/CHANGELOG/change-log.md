@@ -50,5 +50,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Project initialization
 - Git repository setup
 
-
 - Basic README documentation
