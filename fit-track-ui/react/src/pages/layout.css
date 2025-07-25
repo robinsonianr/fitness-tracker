@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@layer components {
+    .layout-container {
+        @apply min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors;
+    }
+    
+    .mobile-overlay {
+        @apply fixed inset-0 bg-black/50 z-40 lg:hidden;
+    }
+    
+    .sidebar-container {
+        @apply fixed top-0 left-0 h-full z-50 transition-transform duration-300;
+    }
+    
+    .sidebar-visible {
+        @apply translate-x-0;
+    }
+    
+    .sidebar-hidden {
+        @apply -translate-x-full;
+    }
+    
+    .main-content {
+        @apply transition-all duration-300;
+    }
+    
+    .main-content-desktop {
+        @apply lg:ml-60;
+    }
+    
+    .main-content-mobile {
+        @apply ml-0;
+    }
+    
+    .content-area {
+        @apply h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden bg-gray-50 dark:bg-gray-900;
+    }
+} 

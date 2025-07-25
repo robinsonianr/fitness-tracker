@@ -1,6 +1,14 @@
 @import "tailwindcss";
 
 @layer base {
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
+
+  .dark body {
+    @apply bg-gray-900 text-gray-100;
+  }
+
   /* Number input styling */
   input[type="number"]::-webkit-outer-spin-button,
   input[type="number"]::-webkit-inner-spin-button {
@@ -13,31 +21,36 @@
 
   /* Select styling */
   select {
-    @apply bg-[#222] border-none border-b-2 text-white text-xl my-3 outline-none py-1;
+    @apply bg-white border border-gray-300 text-gray-900 text-xl my-3 outline-none py-1;
   }
 
-  /* Body styling */
-  body {
-    @apply bg-[#444] font-sans antialiased m-0;
-
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  .dark select {
+    @apply bg-gray-800 border-gray-600 text-gray-100;
   }
 
   /* Input and select base styling */
   input,
   select {
-    @apply bg-[#222] border-none border-b-2 text-white outline-none py-1 w-full;
+    @apply bg-white border border-gray-300 text-gray-900 outline-none py-1 w-full;
+  }
+
+  .dark input,
+  .dark select {
+    @apply bg-gray-800 border-gray-600 text-gray-100;
   }
 
   /* Input focus state */
   input:focus {
-    @apply border-b-[#224773];
+    @apply border-blue-500 ring-2 ring-blue-500 ring-offset-2;
   }
 }
 
 @layer components {
   .visual-widget {
-    @apply bg-[#222] rounded-lg shadow-md mt-4 p-4 w-full flex items-center justify-center text-white;
+    @apply bg-white rounded-lg shadow-md mt-4 p-4 w-full flex items-center justify-center text-gray-900;
+  }
+
+  .dark .visual-widget {
+    @apply bg-gray-800 text-gray-100;
   }
 }

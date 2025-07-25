@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@layer components {
+    .header {
+        @apply flex items-center justify-between h-15 px-4 lg:px-6 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm w-full;
+    }
+    
+    .header-left {
+        @apply flex items-center gap-4;
+    }
+    
+    .menu-button {
+        @apply p-2 rounded-md text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-200 transition-colors lg:hidden;
+    }
+    
+    .dashboard-title {
+        @apply text-xl font-semibold text-gray-900 dark:text-white;
+    }
+    
+    .header-right {
+        @apply flex items-center gap-3;
+    }
+    
+    .profile-group {
+        @apply flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors;
+    }
+    
+    .profile-image {
+        @apply w-8 h-8 rounded-full object-cover;
+    }
+    
+    .profile-name {
+        @apply hidden sm:block text-sm text-gray-900 dark:text-gray-200;
+    }
+} 

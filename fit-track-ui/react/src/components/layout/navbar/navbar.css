@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@layer components {
+    .navbar {
+        @apply h-25 bg-gray-800 text-white px-5 fixed right-0 top-0 w-[calc(100%-300px)] z-10;
+    }
+    
+    .dash-title {
+        @apply text-2xl font-bold mr-5 py-8 text-left;
+    }
+    
+    .profile {
+        @apply text-white items-center cursor-pointer flex pt-5 fixed right-3 top-3;
+    }
+    
+    .profile img {
+        @apply mr-3 object-cover h-10 w-10 rounded-full;
+    }
+} 
