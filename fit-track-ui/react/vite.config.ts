@@ -6,9 +6,8 @@ export default defineConfig({
 
     plugins: [react(), tailwindcss()],
     server: {
+        host: "0.0.0.0",
+        port: 5173,
         allowedHosts: ["fitness-tracker-env.eba-3f5efq3k.us-east-1.elasticbeanstalk.com"],
-    },
-    build: {
-        minify: false, // Disable minification to avoid esbuild
     }
 });
