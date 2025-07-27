@@ -122,11 +122,11 @@
     }
     
     .primary-button {
-        @apply px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors;
+        @apply px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors cursor-pointer;
     }
     
     .secondary-button {
-        @apply px-4 py-2 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors;
+        @apply px-4 py-2 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors cursor-pointer;
     }
     
     .goals-section {
