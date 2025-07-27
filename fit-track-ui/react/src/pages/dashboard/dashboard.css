@@ -146,7 +146,7 @@
     }
     
     .view-all-button {
-        @apply text-sm text-[#355a8f] hover:text-[#3f76c0] cursor-pointer;
+        @apply text-sm text-[#3f76c0] hover:text-[#6793cd] cursor-pointer;
     }
     
     .goals-grid {
