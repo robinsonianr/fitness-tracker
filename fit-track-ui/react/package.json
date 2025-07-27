@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": "20.x"
+    "node": "18.x",
+    "npm": "9.x"
   },
   "scripts": {
     "start": "vite --host",
