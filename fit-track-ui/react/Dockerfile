@@ -2,16 +2,14 @@ FROM node:18-alpine
 
 ARG api_base_url
 
-ENV NODE_OPTIONS="--max-old-space-size=1024"
+ENV NODE_OPTIONS="--max-old-space-size=4096 --gc-interval=100"
 
 WORKDIR /app
-
 COPY package*.json .
 
 RUN npm i --silent
 
 COPY . .
-
 RUN echo "VITE_API_BASE_URL=${api_base_url}" > .env
 
 EXPOSE 5173

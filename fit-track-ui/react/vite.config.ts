@@ -10,12 +10,10 @@ export default defineConfig({
         port: 5173,
         allowedHosts: ["fitness-tracker-env.eba-3f5efq3k.us-east-1.elasticbeanstalk.com"],
     },
-    // Add these for dev stability
-    optimizeDeps: {
-        include: ["lucide-react"]
-    },
-    esbuild: {
-        target: "es2020",
-        logLevel: "error"
+    build: {
+        minify: false,
+        sourcemap: false, // Reduce build overhead
+        reportCompressedSize: false // Skip compression analysis
     }
+
 });
