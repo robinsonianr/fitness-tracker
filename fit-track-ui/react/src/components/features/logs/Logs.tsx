@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from "react";
-import Sidebar from "../../layout/sidebar/Sidebar.tsx";
-import Navbar from "../../layout/navbar/Navbar.tsx";
-import {getAllWorkoutsByCustomerId, getCustomer} from "../../../services/client.ts";
+import {getAllWorkoutsByCustomerId} from "../../../services/client.ts";
 import "./logs.scss";
-import {Customer, Workout} from "../../../types/index.ts";
+import {Workout} from "../../../types/index.ts";
 import WorkoutLogModal from "../../common/modal/workout-log-modal/WorkoutLogModal.tsx";
 
 const Logs = () => {
-    const [customer, setCustomer] = useState<Customer>({});
     const [workoutData, setWorkoutData] = useState<Workout[]>([]);
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const [selectedWorkout, setSelectedWorkout] = useState<Workout>();
@@ -18,9 +15,7 @@ const Logs = () => {
         const fetchData = async () => {
             try {
                 const id = localStorage.getItem("customerId");
-                const response = await getCustomer(id);
                 const testRes = await getAllWorkoutsByCustomerId(id);
-                setCustomer(response.data);
                 setWorkoutData(testRes.data);
             } catch (error) {
                 console.error("Could not retrieve customer: ", error);
@@ -143,8 +138,6 @@ const Logs = () => {
 
     return (
         <div className="logs-container">
-            <Sidebar customer={customer}/>
-            <Navbar title={"Logs"} name={customer.name}/>
             <WorkoutLogModal isOpen={isModalOpen} onClose={closeModal} workout={selectedWorkout!}/>
             <div className="logs-content">
                 <div className="calendar-header">

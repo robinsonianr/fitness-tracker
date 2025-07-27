@@ -9,9 +9,10 @@ interface HeaderProps {
     collapsed: boolean;
     setCollapsed: (collapsed: boolean) => void;
     name?: string;
+    title: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ collapsed, setCollapsed, name }) => {
+const Header: React.FC<HeaderProps> = ({ collapsed, setCollapsed, name, title}) => {
     const navigate = useNavigate();
     const defaultImg = "/assets/user.png";
     const [pfp, setPfp] = useState<string | undefined>(undefined);
@@ -67,7 +68,7 @@ const Header: React.FC<HeaderProps> = ({ collapsed, setCollapsed, name }) => {
                 </button>
                 
                 {/* Dashboard title - visible on all screens */}
-                <h1 className="dashboard-title">Dashboard</h1>
+                <h1 className="dashboard-title">{title}</h1>
             </div>
 
             {/* Right side - Theme toggle and profile */}

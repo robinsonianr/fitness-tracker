@@ -2,7 +2,7 @@
 
 @layer components {
     .header {
-        @apply flex items-center justify-between h-15 px-4 lg:px-6 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm w-full;
+        @apply flex items-center justify-between h-15 px-4 lg:px-6 bg-white dark:bg-[#333] border-b border-gray-200 dark:border-gray-600 shadow-sm w-full;
     }
     
     .header-left {

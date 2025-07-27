@@ -2,11 +2,11 @@
 
 @layer components {
     .sidebar {
-        @apply w-60 h-full bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col;
+        @apply w-60 h-full bg-white dark:bg-[#333] border-r border-gray-200 dark:border-gray-600 flex flex-col;
     }
     
     .sidebar-header {
-        @apply p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between;
+        @apply p-4 border-b border-gray-200 dark:border-gray-600 flex items-center justify-center;
     }
     
     .brand-group {
@@ -34,15 +34,15 @@
     }
     
     .nav-item {
-        @apply w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors;
+        @apply w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors cursor-pointer;
     }
     
     .nav-item-active {
-        @apply bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300;
+        @apply  text-white bg-[#355a8f] dark:text-white;
     }
     
     .nav-item-inactive {
-        @apply text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700;
+        @apply text-white  hover:bg-[#3f76c0];
     }
     
     .nav-icon {
@@ -50,14 +50,14 @@
     }
     
     .sidebar-footer {
-        @apply p-4 border-t border-gray-200 dark:border-gray-700;
+        @apply p-4 border-t border-gray-200 dark:border-gray-600;
     }
     
     .add-workout-button {
-        @apply w-full px-4 py-2 bg-purple-600 dark:bg-purple-600 text-white rounded-lg hover:bg-purple-700 dark:hover:bg-purple-700 transition-colors font-medium;
+        @apply w-full px-4 py-2 bg-[#3f76c0] text-white rounded-lg hover:bg-[#355a8f] transition-colors duration-300 font-medium cursor-pointer;
     }
     
     .logout-button {
-        @apply w-full px-4 py-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors font-medium;
+        @apply w-full px-4 py-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors font-medium cursor-pointer;
     }
 } 
