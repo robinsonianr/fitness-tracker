@@ -2,11 +2,11 @@
 
 @layer base {
   body {
-    @apply bg-gray-50 text-gray-900;
+    @apply bg-white text-black;
   }
 
   .dark body {
-    @apply bg-gray-900 text-gray-100;
+    @apply  dark:bg-[#444] dark:text-white;
   }
 
   /* Number input styling */
@@ -21,11 +21,11 @@
 
   /* Select styling */
   select {
-    @apply bg-white border border-gray-300 text-gray-900 text-xl my-3 outline-none py-1;
+    @apply bg-white border border-gray-300 text-[#222] text-xl my-3 outline-none py-1;
   }
 
   .dark select {
-    @apply bg-gray-800 border-gray-600 text-gray-100;
+    @apply bg-[#222] border-gray-600 text-gray-100;
   }
 
   /* Input and select base styling */
@@ -36,7 +36,7 @@
 
   .dark input,
   .dark select {
-    @apply bg-gray-800 border-gray-600 text-gray-100;
+    @apply bg-[#222] border-gray-600 text-gray-100;
   }
 
   /* Input focus state */

@@ -2,7 +2,7 @@
 
 @layer components {
     .dashboard-container {
-        @apply p-6 bg-gray-50 dark:bg-gray-900 min-h-full;
+        @apply p-6 bg-gray-50 dark:bg-[#222] min-h-full;
     }
     
     .tabs-container {
@@ -10,15 +10,15 @@
     }
     
     .tabs-wrapper {
-        @apply flex space-x-1 bg-white dark:bg-gray-800 rounded-lg p-1 border border-gray-200 dark:border-gray-700;
+        @apply flex space-x-1 bg-white dark:bg-[#333] rounded-lg p-1 border border-gray-200 dark:border-gray-600;
     }
     
     .tab-button-active {
-        @apply flex-1 px-4 py-2 text-sm font-medium text-purple-600 dark:text-purple-400 bg-purple-100 dark:bg-purple-900/30 rounded-md;
+        @apply flex-1 px-4 py-2 text-sm font-medium text-black dark:text-gray-300 bg-purple-100 dark:bg-[#3f76c0]/60 rounded-md cursor-pointer;
     }
     
     .tab-button-inactive {
-        @apply flex-1 px-4 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300;
+        @apply flex-1 px-4 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 cursor-pointer;
     }
     
     .summary-widgets {
@@ -26,7 +26,7 @@
     }
     
     .widget-card {
-        @apply bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700;
+        @apply bg-white dark:bg-[#333] rounded-lg p-6 border border-gray-200 dark:border-gray-600;
     }
     
     .widget-content {
@@ -90,7 +90,7 @@
     }
     
     .activity-card {
-        @apply bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700;
+        @apply bg-white dark:bg-[#333] rounded-lg p-6 border border-gray-200 dark:border-gray-600;
     }
     
     .activity-title {
@@ -122,11 +122,11 @@
     }
     
     .primary-button {
-        @apply px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors;
+        @apply px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors cursor-pointer;
     }
     
     .secondary-button {
-        @apply px-4 py-2 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors;
+        @apply px-4 py-2 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors cursor-pointer;
     }
     
     .goals-section {
@@ -134,7 +134,7 @@
     }
     
     .goals-card {
-        @apply bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700;
+        @apply bg-white dark:bg-[#333] rounded-lg p-6 border border-gray-200 dark:border-gray-600;
     }
     
     .goals-header {
@@ -146,7 +146,7 @@
     }
     
     .view-all-button {
-        @apply text-sm text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300;
+        @apply text-sm text-[#3f76c0] hover:text-[#6793cd] cursor-pointer;
     }
     
     .goals-grid {
@@ -194,7 +194,7 @@
     }
     
     .recent-workouts-card {
-        @apply bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700;
+        @apply bg-white dark:bg-[#333] rounded-lg p-6 border border-gray-200 dark:border-gray-600;
     }
     
     .recent-workouts-header {

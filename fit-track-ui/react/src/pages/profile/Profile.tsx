@@ -2,8 +2,6 @@ import {useEffect, useState} from "react";
 import "./profile.scss";
 import {Customer} from "../../types/index.ts";
 import {getCustomer, getCustomerProfileImage} from "../../services/client.ts";
-import Sidebar from "../../components/layout/sidebar/Sidebar.tsx";
-import Navbar from "../../components/layout/navbar/Navbar.tsx";
 import ProfileWidget from "../../components/common/widgets/profile-details/ProfileWidget.tsx";
 import HealthWidget from "../../components/common/widgets/health-info/HealthWidget.tsx";
 import WorkoutHistoryWidget from "../../components/common/widgets/workout-history/WorkoutHistoryWidget.tsx";
@@ -82,9 +80,7 @@ export const Profile = () => {
     return (
         <div className="profile-container">
             <HealthInfoModal isOpen={isModalOpen} onClose={closeModal} customer={customer} />
-            <Sidebar customer={customer}/>
             <div className="main-content">
-                <Navbar title={"Profile"} name={customer?.name}/>
                 <div className="content">
                     <div>
                         <ProfileWidget profile={profile} pfp={pfp}/>

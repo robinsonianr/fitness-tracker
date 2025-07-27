@@ -2,7 +2,7 @@
 
 @layer components {
     .layout-container {
-        @apply min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors;
+        @apply min-h-screen bg-gray-50 dark:bg-[#444] transition-colors;
     }
     
     .mobile-overlay {
@@ -34,6 +34,6 @@
     }
     
     .content-area {
-        @apply h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden bg-gray-50 dark:bg-gray-900;
+        @apply h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden bg-gray-50 dark:bg-[#222];
     }
 } 

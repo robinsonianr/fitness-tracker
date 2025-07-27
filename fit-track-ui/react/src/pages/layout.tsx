@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import {Outlet, useLocation} from "react-router-dom";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { useRef, useState, useEffect } from "react";
 import { Customer } from "../types/index.ts";
@@ -14,6 +14,7 @@ const Layout = () => {
     const isLargeScreen = useMediaQuery("(min-width: 1024px)");
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [customer, setCustomer] = useState<Customer | undefined>(undefined);
+    const location = useLocation();
 
     const sidebarRef = useRef(null);
 
@@ -31,6 +32,21 @@ const Layout = () => {
 
         fetchData();
     }, []);
+
+    const getHeaderTitle = () :string  =>  {
+        const currentPage = location.pathname.split("/")[1];
+
+        switch (currentPage) {
+        case "dashboard":
+            return "Dashboard";
+        case "profile":
+            return "Profile";
+        case "logs":
+            return "Logs";
+        default:
+            return "Dashboard";
+        }
+    };
 
     // Auto-close sidebar on mobile when clicking outside
     const handleOverlayClick = () => {
@@ -68,6 +84,7 @@ const Layout = () => {
                     collapsed={false}
                     setCollapsed={() => setSidebarOpen(!sidebarOpen)}
                     name={customer?.name}
+                    title={getHeaderTitle()}
                 />
                 <div className="content-area">
                     <Outlet context={{ customer }} />
