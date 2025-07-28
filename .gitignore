@@ -41,5 +41,5 @@ out/
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
-!.elasticbeanstalk/*.confg.yml
+!.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
