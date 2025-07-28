@@ -54,13 +54,13 @@ jobs:
       - name: Build with Gradle
         run: gradle build
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-api:${{steps.build-number.outputs.BUILD_NUMBER}}
+        run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_HUB_USERNAME}}/fit-track:${{steps.build-number.outputs.BUILD_NUMBER}}
       - name: Publish docker image to docker hub
-        run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-api:${{steps.build-number.outputs.BUILD_NUMBER}}
+        run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/fit-track:${{steps.build-number.outputs.BUILD_NUMBER}}
       - name: Build Docker image with latest tag
-        run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-api:latest
+        run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_HUB_USERNAME}}/fit-track:latest
       - name: Publish docker image to docker hub
-        run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-api:latest
+        run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/fit-track:latest
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
         with:
