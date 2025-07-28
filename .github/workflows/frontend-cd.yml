@@ -40,20 +40,20 @@ jobs:
         run: |
           docker build . \
           --file Dockerfile \
-          --tag ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-react:${{steps.build-number.outputs.BUILD_NUMBER}} \
+          --tag ${{secrets.DOCKER_HUB_USERNAME}}/fit-track-ui:${{steps.build-number.outputs.BUILD_NUMBER}} \
           --build-arg api_base_url=http://fit-track-dev.eba-jpnjhwum.us-east-1.elasticbeanstalk.com:8080
         working-directory: fit-track-ui/react
       - name: Publish docker image to docker hub
-        run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-react:${{steps.build-number.outputs.BUILD_NUMBER}}
+        run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/fit-track-ui:${{steps.build-number.outputs.BUILD_NUMBER}}
       - name: Build Docker image with latest tag
         run: |
           docker build . \
           --file Dockerfile \
-          --tag ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-react:latest \
+          --tag ${{secrets.DOCKER_HUB_USERNAME}}/fit-track-ui:latest \
           --build-arg api_base_url=http://fit-track-dev.eba-jpnjhwum.us-east-1.elasticbeanstalk.com:8080
         working-directory: fit-track-ui/react
       - name: Publish docker image to docker hub
-        run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-react:latest
+        run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/fit-track-ui:latest
       - name: Wait 80 for Elastic Beanstalk status
         if: env.skip_wait == 'false'
         run: |
