@@ -41,7 +41,7 @@ jobs:
           docker build . \
           --file Dockerfile \
           --tag ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-react:${{steps.build-number.outputs.BUILD_NUMBER}} \
-          --build-arg api_base_url=http://robinsonir-api-env.eba-aebgw6jr.us-east-1.elasticbeanstalk.com/8080
+          --build-arg api_base_url=http://fit-track-dev.eba-jpnjhwum.us-east-1.elasticbeanstalk.com:8080
         working-directory: fit-track-ui/react
       - name: Publish docker image to docker hub
         run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-react:${{steps.build-number.outputs.BUILD_NUMBER}}
@@ -50,7 +50,7 @@ jobs:
           docker build . \
           --file Dockerfile \
           --tag ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-react:latest \
-          --build-arg api_base_url=http://fitness-tracker-env.eba-3f5efq3k.us-east-1.elasticbeanstalk.com:8080
+          --build-arg api_base_url=http://fit-track-dev.eba-jpnjhwum.us-east-1.elasticbeanstalk.com:8080
         working-directory: fit-track-ui/react
       - name: Publish docker image to docker hub
         run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/robinsonir-react:latest
