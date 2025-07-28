@@ -2,7 +2,7 @@ FROM node:18-alpine
 
 ARG api_base_url
 
-ENV NODE_OPTIONS="--max-old-space-size=2048"
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 
 WORKDIR /app
 COPY package*.json .

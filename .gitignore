@@ -38,3 +38,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.confg.yml
+!.elasticbeanstalk/*.global.yml

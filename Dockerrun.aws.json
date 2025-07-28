@@ -5,7 +5,7 @@
       "name": "robinsonir-react",
       "image": "robinsonir/robinsonir-react:latest",
       "essential": true,
-      "memory": 256,
+      "memory": 1024,
       "portMappings": [
         {
           "hostPort": 80,
