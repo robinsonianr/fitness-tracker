@@ -54,11 +54,11 @@ jobs:
         working-directory: fit-track-ui/react
       - name: Publish docker image to docker hub
         run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/fit-track-ui:latest
-      - name: Wait 80 for Elastic Beanstalk status
+      - name: Wait 3 minutes for Elastic Beanstalk env to be ready to used
         if: env.skip_wait == 'false'
         run: |
-          echo "Waiting 120 seconds for Elastic Beanstalk status"
-          sleep 120  # Wait for 120 seconds
+          echo "Waiting 180 seconds for Elastic Beanstalk status"
+          sleep 180  # Wait for 180 seconds
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
         with:
