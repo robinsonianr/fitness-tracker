@@ -22,7 +22,7 @@ Recommended IDE Intellij
 1. Clone the repository.
    
     ```sh
-    git clone https://github.com/robinsonianr/fitness-tracker.git
+    git clone https://github.com/robinsonianr/fit-track.git
     ```
    
 2. Navigate to the project directory.
@@ -66,8 +66,8 @@ Here's how you can use this project:
 2. Start UI with `npm run start` in `fit-track-ui/react`
    - Open a web browser and navigate to [http://localhost:5173](http://localhost:5173).
 
-Dev Site:
-- http://fitness-tracker-env.eba-3f5efq3k.us-east-1.elasticbeanstalk.com
+Development Url:
+- http://fit-track-dev.eba-jpnjhwum.us-east-1.elasticbeanstalk.com
 
 Test Account Credentials:
 - Email: test123@gmail.com
@@ -76,7 +76,7 @@ Test Account Credentials:
 
 ## Contributing
 
-We welcome contributions from the community to contribute to this project, please follow these guidelines:
+We welcome contributions from the community to contribute to this project. Please follow these guidelines:
 
 1. Fork or clone the repository to your local machine.
 2. Create a new branch for your feature or bug fix.
