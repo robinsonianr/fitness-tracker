@@ -96,7 +96,7 @@ export const HealthInfoModal = ({isOpen, onClose, customer}: {isOpen: boolean, o
                         <label className="health-modal-label">Workout Activity</label>
                         <select className="health-select" name="activity" value={formData.activity} onChange={handleChange}>
                             <option value="">
-                                Select Activity Level
+                                Select Activity Experience
                             </option>
                             <option value="Advanced">Advanced</option>
                             <option value="Intermediate">Intermediate</option>
