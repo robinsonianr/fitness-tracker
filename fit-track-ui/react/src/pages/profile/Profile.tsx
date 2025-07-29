@@ -1,16 +1,47 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import "./profile.scss";
-import {Customer} from "../../types/index.ts";
-import {getCustomer, getCustomerProfileImage} from "../../services/client.ts";
-import ProfileWidget from "../../components/common/widgets/profile-details/ProfileWidget.tsx";
-import HealthWidget from "../../components/common/widgets/health-info/HealthWidget.tsx";
-import WorkoutHistoryWidget from "../../components/common/widgets/workout-history/WorkoutHistoryWidget.tsx";
-import HealthInfoModal from "../../components/common/modal/edit-health-info/HealthInfoModal.tsx";
+import {Customer} from "../../types";
+import {getCustomer, getCustomerProfileImage, uploadCustomerProfileImage} from "../../services/client.ts";
+// import ProfileWidget from "../../components/common/widgets/profile-details/ProfileWidget.tsx";
+// import HealthWidget from "../../components/common/widgets/health-info/HealthWidget.tsx";
+// import WorkoutHistoryWidget from "../../components/common/widgets/workout-history/WorkoutHistoryWidget.tsx";
+// import HealthInfoModal from "../../components/common/modal/edit-health-info/HealthInfoModal.tsx";
 import axios from "axios";
 
 export const Profile = () => {
+
+
     const [customer, setCustomer] = useState<Customer | undefined>(undefined);
     const [pfp, setPfp] = useState<string | undefined>(undefined);
+    const defaultImg = "/assets/user.png";
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const id = localStorage.getItem("customerId")!;
+
+
+    const profile = {
+        name: customer?.name,
+        email: customer?.email,
+        memberSince: customer?.memberSince
+    };
+
+    const healthInfo = {
+        age: customer?.age,
+        gender: customer?.gender,
+        weight: customer?.weight,
+        height: customer?.height,
+        weightGoal: customer?.weightGoal,
+        activity: customer?.activity,
+        bodyFat: customer?.bodyFat
+    };
+
+
+    const profileMember = profile.memberSince?.toString();
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June", "July",
+        "August", "September", "October", "November", "December"
+    ];
+    const month = new Date(profileMember!).getMonth();
+    const memberDate = monthNames[month] + " " + new Date(profileMember!).getFullYear();
 
     const fetchPfp = async (id: any) => {
         try {
@@ -36,7 +67,6 @@ export const Profile = () => {
     };
 
     useEffect(() => {
-        const id = localStorage.getItem("customerId")!;
         const fetchData = async () => {
             try {
                 const customerId = parseInt(id, 10);
@@ -51,6 +81,32 @@ export const Profile = () => {
         fetchData();
     }, []);
 
+
+    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+
+        if (file) {
+            await uploadPFP(file);
+        }
+    };
+
+    const uploadPFP = async (file: File) => {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+            await uploadCustomerProfileImage(id, formData);
+        } catch (error) {
+            console.error("File upload failed", error);
+        }
+    };
+
+    const handleButtonClick = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    }
+
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = () => {
@@ -61,40 +117,103 @@ export const Profile = () => {
         setIsModalOpen(false);
     };
 
-    const profile = {
-        name: customer?.name,
-        email: customer?.email,
-        memberSince: customer?.memberSince
-    };
-
-    const healthInfo = {
-        age: customer?.age,
-        gender: customer?.gender,
-        weight: customer?.weight,
-        height: customer?.height,
-        weightGoal: customer?.weightGoal,
-        activity: customer?.activity,
-        bodyFat: customer?.bodyFat
-    };
 
     return (
-        <div className="profile-container">
-            <HealthInfoModal isOpen={isModalOpen} onClose={closeModal} customer={customer} />
-            <div className="main-content">
-                <div className="content">
-                    <div>
-                        <ProfileWidget profile={profile} pfp={pfp}/>
+        // <div className="profile-container">
+        //     <HealthInfoModal isOpen={isModalOpen} onClose={closeModal} customer={customer} />
+        //     <div className="main-content">
+        //         <div className="content">
+        //             <div>
+        //                 <ProfileWidget profile={profile} pfp={pfp}/>
+        //             </div>
+        //             <div className="health-info">
+        //                 <HealthWidget healthInfo={healthInfo}/>
+        //                 <WorkoutHistoryWidget customer={customer}/>
+        //             </div>
+        //         </div>
+    //     </div>
+        //     <div className="edit-health-button" onClick={openModal}>
+        //         <a className="font-w500">Edit Health Info</a>
+        //     </div>
+        // </div>
+        <>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6 min-h-[80%]">
+                <div className=" bg-white dark:bg-[#333] rounded-lg border dark:border-gray-600 p-4 lg:col-span-1">
+                    <div className="pb-6 mb-6">
+                        <div className="flex items-center justify-between bold text-xl">
+                            Profile Summary
+                        </div>
                     </div>
-                    <div className="health-info">
-                        <HealthWidget healthInfo={healthInfo}/>
-                        <WorkoutHistoryWidget customer={customer}/>
+                    <div className="flex flex-col items-center">
+                        <div className="w-24 h-24 mb-4 relative">
+                            <img className="rounded-[50%] object-cover w-20 h-20 z-1" src={pfp != undefined ? pfp : defaultImg} alt="pfp"/>
+                            <input
+                                type="file"
+                                ref={fileInputRef}
+                                style={{display: "none"}}
+                                accept="image/*"
+                                onChange={handleFileChange}
+                            />
+                            <button className="flex items-center justify-center absolute bottom-4 right-3 w-6 h-6 dark:bg-[#3f76c0] border-none rounded-full cursor-pointer p-0" onClick={handleButtonClick}>✎</button>
+                        </div>
+                        <h2 className="text-2xl text-black dark:text-white mb-2">{customer?.name}</h2>
+                        <p className="text-xl text-black dark:text-white mb-2">Fitness Experience: {healthInfo.activity}</p>
+                        <div className="grid grid-cols-2 gap-4 w-full text-center p-6">
+                            <div className="bg-[#222] rounded-md p-3 text-white">
+                                <p className="text-lg font-bold text-black dark:text-white">Member Since</p>
+                                <p className="text-black dark:text-gray-400">{memberDate}</p>
+                            </div>
+                            <div className="bg-[#222] rounded-md p-3 text-white">
+                                <p className="text-2xl font-bold text-black dark:text-white">{customer?.workouts?.length}</p>
+                                <p className="text-black dark:text-gray-400">Workouts</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className=" bg-white dark:bg-[#333] rounded-lg border dark:border-gray-600 p-4 lg:col-span-2">
+                    <div className="pb-6 mb-6">
+                        <div className="flex items-center justify-between bold text-xl">
+                           Health Information
+                        </div>
+                    </div>
+                    <div>
+                        <form className="space-y-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <label htmlFor="name">First Name</label>
+                                    <input id="name" type="text"  defaultValue={customer?.name?.split(" ")[0]} className="border-2 border-gray-600 rounded-md p-2 w-full" />
+                                </div>
+                                <div className="space-y-2">
+                                    <label htmlFor="name">Last Name</label>
+                                    <input id="name" type="text" defaultValue={customer?.name?.split(" ")[1]} className="border-2 border-gray-600 rounded-md p-2 w-full" />
+                                </div>
+                                <div className="space-y-2">
+                                    <label htmlFor="age">Age</label>
+                                    <input id="age" type="text" defaultValue={healthInfo.age} className="border-2 border-gray-600 rounded-md p-2 w-full" />
+                                </div>
+                                <div className="space-y-2">
+                                    <label htmlFor="weight">Weight (lbs)</label>
+                                    <input id="weight" type="text" defaultValue={healthInfo.weight} className="border-2 border-gray-600 rounded-md p-2 w-full" />
+                                </div>
+                                <div className="space-y-2">
+                                    <label htmlFor="height">Height (inches)</label>
+                                    <input id="heigth" type="number" defaultValue={healthInfo.height} className="border-2 border-gray-600 rounded-md p-2 w-full" />
+                                </div>
+                                <div className="space-y-2">
+                                    <label htmlFor="bodyFat">Body Fat%</label>
+                                    <input id="bodyFat" type="number" defaultValue={healthInfo.bodyFat} className="border-2 border-gray-600 rounded-md p-2 w-full" />
+                                </div>
+                                <div className="space-y-2">
+                                    <label htmlFor="gender">Gender</label>
+                                    <input id="gender" type="text" defaultValue={healthInfo.gender} className="border-2 border-gray-600 rounded-md p-2 w-full" />
+                                </div>
+                            </div>
+                            <button className="w-full h-12 bg-[#3f76c0] hover:bg-[#355a8f] mt-2 rounded-md cursor-pointer">Save Changes</button>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div className="edit-health-button" onClick={openModal}>
-                <a className="font-w500">Edit Health Info</a>
-            </div>
-        </div>
+        </>
     );
 };
 
