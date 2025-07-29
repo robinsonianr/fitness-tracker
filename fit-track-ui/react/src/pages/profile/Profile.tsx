@@ -149,7 +149,7 @@ export const Profile = () => {
                                 onChange={handleFileChange}
                             />
                             <button
-                                className="flex items-center justify-center absolute bottom-4 right-3 w-6 h-6 dark:bg-[#3f76c0] border-none rounded-full cursor-pointer p-0"
+                                className="flex items-center justify-center absolute bottom-4 right-3 w-6 h-6 dark:bg-[#3f76c0] hover:bg-[#355a8f] border-none rounded-full cursor-pointer p-0"
                                 onClick={handleButtonClick}>✎
                             </button>
                         </div>
