@@ -12,7 +12,11 @@
 
 ## Testing
 
-- *Describe what was the old behavior and what is the new behavior.*
+- *Describe what the old behavior was and what the new behavior is.*
+
+## Screenshots
+
+- *Add any screenshots (Usually UI related or important changes that need to be shared)*
 
 ## Additional Comments
 
