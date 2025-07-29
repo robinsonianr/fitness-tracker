@@ -9,8 +9,6 @@ import {
 import axios from "axios";
 
 export const Profile = () => {
-
-
     const [customer, setCustomer] = useState<Customer | undefined>(undefined);
     const [pfp, setPfp] = useState<string | undefined>(undefined);
     const defaultImg = "/assets/user.png";

@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "fit-track-ui",
-      "image": "robinsonir/fit-track-ui:latest",
+      "image": "199858144152.dkr.ecr.us-east-1.amazonaws.com/fit-track-ui:latest",
       "essential": true,
       "memory": 1024,
       "portMappings": [
@@ -15,7 +15,7 @@
     },
     {
       "name": "fit-track",
-      "image": "robinsonir/fit-track:latest",
+      "image": "199858144152.dkr.ecr.us-east-1.amazonaws.com/fit-track:latest",
       "essential": true,
       "memory": 512,
       "portMappings": [

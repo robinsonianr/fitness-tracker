@@ -53,14 +53,6 @@ jobs:
           echo "CREATE SCHEMA IF NOT EXISTS fit_tracker;" | PGPASSWORD=${{ env.POSTGRESQL_PASSWORD }} psql -h localhost -U ${{ env.POSTGRESQL_USER }} ${{ env.POSTGRESQL_DB }}
       - name: Build with Gradle
         run: gradle build
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_HUB_USERNAME}}/fit-track:${{steps.build-number.outputs.BUILD_NUMBER}}
-      - name: Publish docker image to docker hub
-        run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/fit-track:${{steps.build-number.outputs.BUILD_NUMBER}}
-      - name: Build Docker image with latest tag
-        run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_HUB_USERNAME}}/fit-track:latest
-      - name: Publish docker image to docker hub
-        run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/fit-track:latest
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
