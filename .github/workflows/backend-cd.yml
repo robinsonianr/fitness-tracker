@@ -73,7 +73,7 @@ jobs:
 
           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.EB_REGION }}.amazonaws.com/fit-track:${{ steps.build-number.outputs.BUILD_NUMBER }}
           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.EB_REGION }}.amazonaws.com/fit-track:latest
-        working-directory: fit-track-ui/react
+        working-directory: fit-track
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
         with:
