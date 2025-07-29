@@ -110,21 +110,21 @@ export const Profile = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(healthInfo.gender);
         const formData = new FormData(e.currentTarget);
         formData.append("name", formData.get("firstName") + " " + formData.get("lastName"));
-        // formData.delete("firstName");
-        // formData.delete("lastName");
         const data = Object.fromEntries(formData.entries());
+
         if (customer?.id) {
             try {
                 await updateCustomer(customer?.id, data);
+
+                setTimeout(() => {
+                    window.location.reload();
+                }, 500);
             } catch (error) {
                 console.error("Failed to update customer.", error);
             }
         }
-        console.log(data);
-
     };
 
 
@@ -184,7 +184,7 @@ export const Profile = () => {
                                 </div>
                                 <div className="space-y-2">
                                     <label htmlFor="lastName">Last Name</label>
-                                    <input name="lastName" type="text" defaultValue={customer?.name?.split(" ")[1]} 
+                                    <input name="lastName" type="text" defaultValue={customer?.name?.split(" ")[1]}
                                         className="border-2 border-gray-600 rounded-md p-2 w-full"/>
                                 </div>
                                 <div className="space-y-2">
@@ -224,7 +224,7 @@ export const Profile = () => {
                                 <div className="space-y-2">
                                     <label htmlFor="activity">Fitness Experience</label>
                                     {customer && (
-                                        <select name="activity" defaultValue={healthInfo.activity} 
+                                        <select name="activity" defaultValue={healthInfo.activity}
                                             className="border-2 border-gray-600 rounded-md p-2 w-full">
                                             <option value="">
                                                 Select Activity Experience
