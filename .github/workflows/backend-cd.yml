@@ -61,6 +61,27 @@ jobs:
         run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_HUB_USERNAME}}/fit-track:latest
       - name: Publish docker image to docker hub
         run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/fit-track:latest
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.EB_REGION }}
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Build and push to ECR
+        run: |
+          docker build . \
+          --file Dockerfile \
+          --tag fit-track:${{ steps.build-number.outputs.BUILD_NUMBER }} \
+          --tag fit-track:latest 
+
+          docker tag fit-track:${{ steps.build-number.outputs.BUILD_NUMBER }} ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.EB_REGION }}.amazonaws.com/fit-track:${{ steps.build-number.outputs.BUILD_NUMBER }}
+          docker tag fit-track:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.EB_REGION }}.amazonaws.com/fit-track:latest
+
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.EB_REGION }}.amazonaws.com/fit-track:${{ steps.build-number.outputs.BUILD_NUMBER }}
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.EB_REGION }}.amazonaws.com/fit-track:latest
+        working-directory: fit-track-ui/react
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
         with:

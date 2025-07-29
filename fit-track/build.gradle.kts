@@ -74,7 +74,6 @@ tasks.withType<KotlinCompile> {
     }
 }
 
-
 tasks.withType<Test> {
     useJUnitPlatform()
     systemProperty("org.mockito.mock-inline.mock-maker", "true")
