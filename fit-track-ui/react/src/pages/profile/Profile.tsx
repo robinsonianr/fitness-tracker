@@ -245,7 +245,7 @@ export const Profile = () => {
                                 </div>
                             </div>
                             <button
-                                className="w-full h-12 bg-[#3f76c0] hover:bg-[#355a8f] mt-2 rounded-md cursor-pointer">Save
+                                className="w-full h-12 bg-[#3f76c0] hover:bg-[#355a8f] duration-300 mt-2 rounded-md cursor-pointer">Save
                                 Changes
                             </button>
                         </form>

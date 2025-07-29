@@ -38,7 +38,7 @@
     }
     
     .nav-item-active {
-        @apply  text-white bg-[#355a8f] dark:text-white;
+        @apply  text-white bg-[#3f76c0] hover:bg-[#355a8f] dark:text-white;
     }
     
     .nav-item-inactive {
