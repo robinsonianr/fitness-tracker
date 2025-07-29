@@ -31,7 +31,6 @@ repositories {
     mavenCentral()
 }
 
-
 dependencies {
     // Springboot dependencies
     implementation("org.springframework.boot:spring-boot-starter-actuator")

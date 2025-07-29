@@ -1,5 +1,4 @@
 import React, {useEffect, useRef, useState} from "react";
-import "./profile.scss";
 import {Customer} from "../../types";
 import {
     getCustomer,

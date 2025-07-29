@@ -54,6 +54,22 @@ jobs:
         working-directory: fit-track-ui/react
       - name: Publish docker image to docker hub
         run: docker push ${{secrets.DOCKER_HUB_USERNAME}}/fit-track-ui:latest
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Build and push to ECR
+        run: |
+          docker build . \
+          --file Dockerfile \
+          --tag fit-track-ui:${{ steps.build-number.outputs.BUILD_NUMBER }} \
+          --tag fit-track-ui:latest \
+          --build-arg api_base_url=http://fit-track-dev.eba-jpnjhwum.us-east-1.elasticbeanstalk.com:8080
+
+          docker tag fit-track-ui:${{ steps.build-number.outputs.BUILD_NUMBER }} ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.EB_REGION }}.amazonaws.com/fit-track-ui:${{ steps.build-number.outputs.BUILD_NUMBER }}
+          docker tag fit-track-ui:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.EB_REGION }}.amazonaws.com/fit-track-ui:latest
+
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.EB_REGION }}.amazonaws.com/fit-track-ui:${{ steps.build-number.outputs.BUILD_NUMBER }}
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.EB_REGION }}.amazonaws.com/fit-track-ui:latest
+        working-directory: fit-track-ui/react
       - name: Wait 3 minutes for Elastic Beanstalk env to be ready to used
         if: env.skip_wait == 'false'
         run: |
