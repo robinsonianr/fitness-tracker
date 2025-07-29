@@ -24,7 +24,7 @@ java {
 }
 
 application {
-    mainClass.set("com.robinsonir.fittrack.FitnessTrackerApplication")
+    mainClass.set("com.robinsonir.fittrack.FitTrackApplication")
 }
 
 repositories {
