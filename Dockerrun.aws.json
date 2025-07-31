@@ -2,18 +2,6 @@
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
     {
-      "name": "fit-track-ui",
-      "image": "199858144152.dkr.ecr.us-east-1.amazonaws.com/fit-track-ui:latest",
-      "essential": true,
-      "memory": 1024,
-      "portMappings": [
-        {
-          "hostPort": 80,
-          "containerPort": 5173
-        }
-      ]
-    },
-    {
       "name": "fit-track",
       "image": "199858144152.dkr.ecr.us-east-1.amazonaws.com/fit-track:latest",
       "essential": true,
@@ -28,6 +16,18 @@
         {
           "name": "SPRING_PROFILES_ACTIVE",
           "value": "dev"
+        }
+      ]
+    },
+    {
+      "name": "fit-track-ui",
+      "image": "199858144152.dkr.ecr.us-east-1.amazonaws.com/fit-track-ui:latest",
+      "essential": true,
+      "memory": 1024,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 5173
         }
       ]
     }
