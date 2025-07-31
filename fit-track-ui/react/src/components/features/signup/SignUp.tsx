@@ -82,7 +82,7 @@ export const SignUp = () => {
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" className="w-full h-12 bg-[#3f76c0] hover:bg-[#355a8f] duration-300 mt-2 rounded-md cursor-pointer">Sign up</button>
+                        <button type="submit" className="w-full h-12 bg-[#3f76c0] hover:bg-[#355a8f] duration-300 mt-2 rounded-md cursor-pointer">Sign Up</button>
                     </form>
                     <a href="/login">Already have an account? Login</a>
                 </div>
